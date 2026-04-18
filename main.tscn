@@ -1,0 +1,38 @@
+[gd_scene format=3 uid="uid://dcr17v3tiobss"]
+
+[ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="1_ig7tw"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_0xm2m"]
+font = ExtResource("1_ig7tw")
+
+[node name="Main" type="Node" unique_id=670716693]
+
+[node name="Control" type="Control" parent="." unique_id=220402552]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Control" unique_id=1202102139]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Status" type="Label" parent="Control" unique_id=258173485]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -23.0
+grow_horizontal = 2
+grow_vertical = 0
+text = "Hello world!"
+label_settings = SubResource("LabelSettings_0xm2m")
+horizontal_alignment = 1

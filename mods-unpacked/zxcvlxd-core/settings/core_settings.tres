@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="CoreSettings" format=3 uid="uid://dgedmnnpi436l"]
+
+[ext_resource type="Script" uid="uid://hmi6qeuit46" path="res://mods-unpacked/zxcvlxd-core/core_settings.gd" id="1_xrrod"]
+
+[resource]
+script = ExtResource("1_xrrod")
+main_scene = "uid://8hkiaqnfkif7"
+metadata/_custom_type_script = "uid://hmi6qeuit46"
