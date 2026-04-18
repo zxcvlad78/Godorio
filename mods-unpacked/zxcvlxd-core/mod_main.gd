@@ -33,3 +33,16 @@ func add_translations() -> void:
 func _ready() -> void:
 	if core_settings:
 		get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
+
+	SimusNetEvents.event_connected.listen(_on_network_connected)
+	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)
+	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
+
+func _on_network_connected() -> void:
+	get_tree().change_scene_to_file(core_settings.game_scene)
+
+func _on_network_disconnected() -> void:
+	get_tree().change_scene_to_file(core_settings.main_scene)
+
+func _on_peer_disconnected() -> void:
+	pass

@@ -1,0 +1,80 @@
+[gd_scene format=3 uid="uid://cgvynrifth2f8"]
+
+[ext_resource type="Script" uid="uid://cgcf58eaiehq1" path="res://addons/simusdev/SimusNet/SimusNetNodeSceneReplicator.gd" id="1_qjs0m"]
+[ext_resource type="Script" uid="uid://imhh1kugqh4m" path="res://addons/simusdev/SimusNet/SimusNetNodePlayerSpawner.gd" id="2_dmgt7"]
+[ext_resource type="PackedScene" uid="uid://c0pdd5h0w5j37" path="res://mods-unpacked/zxcvlxd-core/src/prefabs/player.tscn" id="3_dmgt7"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_ynumy"]
+sky_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+ground_horizon_color = Color(0.66224277, 0.6717428, 0.6867428, 1)
+
+[sub_resource type="Sky" id="Sky_wlx35"]
+sky_material = SubResource("ProceduralSkyMaterial_ynumy")
+
+[sub_resource type="Environment" id="Environment_qjs0m"]
+background_mode = 2
+sky = SubResource("Sky_wlx35")
+ambient_light_source = 3
+tonemap_mode = 2
+ssr_enabled = true
+ssao_enabled = true
+ssil_enabled = true
+glow_enabled = true
+
+[sub_resource type="Gradient" id="Gradient_ynumy"]
+offsets = PackedFloat32Array(0, 0.11046512, 0.4651163, 1)
+colors = PackedColorArray(0, 0.38237473, 5.2943824e-07, 1, 0.20752141, 0.4249068, 0, 1, 0.46038443, 0.61375153, 0, 1, 0, 1, 0, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_wlx35"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_qjs0m"]
+noise = SubResource("FastNoiseLite_wlx35")
+color_ramp = SubResource("Gradient_ynumy")
+seamless = true
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_dmgt7"]
+albedo_texture = SubResource("NoiseTexture2D_qjs0m")
+uv1_triplanar = true
+
+[node name="Game" type="Node3D" unique_id=1651923326]
+
+[node name="SimusNetNodeSceneReplicator" type="Node" parent="." unique_id=98548068 node_paths=PackedStringArray("root")]
+script = ExtResource("1_qjs0m")
+root = NodePath("../NetworkedObjects")
+clear_children = false
+metadata/_custom_type_script = "uid://cgcf58eaiehq1"
+
+[node name="SimusNetNodePlayerSpawner" type="Node" parent="." unique_id=835888489 node_paths=PackedStringArray("spawnpoints", "root")]
+script = ExtResource("2_dmgt7")
+prefabs = Array[PackedScene]([ExtResource("3_dmgt7")])
+spawnpoints = [NodePath("../Marker3D")]
+root = NodePath("../Players")
+clear_children = false
+metadata/_custom_type_script = "uid://imhh1kugqh4m"
+
+[node name="NetworkedObjects" type="Node3D" parent="." unique_id=1991335936]
+
+[node name="Players" type="Node3D" parent="." unique_id=1777520027]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="." unique_id=1504658752]
+environment = SubResource("Environment_qjs0m")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="." unique_id=1292025342]
+transform = Transform3D(-0.8660254, -0.43301278, 0.25, 0, 0.49999997, 0.86602545, -0.50000006, 0.75, -0.43301266, 0, 0, 0)
+shadow_enabled = true
+
+[node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=667487503]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+use_collision = true
+size = Vector3(18, 1, 28)
+material = SubResource("StandardMaterial3D_dmgt7")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="CSGBox3D" unique_id=1660222912]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1, -5)
+
+[node name="Label3D" type="Label3D" parent="CSGBox3D/CSGBox3D" unique_id=1349377329]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)
+text = "Hi !"
+
+[node name="Marker3D" type="Marker3D" parent="." unique_id=1452027228]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
