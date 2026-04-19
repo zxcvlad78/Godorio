@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://cmae87vm4j8f8"]
+
+[ext_resource type="Script" uid="uid://cegg0fl6u74kf" path="res://mods-unpacked/zxcvlxd-core/src/components/animation/BaseAnimatedModel.gd" id="1_wmmkt"]
+[ext_resource type="Script" uid="uid://b0h5c2ihivpv1" path="res://mods-unpacked/zxcvlxd-core/src/components/animation/AnimatedModelProperty.gd" id="2_ccs8m"]
+[ext_resource type="PackedScene" uid="uid://ccf8yy5c1y2p4" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/skeleton.fbx" id="2_ymsli"]
+[ext_resource type="AnimationLibrary" uid="uid://2tjuq5oxvs3y" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation_library.tres" id="3_wmmkt"]
+[ext_resource type="AnimationNodeBlendTree" uid="uid://b6jyaoc56yfma" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/blend_tree.tres" id="4_ccs8m"]
+
+[sub_resource type="Resource" id="Resource_ccs8m"]
+script = ExtResource("2_ccs8m")
+property_path = &"parameters/StateMachine/running/blend_position"
+property_value_path = &"actor_blend_position"
+metadata/_custom_type_script = "uid://b0h5c2ihivpv1"
+
+[sub_resource type="Resource" id="Resource_4g1ca"]
+script = ExtResource("2_ccs8m")
+property_path = &"parameters/StateMachine/walking/blend_position"
+property_value_path = &"actor_blend_position"
+metadata/_custom_type_script = "uid://b0h5c2ihivpv1"
+
+[node name="AnimatedModel3D" type="Node3D" unique_id=188275085 node_paths=PackedStringArray("root", "model", "tree", "player", "skeleton")]
+script = ExtResource("1_wmmkt")
+_process_properties = Array[ExtResource("2_ccs8m")]([SubResource("Resource_ccs8m"), SubResource("Resource_4g1ca")])
+root = NodePath("..")
+model_scene = ExtResource("2_ymsli")
+library = ExtResource("3_wmmkt")
+blend_tree = ExtResource("4_ccs8m")
+model = NodePath("model3d")
+tree = NodePath("AnimationTree")
+player = NodePath("AnimationPlayer")
+skeleton = NodePath("model3d/rig/Skeleton3D")
+metadata/_custom_type_script = "uid://pf622qfdiljm"
+
+[node name="model3d" type="Node3D" parent="." unique_id=1361024678 instance=ExtResource("2_ymsli")]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1277635137]
+root_node = NodePath("../model3d")
+libraries/animation_library = ExtResource("3_wmmkt")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=1110808266]
+root_node = NodePath("../model3d")
+tree_root = ExtResource("4_ccs8m")
+anim_player = NodePath("../AnimationPlayer")
+parameters/StateMachine/running/blend_position = Vector2(0.0020747185, 0.0038022995)
+parameters/StateMachine/walking/blend_position = Vector2(0, 0.0114068985)

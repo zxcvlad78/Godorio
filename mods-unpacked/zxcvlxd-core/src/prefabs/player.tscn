@@ -1,15 +1,14 @@
 [gd_scene format=3 uid="uid://c0pdd5h0w5j37"]
 
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="1_0x4ww"]
-[ext_resource type="PackedScene" uid="uid://be7h2lkvpihn3" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeMovement.tscn" id="1_y7wft"]
-[ext_resource type="PackedScene" uid="uid://bb30gdt6q8ij" path="res://addons/simusdev/components/fp_controller/source_like/W_FPCSourceLikeCamera.tscn" id="2_0x4ww"]
+[ext_resource type="Script" uid="uid://dr7jl33gul3i1" path="res://mods-unpacked/zxcvlxd-core/src/scripts/entity/custom/W_Player.gd" id="1_s4s1d"]
+[ext_resource type="Script" uid="uid://cfilme5kxn4sj" path="res://mods-unpacked/zxcvlxd-core/src/components/state_machine/BaseStateMachine.gd" id="2_y7wft"]
+[ext_resource type="Script" uid="uid://debbewfvf3v17" path="res://mods-unpacked/zxcvlxd-core/src/components/state_machine/BaseState.gd" id="3_0x4ww"]
+[ext_resource type="PackedScene" uid="uid://cmae87vm4j8f8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animated_model.tscn" id="5_jiu30"]
 
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_g5rws"]
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_7eww8"]
-size = Vector3(1, 2.00439, 1)
-
-[node name="Player" type="CharacterBody3D" unique_id=200004651]
+[node name="Player" type="CharacterBody3D" unique_id=507290672]
+script = ExtResource("1_s4s1d")
+metadata/_custom_type_script = "uid://dr7jl33gul3i1"
 
 [node name="SimusNetTransform" type="Node" parent="." unique_id=941694401 node_paths=PackedStringArray("node")]
 script = ExtResource("1_0x4ww")
@@ -17,28 +16,29 @@ node = NodePath("..")
 tickrate = 64.0
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
-[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1330737599]
-mesh = SubResource("CapsuleMesh_g5rws")
+[node name="BaseStateMachine" type="Node" parent="." unique_id=260758442]
+script = ExtResource("2_y7wft")
+metadata/_custom_type_script = "uid://cfilme5kxn4sj"
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=79749734]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.010498, 0)
-shape = SubResource("BoxShape3D_7eww8")
+[node name="Idle" type="Node" parent="BaseStateMachine" unique_id=660157637]
+script = ExtResource("3_0x4ww")
+metadata/_custom_type_script = "uid://debbewfvf3v17"
 
-[node name="W_FPCSourceLikeMovement" parent="." unique_id=603998765 node_paths=PackedStringArray("actor") instance=ExtResource("1_y7wft")]
-actor = NodePath("..")
-jump_force = 7.0
-_move_speed = 4.0
-_sprint_speed = 7.0
-_crouch_speed = 2.5
-_crouch_sprint_speed = 2.5
-key_forward = "move_forward"
-key_backward = "move_backward"
-key_left = "move_left"
-key_right = "move_right"
-key_jump = "jump"
-key_sprint = "sprint"
-key_crouch = "crouch"
+[node name="Walking" type="Node" parent="BaseStateMachine" unique_id=572995085]
+script = ExtResource("3_0x4ww")
+metadata/_custom_type_script = "uid://debbewfvf3v17"
 
-[node name="W_FPCSourceLikeCamera" parent="." unique_id=920151457 node_paths=PackedStringArray("body") instance=ExtResource("2_0x4ww")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.621, 0)
-body = NodePath("..")
+[node name="Crouched" type="Node" parent="BaseStateMachine" unique_id=1996252603]
+script = ExtResource("3_0x4ww")
+metadata/_custom_type_script = "uid://debbewfvf3v17"
+
+[node name="CrouchedWalking" type="Node" parent="BaseStateMachine" unique_id=300509167]
+script = ExtResource("3_0x4ww")
+metadata/_custom_type_script = "uid://debbewfvf3v17"
+
+[node name="Running" type="Node" parent="BaseStateMachine" unique_id=232721207]
+script = ExtResource("3_0x4ww")
+metadata/_custom_type_script = "uid://debbewfvf3v17"
+
+[node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("state_machine") instance=ExtResource("5_jiu30")]
+state_machine = NodePath("../BaseStateMachine")

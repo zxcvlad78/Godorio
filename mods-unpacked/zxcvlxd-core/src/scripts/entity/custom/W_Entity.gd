@@ -1,0 +1,1 @@
+class_name W_LivingEntity extends BaseLivingEntity

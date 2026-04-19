@@ -1,0 +1,32 @@
+[gd_resource type="AnimationLibrary" format=3 uid="uid://2tjuq5oxvs3y"]
+
+[ext_resource type="Animation" uid="uid://b7vkkv5ostuq6" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/idle.res" id="1_nyheo"]
+[ext_resource type="Animation" uid="uid://78p4a5xg07ff" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/jump.anim" id="2_cd82i"]
+[ext_resource type="Animation" uid="uid://cespj2xnwkgem" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/left strafe.anim" id="3_w07qv"]
+[ext_resource type="Animation" uid="uid://ds0cyo44c37i2" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/left strafe walking.anim" id="4_vih2j"]
+[ext_resource type="Animation" uid="uid://ck1uakerqdktl" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/left turn.anim" id="5_j7lgq"]
+[ext_resource type="Animation" uid="uid://45eljtr1kwrq" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/left turn 90.anim" id="6_cdjar"]
+[ext_resource type="Animation" uid="uid://cqpe5j8fmn3u8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/right strafe.anim" id="7_bstec"]
+[ext_resource type="Animation" uid="uid://bxuvconlm7gnq" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/right strafe walking.anim" id="8_k7vgp"]
+[ext_resource type="Animation" uid="uid://cjrsvo86bocqh" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/right turn.anim" id="9_e8043"]
+[ext_resource type="Animation" uid="uid://ct5rwc2bskgiq" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/right turn 90.anim" id="10_bk6w7"]
+[ext_resource type="Animation" uid="uid://273rx1wrsbo3" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/running.anim" id="11_1x26l"]
+[ext_resource type="Animation" uid="uid://ck01aor5oq8ta" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/skeleton.anim" id="12_tgh6d"]
+[ext_resource type="Animation" uid="uid://b0jmmpqt01kvf" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/walking.anim" id="13_wbbn8"]
+
+[resource]
+_data = {
+&"idle": ExtResource("1_nyheo"),
+&"jump": ExtResource("2_cd82i"),
+&"left strafe": ExtResource("3_w07qv"),
+&"left strafe walking": ExtResource("4_vih2j"),
+&"left turn": ExtResource("5_j7lgq"),
+&"left turn 90": ExtResource("6_cdjar"),
+&"right strafe": ExtResource("7_bstec"),
+&"right strafe walking": ExtResource("8_k7vgp"),
+&"right turn": ExtResource("9_e8043"),
+&"right turn 90": ExtResource("10_bk6w7"),
+&"running": ExtResource("11_1x26l"),
+&"skeleton": ExtResource("12_tgh6d"),
+&"walking": ExtResource("13_wbbn8")
+}
