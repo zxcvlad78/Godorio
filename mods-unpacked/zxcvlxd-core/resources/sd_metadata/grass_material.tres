@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" uid="uid://b4fbh3pha32me" path="res://addons/simusdev/components/metadata/SD_MetadataMaterial.gd" id="1_ak8hm"]
 [ext_resource type="AudioStream" uid="uid://cxgwlwmenl3lu" path="res://mods-unpacked/zxcvlxd-core/src/audio/footsteps/grass/footstep_grass_0.mp3" id="1_cjpad"]
-[ext_resource type="AudioStream" uid="uid://c8u0g8kdpl5nw" path="res://mods-unpacked/zxcvlxd-core/src/audio/footsteps/grass/footstep_grass_1.mp3" id="2_rylge"]
 [ext_resource type="AudioStream" uid="uid://btdsr33by4q1e" path="res://mods-unpacked/zxcvlxd-core/src/audio/footsteps/grass/footstep_grass_2.mp3" id="3_gxf6t"]
 [ext_resource type="AudioStream" uid="uid://b6ucn1mbdmpoq" path="res://mods-unpacked/zxcvlxd-core/src/audio/footsteps/grass/footstep_grass_3.mp3" id="4_dbhko"]
 [ext_resource type="AudioStream" uid="uid://tjgwdudbjb2e" path="res://mods-unpacked/zxcvlxd-core/src/audio/footsteps/grass/footstep_grass_4.mp3" id="5_uleev"]
@@ -10,5 +9,5 @@
 [resource]
 script = ExtResource("1_ak8hm")
 resistance = 0.4
-footstep_sounds = Array[AudioStream]([ExtResource("1_cjpad"), ExtResource("2_rylge"), ExtResource("3_gxf6t"), ExtResource("4_dbhko"), ExtResource("5_uleev")])
+footstep_sounds = Array[AudioStream]([ExtResource("1_cjpad"), ExtResource("3_gxf6t"), ExtResource("4_dbhko"), ExtResource("5_uleev")])
 metadata/_custom_type_script = "uid://b4fbh3pha32me"

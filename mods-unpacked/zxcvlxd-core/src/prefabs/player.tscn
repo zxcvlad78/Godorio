@@ -89,7 +89,6 @@ sprint_time = 0.31
 metadata/_custom_type_script = "uid://u84lpd488cwl"
 
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C_EntityFootsteps" unique_id=105225626]
-attenuation_model = 2
 volume_db = -15.0
 max_distance = 25.0
 
