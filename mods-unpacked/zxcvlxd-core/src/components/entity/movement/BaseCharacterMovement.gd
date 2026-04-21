@@ -1,0 +1,110 @@
+@tool
+class_name BaseCharacterMovement extends Node
+
+@export var state_machine:BaseStateMachine
+
+@export_group("Settings")
+@export var jump_force:float = 1.0
+@export var speed_multiplier:float = 1.0
+
+@export_subgroup("Keys", "key_")
+@export var key_forward:StringName = "move_forward"
+@export var key_backward:StringName = "move_backward"
+@export var key_left:StringName = "move_left"
+@export var key_right:StringName = "move_right"
+@export var key_crouch:StringName = "crouch"
+@export var key_sprint:StringName = "sprint"
+
+@export_group("Custom", "custom_")
+@export var custom_character: CharacterBody3D:
+	set(value):
+		custom_character = value
+		_bind_character()
+
+var character:CharacterBody3D
+
+func _ready() -> void:
+	_bind_character()
+	
+	var enabled:bool = is_multiplayer_authority() and !(Engine.is_editor_hint())
+	set_process(enabled)
+	set_physics_process(enabled)
+	set_process_input(enabled)
+
+func _bind_character() -> void:
+	if !custom_character:
+		var target = get_parent()
+		if !target is CharacterBody3D:
+			push_error("[BaseCharacterMovement] '_bind_character' target is not CharacterBody3D")
+			return
+			
+		character = get_parent()
+	else:
+		character = custom_character
+	
+	update_configuration_warnings()
+
+func _physics_process(delta: float) -> void:
+	if not character or not state_machine: 
+		return
+	
+	var current_state = state_machine.current_state as MovementState
+	if not current_state:
+		return
+	
+	if character.is_on_floor():
+		if Input.is_action_just_pressed("jump"):
+			character.velocity.y += jump_force
+	else:
+		character.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	
+	var input_dir:Vector2 = Input.get_vector(key_left, key_right, key_forward, key_backward)
+	var direction:Vector3 = (character.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	
+	var target_vel:Vector3 = direction * current_state.state_speed * speed_multiplier
+	
+	var weight:float = 0.0
+	if direction:
+		weight = current_state.acceleration
+	else:
+		weight = current_state.friction
+	
+	character.velocity.x = lerp(character.velocity.x, -target_vel.x, weight * delta)
+	character.velocity.z = lerp(character.velocity.z, -target_vel.z, weight * delta)
+
+	character.move_and_slide()
+
+func _process(_delta: float) -> void:
+	_handle_state_transitions()
+
+func _handle_state_transitions() -> void:
+	var input_dir = Input.get_vector(key_left, key_right, key_forward, key_backward)
+	var is_moving = input_dir.length() > 0.1
+	var wants_sprint = Input.is_action_pressed(key_sprint)
+	var wants_crouch = Input.is_action_pressed(key_crouch)
+	
+	var target_state_name: StringName = &"Idle"
+	
+	if !character.is_on_floor():
+		target_state_name = &"Floating"
+	elif wants_crouch:
+		target_state_name = &"CrouchedWalking" if is_moving else &"Crouched"
+	elif is_moving:
+		target_state_name = &"Running" if wants_sprint else &"Walking"
+	else:
+		target_state_name = &"Idle"
+	
+	state_machine.switch_by_name(target_state_name)
+
+func _get_configuration_warnings() -> PackedStringArray:
+	var warnings = []
+	var target = custom_character if custom_character else get_parent()
+	
+	if not target is CharacterBody3D:
+		warnings.append("Parent must be a 'CharacterBody3D'")
+	
+	return warnings
+
+func _notification(what):
+	if what == NOTIFICATION_PARENTED or what == NOTIFICATION_UNPARENTED:
+		update_configuration_warnings()

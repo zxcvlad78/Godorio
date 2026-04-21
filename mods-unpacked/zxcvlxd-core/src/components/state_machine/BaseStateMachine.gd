@@ -32,12 +32,15 @@ func local_switch(state:BaseState) -> void:
 	if !state:
 		return
 	
+	if current_state == state:
+		return
+	
 	if current_state:
-		current_state.on_exit()
+		current_state.on_exit(self)
 		state_exit.emit(current_state.name)
 	
 	current_state = state
-	current_state.on_enter()
+	current_state.on_enter(self)
 	state_enter.emit(current_state.name)
 
 

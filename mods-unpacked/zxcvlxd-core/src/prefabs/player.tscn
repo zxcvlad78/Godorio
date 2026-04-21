@@ -3,8 +3,14 @@
 [ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="1_0x4ww"]
 [ext_resource type="Script" uid="uid://dr7jl33gul3i1" path="res://mods-unpacked/zxcvlxd-core/src/scripts/entity/custom/W_Player.gd" id="1_s4s1d"]
 [ext_resource type="Script" uid="uid://cfilme5kxn4sj" path="res://mods-unpacked/zxcvlxd-core/src/components/state_machine/BaseStateMachine.gd" id="2_y7wft"]
-[ext_resource type="Script" uid="uid://debbewfvf3v17" path="res://mods-unpacked/zxcvlxd-core/src/components/state_machine/BaseState.gd" id="3_0x4ww"]
+[ext_resource type="Script" uid="uid://dck04kaaxp88c" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/movement/BaseCharacterMovement.gd" id="5_ae415"]
+[ext_resource type="Script" uid="uid://cnheeh51ut4ho" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/movement/MovementState.gd" id="5_h5pkk"]
 [ext_resource type="PackedScene" uid="uid://cmae87vm4j8f8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animated_model.tscn" id="5_jiu30"]
+[ext_resource type="Script" uid="uid://x51q53nn04es" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/PlayerHead.gd" id="7_h5pkk"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
+radius = 0.3
+height = 1.7
 
 [node name="Player" type="CharacterBody3D" unique_id=507290672]
 script = ExtResource("1_s4s1d")
@@ -20,25 +26,56 @@ metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 script = ExtResource("2_y7wft")
 metadata/_custom_type_script = "uid://cfilme5kxn4sj"
 
-[node name="Idle" type="Node" parent="BaseStateMachine" unique_id=660157637]
-script = ExtResource("3_0x4ww")
-metadata/_custom_type_script = "uid://debbewfvf3v17"
+[node name="Idle" type="Node" parent="BaseStateMachine" unique_id=392168684]
+script = ExtResource("5_h5pkk")
+state_speed = 0.0
 
-[node name="Walking" type="Node" parent="BaseStateMachine" unique_id=572995085]
-script = ExtResource("3_0x4ww")
-metadata/_custom_type_script = "uid://debbewfvf3v17"
+[node name="Walking" type="Node" parent="BaseStateMachine" unique_id=1658073302]
+script = ExtResource("5_h5pkk")
+state_speed = 2.5
 
-[node name="Crouched" type="Node" parent="BaseStateMachine" unique_id=1996252603]
-script = ExtResource("3_0x4ww")
-metadata/_custom_type_script = "uid://debbewfvf3v17"
+[node name="Crouched" type="Node" parent="BaseStateMachine" unique_id=1559292824]
+script = ExtResource("5_h5pkk")
+state_speed = 0.0
 
-[node name="CrouchedWalking" type="Node" parent="BaseStateMachine" unique_id=300509167]
-script = ExtResource("3_0x4ww")
-metadata/_custom_type_script = "uid://debbewfvf3v17"
+[node name="CrouchedWalking" type="Node" parent="BaseStateMachine" unique_id=2013884075]
+script = ExtResource("5_h5pkk")
+state_speed = 1.0
 
-[node name="Running" type="Node" parent="BaseStateMachine" unique_id=232721207]
-script = ExtResource("3_0x4ww")
-metadata/_custom_type_script = "uid://debbewfvf3v17"
+[node name="Running" type="Node" parent="BaseStateMachine" unique_id=1113344559]
+script = ExtResource("5_h5pkk")
+state_speed = 5.0
+acceleration = 6.0
 
-[node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("state_machine") instance=ExtResource("5_jiu30")]
+[node name="Floating" type="Node" parent="BaseStateMachine" unique_id=1059806965]
+script = ExtResource("5_h5pkk")
+state_speed = 0.0
+friction = 0.0
+metadata/_custom_type_script = "uid://cnheeh51ut4ho"
+
+[node name="BaseCharacterMovement" type="Node" parent="." unique_id=2085185365 node_paths=PackedStringArray("state_machine")]
+script = ExtResource("5_ae415")
 state_machine = NodePath("../BaseStateMachine")
+jump_force = 3.5
+
+[node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("actor_state_machine") instance=ExtResource("5_jiu30")]
+actor_state_machine = NodePath("../BaseStateMachine")
+
+[node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
+parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
+
+[node name="EntityHead" type="Node3D" parent="." unique_id=2099522628 node_paths=PackedStringArray("root", "camera")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+script = ExtResource("7_h5pkk")
+root = NodePath("..")
+camera = NodePath("Camera3D")
+metadata/_custom_type_script = "uid://x51q53nn04es"
+
+[node name="Camera3D" type="Camera3D" parent="EntityHead" unique_id=207662777]
+transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1241226587]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999996, 0)
+shape = SubResource("CapsuleShape3D_ae415")
+
+[editable path="AnimatedModel3D"]
