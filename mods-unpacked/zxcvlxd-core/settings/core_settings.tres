@@ -6,4 +6,5 @@
 script = ExtResource("1_xrrod")
 main_scene = "uid://8hkiaqnfkif7"
 game_scene = "uid://cgvynrifth2f8"
+scan_paths = PackedStringArray("res://mods-unpacked/")
 metadata/_custom_type_script = "uid://hmi6qeuit46"

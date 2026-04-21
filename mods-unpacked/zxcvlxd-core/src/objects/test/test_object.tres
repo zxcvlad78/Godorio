@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://cbkadwl124nx0"]
+
+[ext_resource type="Script" uid="uid://cuaacsvf2hnmk" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/R_WorldObject.gd" id="1_mx3ur"]
+
+[resource]
+script = ExtResource("1_mx3ur")
+id = &"test_object"
+name = &"Test Object"
+metadata/_custom_type_script = "uid://cuaacsvf2hnmk"
