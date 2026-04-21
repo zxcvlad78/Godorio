@@ -2,6 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://evu37ctqdarm" path="res://mods-unpacked/zxcvlxd-core/src/ui/popups/popup.tscn" id="1_5dqap"]
 [ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="2_inmql"]
+[ext_resource type="Script" uid="uid://v25qolnl2t1" path="res://mods-unpacked/zxcvlxd-core/src/ui/action_btn_back.gd" id="3_kbrm6"]
 
 [sub_resource type="GDScript" id="GDScript_jd5ws"]
 resource_name = "main"
@@ -12,6 +13,10 @@ script/source = "extends Control
 @onready var version: Label = $Version
 
 @onready var popups: Control = $Popups
+
+var current_popup:Control
+
+var tween:Tween
 
 func _ready() -> void:
 	version.text = \"version %s\" % ProjectSettings.get_setting(\"application/config/version\")
@@ -24,15 +29,18 @@ func _on_btn_pressed(btn_name:StringName) -> void:
 		\"StartGame\":
 			switch_popup_by_name(\"StartServer\")
 
-func switch_popup_by_name(popup_name:StringName) -> Control:
+func switch_popup_by_name(popup_name:StringName, animate:bool = true) -> Control:
 	for c in popups.get_children():
 		if c is Control:
 			if c.name == popup_name:
-				return switch_popup(c)
+				return switch_popup(c, animate)
 		
 	return null
 
-func switch_popup(popup:Control) -> Control:
+func switch_popup(popup:Control, animate:bool = true) -> Control:
+	if tween:
+		tween.kill()
+	
 	for c in popups.get_children():
 		if c is Control:
 			if c == popup:
@@ -40,6 +48,17 @@ func switch_popup(popup:Control) -> Control:
 			c.hide()
 	
 	popup.show()
+	current_popup = popup
+	
+	if animate:
+		tween = create_tween().set_parallel(true).set_trans(Tween.TRANS_CUBIC).set_ease(Tween.EASE_OUT)
+		
+		popup.modulate.a = 0
+		tween.tween_property(popup, \"modulate:a\", 1.0, 0.4)
+		
+		var final_pos = popup.position
+		popup.position.y += 20
+		tween.tween_property(popup, \"position:y\", final_pos.y, 0.4)
 	
 	return popup
 
@@ -175,7 +194,10 @@ self_modulate = Color(1, 1, 1, 0.8117647)
 [node name="Title" parent="Popups/Main/Head" parent_id_path=PackedInt32Array(316491314, 837132530) index="0" unique_id=160817599]
 text = ""
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Popups/Main/Content" parent_id_path=PackedInt32Array(316491314, 1487895168) index="0" unique_id=800624016]
+[node name="Content" parent="Popups/Main" index="4" unique_id=1487895168]
+offset_bottom = -57.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Popups/Main/Content" index="0" unique_id=800624016]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -213,7 +235,36 @@ theme_override_fonts/font = ExtResource("2_inmql")
 theme_override_font_sizes/font_size = 12
 text = "Settings"
 
+[node name="Actions" type="Control" parent="Popups/Main" unique_id=517245224]
+visible = false
+layout_mode = 1
+anchor_top = 0.99600005
+anchor_right = 1.0
+anchor_bottom = 0.99600005
+offset_left = 8.0
+offset_top = -39.972015
+offset_right = -8.0
+offset_bottom = -7.9720154
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/Main/Actions" unique_id=1478845858]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Popups/Main/Actions/HBoxContainer" unique_id=1212287483 node_paths=PackedStringArray("main_control")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_inmql")
+theme_override_font_sizes/font_size = 12
+text = "Back"
+script = ExtResource("3_kbrm6")
+main_control = NodePath("../../../../..")
+
 [node name="StartServer" parent="Popups" unique_id=646985981 instance=ExtResource("1_5dqap")]
+visible = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -235,7 +286,10 @@ self_modulate = Color(1, 1, 1, 0.8117647)
 [node name="Title" parent="Popups/StartServer/Head" parent_id_path=PackedInt32Array(646985981, 837132530) index="0" unique_id=160817599]
 text = "Host Server"
 
-[node name="ScrollContainer" type="ScrollContainer" parent="Popups/StartServer/Content" parent_id_path=PackedInt32Array(646985981, 1487895168) index="0" unique_id=1812628442]
+[node name="Content" parent="Popups/StartServer" index="4" unique_id=1487895168]
+offset_bottom = -49.0
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Popups/StartServer/Content" index="0" unique_id=1812628442]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -271,6 +325,33 @@ theme_override_constants/outline_size = 2
 theme_override_fonts/font = ExtResource("2_inmql")
 theme_override_font_sizes/font_size = 12
 text = "Start"
+
+[node name="Actions" type="Control" parent="Popups/StartServer" unique_id=293122922]
+layout_mode = 1
+anchor_top = 0.99600005
+anchor_right = 1.0
+anchor_bottom = 0.99600005
+offset_left = 8.0
+offset_top = -39.972015
+offset_right = -8.0
+offset_bottom = -7.9720154
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popups/StartServer/Actions" unique_id=1162591465]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Popups/StartServer/Actions/HBoxContainer" unique_id=2002339105 node_paths=PackedStringArray("main_control")]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_fonts/font = ExtResource("2_inmql")
+theme_override_font_sizes/font_size = 12
+text = "Back"
+script = ExtResource("3_kbrm6")
+main_control = NodePath("../../../../..")
 
 [editable path="Popups/Main"]
 [editable path="Popups/StartServer"]

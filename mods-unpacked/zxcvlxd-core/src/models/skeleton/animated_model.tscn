@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cmae87vm4j8f8"]
 
-[ext_resource type="Script" uid="uid://cegg0fl6u74kf" path="res://mods-unpacked/zxcvlxd-core/src/components/animation/BaseAnimatedModel.gd" id="1_wmmkt"]
-[ext_resource type="Script" uid="uid://b0h5c2ihivpv1" path="res://mods-unpacked/zxcvlxd-core/src/components/animation/AnimatedModelProperty.gd" id="2_ccs8m"]
+[ext_resource type="Script" uid="uid://cegg0fl6u74kf" path="res://mods-unpacked/zxcvlxd-core/src/scripts/animation/BaseAnimatedModel.gd" id="1_wmmkt"]
+[ext_resource type="Script" uid="uid://b0h5c2ihivpv1" path="res://mods-unpacked/zxcvlxd-core/src/scripts/animation/AnimatedModelProperty.gd" id="2_ccs8m"]
 [ext_resource type="PackedScene" uid="uid://ccf8yy5c1y2p4" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/skeleton.fbx" id="2_ymsli"]
 [ext_resource type="AnimationLibrary" uid="uid://2tjuq5oxvs3y" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation_library.tres" id="3_wmmkt"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://b6jyaoc56yfma" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/blend_tree.tres" id="4_ccs8m"]
@@ -24,7 +24,7 @@ metadata/_custom_type_script = "uid://b0h5c2ihivpv1"
 [node name="AnimatedModel3D" type="Node3D" unique_id=188275085 node_paths=PackedStringArray("root", "model", "tree", "player", "skeleton")]
 script = ExtResource("1_wmmkt")
 _process_properties = Array[ExtResource("2_ccs8m")]([SubResource("Resource_ccs8m"), SubResource("Resource_4g1ca")])
-root = NodePath("..")
+root = NodePath("")
 model_scene = ExtResource("2_ymsli")
 library = ExtResource("3_wmmkt")
 blend_tree = ExtResource("4_ccs8m")

@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_vihno"]
 [ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="1_xfjic"]
-[ext_resource type="Script" uid="uid://bmwl6ctnkt45h" path="res://addons/simusdev/ui/SD_UIDragAndDrop.gd" id="2_jb7ik"]
+[ext_resource type="Script" uid="uid://bxycsjbmhbgx6" path="res://addons/simusdev/ui/SD_UIControlDrag.gd" id="2_jb7ik"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k8kgj"]
 content_margin_left = 0.0
@@ -46,13 +46,11 @@ target = NodePath("..")
 open_at_start = true
 metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
 
-[node name="SD_UIDragAndDrop" type="Node2D" parent="." unique_id=1751069321 node_paths=PackedStringArray("input_node", "draggable_node", "drop_node", "preview_node")]
+[node name="SE_UIControlDrag" type="Node" parent="." unique_id=579817549 node_paths=PackedStringArray("TARGET_INPUT", "TARGET_DRAG")]
 script = ExtResource("2_jb7ik")
-input_node = NodePath("../Head")
-draggable_node = NodePath("..")
-drop_node = NodePath("..")
-preview_node = NodePath("..")
-metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
+TARGET_INPUT = NodePath("../Head")
+TARGET_DRAG = NodePath("..")
+metadata/_custom_type_script = "uid://bxycsjbmhbgx6"
 
 [node name="BG" type="Panel" parent="." unique_id=686966356]
 layout_mode = 1
