@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://cnheeh51ut4ho" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/movement/MovementState.gd" id="5_h5pkk"]
 [ext_resource type="PackedScene" uid="uid://cmae87vm4j8f8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animated_model.tscn" id="5_jiu30"]
 [ext_resource type="Script" uid="uid://x51q53nn04es" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/PlayerHead.gd" id="7_h5pkk"]
+[ext_resource type="Script" uid="uid://u84lpd488cwl" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/C_EntityFootsteps.gd" id="8_flkvu"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
 radius = 0.3
@@ -58,8 +59,9 @@ script = ExtResource("5_ae415")
 state_machine = NodePath("../BaseStateMachine")
 jump_force = 6.0
 
-[node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("actor_state_machine") instance=ExtResource("5_jiu30")]
+[node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("actor_state_machine", "root") instance=ExtResource("5_jiu30")]
 actor_state_machine = NodePath("../BaseStateMachine")
+root = NodePath("..")
 
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
@@ -76,5 +78,19 @@ metadata/_custom_type_script = "uid://x51q53nn04es"
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1241226587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999996, 0)
 shape = SubResource("CapsuleShape3D_ae415")
+
+[node name="C_EntityFootsteps" type="RayCast3D" parent="." unique_id=1419095837 node_paths=PackedStringArray("entity", "state_machine", "audio_player")]
+script = ExtResource("8_flkvu")
+entity = NodePath("..")
+state_machine = NodePath("../BaseStateMachine")
+audio_player = NodePath("AudioStreamPlayer3D")
+walk_time = 0.49
+sprint_time = 0.31
+metadata/_custom_type_script = "uid://u84lpd488cwl"
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C_EntityFootsteps" unique_id=105225626]
+attenuation_model = 2
+volume_db = -15.0
+max_distance = 25.0
 
 [editable path="AnimatedModel3D"]

@@ -27,7 +27,7 @@ func _enter_tree() -> void:
 		editor_plugins = SD_EditorPlugins.new()
 		add_child(editor_plugins)
 #чут чут нормально
-	#inspector_plugin = SD_MetadataMaterial.SD_MetadataButtonInspectorPlugin.new()
+	inspector_plugin = SD_MetadataMaterial.SD_MetadataButtonInspectorPlugin.new()
 	add_inspector_plugin(inspector_plugin)
 	
 	for s in AUTOLOAD:
