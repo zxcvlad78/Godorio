@@ -49,7 +49,7 @@ acceleration = 6.0
 
 [node name="Floating" type="Node" parent="BaseStateMachine" unique_id=1059806965]
 script = ExtResource("5_h5pkk")
-state_speed = 0.0
+state_speed = 1.0
 friction = 0.0
 metadata/_custom_type_script = "uid://cnheeh51ut4ho"
 
@@ -72,7 +72,6 @@ camera = NodePath("Camera3D")
 metadata/_custom_type_script = "uid://x51q53nn04es"
 
 [node name="Camera3D" type="Camera3D" parent="EntityHead" unique_id=207662777]
-transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1241226587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999996, 0)

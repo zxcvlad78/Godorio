@@ -45,32 +45,37 @@ func _bind_character() -> void:
 	update_configuration_warnings()
 
 func _physics_process(delta: float) -> void:
-	if not character or not state_machine: 
-		return
+	if not character or not state_machine: return
 	
 	var current_state = state_machine.current_state as MovementState
-	if not current_state:
-		return
+	if not current_state: return
+	
+	if not character.is_on_floor():
+		character.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+	elif Input.is_action_just_pressed("jump"):
+		character.velocity.y = jump_force
+	
+	var input_dir = Input.get_vector(key_left, key_right, key_forward, key_backward)
+	var direction = (character.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
 	
 	if character.is_on_floor():
-		if Input.is_action_just_pressed("jump"):
-			character.velocity.y += jump_force
+		var target_vel = direction * current_state.state_speed * speed_multiplier
+		var weight = current_state.acceleration if direction.length() > 0 else current_state.friction
+		character.velocity.x = lerp(character.velocity.x, target_vel.x, weight * delta)
+		character.velocity.z = lerp(character.velocity.z, target_vel.z, weight * delta)
 	else:
-		character.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
-	
-	var input_dir:Vector2 = Input.get_vector(key_left, key_right, key_forward, key_backward)
-	var direction:Vector3 = (character.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	var target_vel:Vector3 = direction * current_state.state_speed * speed_multiplier
-	
-	var weight:float = 0.0
-	if direction:
-		weight = current_state.acceleration
-	else:
-		weight = current_state.friction
-	
-	character.velocity.x = lerp(character.velocity.x, -target_vel.x, weight * delta)
-	character.velocity.z = lerp(character.velocity.z, -target_vel.z, weight * delta)
+		if direction.length() > 0:
+			var air_accel = current_state.acceleration * 0.15
+			var accel_force = direction * air_accel * delta
+			
+			var horizontal_vel = Vector2(character.velocity.x, character.velocity.z)
+			if horizontal_vel.dot(Vector2(direction.x, direction.z)) < current_state.state_speed:
+				character.velocity.x += accel_force.x
+				character.velocity.z += accel_force.z
+		
+		var air_resistance = 0.998
+		character.velocity.x *= air_resistance
+		character.velocity.z *= air_resistance
 
 	character.move_and_slide()
 

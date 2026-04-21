@@ -38,7 +38,7 @@ func _on_actor_state_exit(state_name:String) -> void:
 func _process(_delta: float) -> void:
 	if root is BaseEntity:
 		actor_velocity = root.velocity.normalized() * root.transform.basis
-		actor_blend_position = Vector2(-actor_velocity.x,actor_velocity.z)
+		actor_blend_position = Vector2(actor_velocity.x, -actor_velocity.z)
 	
 	
 	for prop in _process_properties:

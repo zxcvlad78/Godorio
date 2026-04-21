@@ -26,7 +26,7 @@ func _unhandled_input(event):
 	if event is InputEventMouseMotion:
 		var relative:Vector2 = event.relative * (sensitivity * SENSITIVITY_NORMALIZE_VALUE)
 		
-		var x: float = deg_to_rad(relative.y)
+		var x: float = deg_to_rad(-relative.y)
 		var y: float = deg_to_rad(-relative.x)
 
 		if root:
