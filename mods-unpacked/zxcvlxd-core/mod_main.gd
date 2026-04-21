@@ -15,8 +15,9 @@ func _init() -> void:
 	install_script_hook_files()
 	add_translations()
 	
+	
 	var settings_path = mod_dir_path.path_join("settings/core_settings.tres")
-	if FileAccess.file_exists(settings_path):
+	if ResourceLoader.exists(settings_path):
 		core_settings = load(settings_path)
 	
 

@@ -4,7 +4,7 @@ class_name BaseCharacterMovement extends Node
 @export var state_machine:BaseStateMachine
 
 @export_group("Settings")
-@export var jump_force:float = 1.0
+@export var jump_force:float = 15.0
 @export var speed_multiplier:float = 1.0
 
 @export_subgroup("Keys", "key_")
@@ -51,7 +51,7 @@ func _physics_process(delta: float) -> void:
 	if not current_state: return
 	
 	if not character.is_on_floor():
-		character.velocity.y -= ProjectSettings.get_setting("physics/3d/default_gravity") * delta
+		character.velocity.y -= (ProjectSettings.get_setting("physics/3d/default_gravity") * 2.24) * delta
 	elif Input.is_action_just_pressed("jump"):
 		character.velocity.y = jump_force
 	

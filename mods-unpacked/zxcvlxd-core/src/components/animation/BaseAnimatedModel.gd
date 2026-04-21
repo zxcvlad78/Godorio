@@ -31,7 +31,7 @@ func _on_actor_state_enter(state_name:String) -> void:
 	
 	tree_state_machine.travel(state_name)
 
-func _on_actor_state_exit(state_name:String) -> void:
+func _on_actor_state_exit(_state_name:String) -> void:
 	pass
 
 

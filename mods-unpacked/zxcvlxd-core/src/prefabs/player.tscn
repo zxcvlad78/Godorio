@@ -56,7 +56,7 @@ metadata/_custom_type_script = "uid://cnheeh51ut4ho"
 [node name="BaseCharacterMovement" type="Node" parent="." unique_id=2085185365 node_paths=PackedStringArray("state_machine")]
 script = ExtResource("5_ae415")
 state_machine = NodePath("../BaseStateMachine")
-jump_force = 3.5
+jump_force = 6.0
 
 [node name="AnimatedModel3D" parent="." unique_id=188275085 node_paths=PackedStringArray("actor_state_machine") instance=ExtResource("5_jiu30")]
 actor_state_machine = NodePath("../BaseStateMachine")

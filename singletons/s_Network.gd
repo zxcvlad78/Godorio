@@ -35,7 +35,7 @@ func _ready() -> void:
 	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)
 	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
 
-func _on_peer_disconnected(e: SimusNetEvent) -> void:
+func _on_peer_disconnected(_e: SimusNetEvent) -> void:
 	pass
 
 func _on_network_connected() -> void:
