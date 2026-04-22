@@ -21,19 +21,33 @@ var sound_cooldown = 0.0
 var min_time_between_sounds = 0.05 
 
 func _ready():
+	SimusNetRPC.register(
+		[
+			play_bounce_sound
+		],
+		SimusNetRPCConfig.new().flag_mode_any_peer()
+	)
+	
+	if !is_multiplayer_authority():
+		return
 	contact_monitor = true
 	max_contacts_reported = 3
 	body_entered.connect(_on_body_entered)
 
 func _process(delta):
+	if !is_multiplayer_authority():
+		return
 	if sound_cooldown > 0:
 		sound_cooldown -= delta
 
 func _on_body_entered(_body):
+	if !is_multiplayer_authority():
+		return
 	var velocity = linear_velocity.length()
 	
 	if velocity > min_velocity and sound_cooldown <= 0:
 		play_bounce_sound(velocity)
+		SimusNetRPC.invoke(play_bounce_sound, velocity)
 		sound_cooldown = min_time_between_sounds
 
 func play_bounce_sound(velocity):
