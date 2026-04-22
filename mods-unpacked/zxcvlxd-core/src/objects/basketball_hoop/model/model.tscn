@@ -1,0 +1,12 @@
+[gd_scene format=3 uid="uid://cbd7v5ikf2sa5"]
+
+[ext_resource type="PackedScene" uid="uid://ckyrevatur703" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/model/model.glb" id="1_ffagd"]
+
+[node name="Model" type="Node3D" unique_id=1244197092]
+
+[node name="Sketchfab_Scene" parent="." unique_id=1421929090 instance=ExtResource("1_ffagd")]
+
+[node name="Sketchfab_model" parent="Sketchfab_Scene" index="0" unique_id=1092876670]
+transform = Transform3D(1, 0, 0, 0, -4.371139e-08, 1, 0, -1, -4.371139e-08, 0, 0, 0)
+
+[editable path="Sketchfab_Scene"]

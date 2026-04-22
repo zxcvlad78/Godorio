@@ -4,7 +4,11 @@ class_name PlayerHead extends EntityHead
 const SENSITIVITY_NORMALIZE_VALUE = 0.1
 
 func _ready():
-	if !is_multiplayer_authority():
+	var enabled = is_multiplayer_authority()
+	set_process(enabled)
+	set_process_input(enabled)
+	set_process_unhandled_input(enabled)
+	if !enabled:
 		return
 	
 	camera.make_current()
@@ -29,7 +33,7 @@ func _unhandled_input(event):
 		var x: float = deg_to_rad(-relative.y)
 		var y: float = deg_to_rad(-relative.x)
 
-		if root:
-			root.rotate_y(y)
+		if entity:
+			entity.rotate_y(y)
 		rotate_x(x)
 		rotation.x = clamp(rotation.x, deg_to_rad(-90), deg_to_rad(90))

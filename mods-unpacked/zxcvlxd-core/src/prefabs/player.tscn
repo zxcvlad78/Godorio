@@ -7,7 +7,11 @@
 [ext_resource type="Script" uid="uid://cnheeh51ut4ho" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/movement/MovementState.gd" id="5_h5pkk"]
 [ext_resource type="PackedScene" uid="uid://cmae87vm4j8f8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animated_model.tscn" id="5_jiu30"]
 [ext_resource type="Script" uid="uid://x51q53nn04es" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/PlayerHead.gd" id="7_h5pkk"]
+[ext_resource type="Script" uid="uid://b6denlouq17uw" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/ViewModelRoot3D.gd" id="8_dufgj"]
 [ext_resource type="Script" uid="uid://u84lpd488cwl" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/C_EntityFootsteps.gd" id="8_flkvu"]
+[ext_resource type="Resource" uid="uid://cbkadwl124nx0" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball_ball.tres" id="9_t483b"]
+[ext_resource type="Script" uid="uid://c30gc2bkifa8w" path="res://mods-unpacked/zxcvlxd-core/src/components/ViewModelShake3D.gd" id="10_goy0h"]
+[ext_resource type="Script" uid="uid://dwd0ahnw8rjgl" path="res://mods-unpacked/zxcvlxd-core/src/components/C_ViewModelSway.gd" id="11_12alp"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
 radius = 0.3
@@ -66,14 +70,30 @@ root = NodePath("..")
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
 
-[node name="EntityHead" type="Node3D" parent="." unique_id=2099522628 node_paths=PackedStringArray("root", "camera")]
+[node name="PlayerHead" type="Node3D" parent="." unique_id=2099522628 node_paths=PackedStringArray("entity", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
 script = ExtResource("7_h5pkk")
-root = NodePath("..")
+entity = NodePath("..")
 camera = NodePath("Camera3D")
 metadata/_custom_type_script = "uid://x51q53nn04es"
 
-[node name="Camera3D" type="Camera3D" parent="EntityHead" unique_id=207662777]
+[node name="Camera3D" type="Camera3D" parent="PlayerHead" unique_id=207662777]
+
+[node name="ViewModelShake3D" type="Node3D" parent="PlayerHead" unique_id=2129799200 node_paths=PackedStringArray("player", "camera_root", "state_machine")]
+script = ExtResource("10_goy0h")
+player = NodePath("../..")
+camera_root = NodePath("..")
+state_machine = NodePath("../../BaseStateMachine")
+walk_bob = 6.8
+sprint_bob = 10.2
+
+[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437]
+script = ExtResource("8_dufgj")
+object = ExtResource("9_t483b")
+metadata/_custom_type_script = "uid://b6denlouq17uw"
+
+[node name="ViewModelSway" type="Node" parent="PlayerHead/ViewModelShake3D/ViewModelRoot3D" unique_id=1184471938]
+script = ExtResource("11_12alp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1241226587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999996, 0)

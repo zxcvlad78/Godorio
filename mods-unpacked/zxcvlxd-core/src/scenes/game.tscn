@@ -13,12 +13,14 @@
 [ext_resource type="Texture2D" uid="uid://cecwdqjol0ckd" path="res://addons/sky_3d/assets/textures/noiseClouds.png" id="11_tlvn8"]
 [ext_resource type="Texture2D" uid="uid://2r8ylu6rg5dp" path="res://addons/sky_3d/assets/thirdparty/textures/moon/MoonMap.png" id="12_5y2f8"]
 [ext_resource type="Texture2D" uid="uid://djpfuyxkryegn" path="res://addons/sky_3d/assets/textures/noise.jpg" id="13_7xkxv"]
+[ext_resource type="Script" uid="uid://dxga02bvnswip" path="res://mods-unpacked/zxcvlxd-core/src/scripts/NodeGroup3D.gd" id="14_tlvn8"]
 [ext_resource type="Texture2D" uid="uid://bm7dot7t7u1q4" path="res://addons/sky_3d/assets/thirdparty/textures/milkyway/StarField.jpg" id="14_wf75w"]
 [ext_resource type="Resource" uid="uid://dkg5cxpimcom4" path="res://mods-unpacked/zxcvlxd-core/resources/sd_metadata/grass_material.tres" id="15_b4ity"]
 [ext_resource type="Texture2D" uid="uid://c1vwcdcdvb74a" path="res://addons/sky_3d/assets/thirdparty/textures/milkyway/Milkyway.jpg" id="15_essgc"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="16_04qjr"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="17_otq5w"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="18_epvwj"]
+[ext_resource type="PackedScene" uid="uid://dpj1pyor6rnkt" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/prefabs/world/world.tscn" id="21_5y2f8"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ai43s"]
 shader = ExtResource("9_cc1b0")
@@ -73,8 +75,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.06126681, 0.06126681)
-shader_parameter/cirrus_position2 = Vector2(0.06126681, 0.06126681)
+shader_parameter/cirrus_position1 = Vector2(0.65113425, 0.65113425)
+shader_parameter/cirrus_position2 = Vector2(0.65113425, 0.65113425)
 shader_parameter/cirrus_texture = ExtResource("10_b4ity")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -84,7 +86,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.30632597, 0.30632597)
+shader_parameter/cumulus_position = Vector2(8.268173, 8.268173)
 shader_parameter/cumulus_texture = ExtResource("11_tlvn8")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -118,7 +120,7 @@ ssil_enabled = true
 albedo_texture = ExtResource("4_meesc")
 uv1_triplanar = true
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_tlvn8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_5y2f8"]
 render_priority = 0
 shader = ExtResource("5_5l746")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -203,9 +205,13 @@ game_time_enabled = false
 dome_path = NodePath("../SkyDome")
 current_time = 14.9
 
-[node name="NetworkedObjects" type="Node3D" parent="." unique_id=1991335936]
+[node name="NetworkedObjects" type="Node3D" parent="." unique_id=308448975]
+script = ExtResource("14_tlvn8")
+metadata/_custom_type_script = "uid://dxga02bvnswip"
 
-[node name="Players" type="Node3D" parent="." unique_id=1777520027]
+[node name="Players" type="Node3D" parent="." unique_id=711121355]
+script = ExtResource("14_tlvn8")
+metadata/_custom_type_script = "uid://dxga02bvnswip"
 
 [node name="CSGBox3D" type="CSGBox3D" parent="." unique_id=667487503]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
@@ -226,7 +232,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=207149785]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0)
-material_override = SubResource("ShaderMaterial_tlvn8")
+material_override = SubResource("ShaderMaterial_5y2f8")
 multimesh = SubResource("MultiMesh_kxwc0")
 script = ExtResource("8_fecbe")
 texture_albedo = ExtResource("6_8ytua")
@@ -247,3 +253,6 @@ sgt_tool_shape = {
 }
 metadata/_custom_type_script = "uid://2juaclm8gc1n"
 metadata/SimpleGrassTextured = "2.0.5"
+
+[node name="World" parent="." unique_id=844851227 instance=ExtResource("21_5y2f8")]
+transform = Transform3D(0.9838507, 0, 0.17899111, 0, 1, 0, -0.17899111, 0, 0.9838507, 1, 0, -5)

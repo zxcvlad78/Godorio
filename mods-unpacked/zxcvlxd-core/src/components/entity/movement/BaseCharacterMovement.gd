@@ -22,6 +22,7 @@ class_name BaseCharacterMovement extends Node
 		_bind_character()
 
 var character:CharacterBody3D
+var input_enabled:bool = true
 
 func _ready() -> void:
 	_bind_character()
@@ -30,6 +31,11 @@ func _ready() -> void:
 	set_process(enabled)
 	set_physics_process(enabled)
 	set_process_input(enabled)
+	
+	SimusDev.ui.interface_opened_or_closed.connect(_update_input_status)
+
+func _update_input_status(_node:Node, _status:bool) -> void:
+	input_enabled = !SimusDev.ui.has_active_interface()
 
 func _bind_character() -> void:
 	if !custom_character:
@@ -47,16 +53,21 @@ func _bind_character() -> void:
 func _physics_process(delta: float) -> void:
 	if not character or not state_machine: return
 	
+	
 	var current_state = state_machine.current_state as MovementState
 	if not current_state: return
 	
 	if not character.is_on_floor():
 		character.velocity.y -= (ProjectSettings.get_setting("physics/3d/default_gravity") * 2.24) * delta
-	elif Input.is_action_just_pressed("jump"):
+	elif Input.is_action_just_pressed("jump") and input_enabled:
 		character.velocity.y = jump_force
-	
+		
 	var input_dir = Input.get_vector(key_left, key_right, key_forward, key_backward)
-	var direction = (character.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	var direction:Vector3
+	if input_enabled:
+		direction = (character.global_transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
+	else:
+		direction = Vector3.ZERO
 	
 	if character.is_on_floor():
 		var target_vel = direction * current_state.state_speed * speed_multiplier

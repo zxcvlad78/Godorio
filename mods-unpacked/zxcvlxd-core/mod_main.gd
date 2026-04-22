@@ -8,6 +8,7 @@ var extensions_dir_path := ""
 var translations_dir_path := ""
 
 var core_settings:CoreSettings
+var world_object_reference:WorldObjectReference
 
 func _init() -> void:
 	mod_dir_path = ModLoaderMod.get_unpacked_dir().path_join(MOD_DIR)
@@ -35,6 +36,8 @@ func _ready() -> void:
 	if core_settings:
 		get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
 		WorldObjectHandler.new(core_settings.scan_paths, true).scan()
+	
+	world_object_reference = WorldObjectReference.new() #init
 	
 	SimusNetEvents.event_connected.listen(_on_network_connected)
 	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)

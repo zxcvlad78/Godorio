@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://dc1vb5734qt3v"]
+
+[ext_resource type="PackedScene" uid="uid://bnanncyle2x31" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/model.tscn" id="1_0ga8a"]
+[ext_resource type="Script" uid="uid://d1jwapkumdp1u" path="res://addons/simusdev/SimusNet/SimusNetTransform.gd" id="1_pesh6"]
+[ext_resource type="AudioStream" uid="uid://bfnmq26w8fx16" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball-bounce_g14pkovo.mp3" id="2_3v5w6"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_0ga8a"]
+bounce = 0.85
+
+[sub_resource type="GDScript" id="GDScript_0ga8a"]
+resource_name = "script"
+script/source = "extends RigidBody3D
+
+@onready var bounce_sound = $AudioStreamPlayer3D
+
+@export var min_velocity = 0.5
+@export var max_velocity = 15.0
+@export var pitch_range = 0.1
+
+var sound_cooldown = 0.0
+var min_time_between_sounds = 0.05 
+
+func _ready():
+	contact_monitor = true
+	max_contacts_reported = 3
+	body_entered.connect(_on_body_entered)
+
+func _process(delta):
+	if sound_cooldown > 0:
+		sound_cooldown -= delta
+
+func _on_body_entered(_body):
+	var velocity = linear_velocity.length()
+	
+	# 1. Проверка: достаточно ли сильный удар и прошел ли откат?
+	if velocity > min_velocity and sound_cooldown <= 0:
+		play_bounce_sound(velocity)
+		sound_cooldown = min_time_between_sounds
+
+func play_bounce_sound(velocity):
+	# 1. Рассчитываем громкость (как и раньше)
+	var volume = remap(clamp(velocity, min_velocity, max_velocity), min_velocity, max_velocity, -24, 0)
+	bounce_sound.volume_db = volume
+	
+	# 2. РЕАЛИСТИЧНЫЙ ПИТЧ:
+	# При сильном ударе (высокая velocity) звук становится чуть ниже (например, 0.9)
+	# При слабом ударе (низкая velocity) звук становится чуть выше (например, 1.1)
+	var base_pitch = remap(clamp(velocity, min_velocity, max_velocity), min_velocity, max_velocity, 1.1, 0.9)
+	
+	# 3. Добавляем небольшую случайность, чтобы звуки не были одинаковыми
+	# Это создает эффект \"разных точек соприкосновения\" на мяче
+	var random_variation = randf_range(-0.05, 0.05)
+	
+	bounce_sound.pitch_scale = base_pitch + random_variation
+	
+	# Перезапуск звука
+	bounce_sound.play()
+"
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3v5w6"]
+radius = 0.1881716
+
+[node name="World" type="RigidBody3D" unique_id=2088901561]
+physics_material_override = SubResource("PhysicsMaterial_0ga8a")
+contact_monitor = true
+max_contacts_reported = 10
+script = SubResource("GDScript_0ga8a")
+
+[node name="SimusNetTransform" type="Node" parent="." unique_id=1849495983 node_paths=PackedStringArray("node")]
+script = ExtResource("1_pesh6")
+node = NodePath("..")
+tickrate = 64.0
+server_authorative = true
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
+
+[node name="Model" parent="." unique_id=714707559 instance=ExtResource("1_0ga8a")]
+
+[node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="." unique_id=1415527610]
+stream = ExtResource("2_3v5w6")
+max_distance = 40.0
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1035170096]
+shape = SubResource("SphereShape3D_3v5w6")
+
+[editable path="Model"]
+[editable path="Model/Sketchfab_Scene"]
