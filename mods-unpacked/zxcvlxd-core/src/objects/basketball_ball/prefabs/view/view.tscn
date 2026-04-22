@@ -1,18 +1,19 @@
 [gd_scene format=3 uid="uid://bugyreyceecyj"]
 
+[ext_resource type="Script" uid="uid://v1clvnut735j" path="res://mods-unpacked/zxcvlxd-core/src/scripts/item/W_Item.gd" id="1_ccc7v"]
 [ext_resource type="PackedScene" uid="uid://bnanncyle2x31" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/model.tscn" id="1_xjyjo"]
 [ext_resource type="Script" uid="uid://wix4enm8piqc" path="res://mods-unpacked/zxcvlxd-core/src/components/C_ThrowableObject.gd" id="2_c6e8a"]
 
-[node name="View" type="Node3D" unique_id=1193428744]
+[node name="View" type="Node3D" unique_id=1823683487]
+script = ExtResource("1_ccc7v")
+metadata/_custom_type_script = "uid://v1clvnut735j"
 
 [node name="Model" parent="." unique_id=714707559 instance=ExtResource("1_xjyjo")]
 transform = Transform3D(-0.07550144, 0.22406033, 0.97164637, -0.47895226, 0.84651315, -0.23242164, -0.874588, -0.48292035, 0.04340133, 0.23728395, -0.29757303, -0.5385577)
 
-[node name="Camera3D" type="Camera3D" parent="." unique_id=1427873161]
-
-[node name="C_ThrowableObject" type="Node" parent="." unique_id=737568042 node_paths=PackedStringArray("root", "drag_node")]
+[node name="C_ThrowableObject" type="Node" parent="." unique_id=737568042 node_paths=PackedStringArray("item", "drag_node")]
 script = ExtResource("2_c6e8a")
-root = NodePath("..")
+item = NodePath("..")
 drag_node = NodePath("../Model")
 min_force = 2.0
 max_force = 12.0

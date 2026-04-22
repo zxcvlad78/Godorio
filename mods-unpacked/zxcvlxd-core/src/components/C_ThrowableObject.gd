@@ -1,8 +1,8 @@
 class_name C_ThrowableObject extends Node
 
-@export var root:Node3D :
+@export var item:W_Item :
 	set(val):
-		root = val
+		item = val
 
 @export var drag_node:Node3D
 
@@ -10,7 +10,6 @@ class_name C_ThrowableObject extends Node
 @export var min_force: float = 10.0
 @export var max_force: float = 30.0
 @export var charge_speed: float = 20.0
-
 @export var torque_force: float = 5.0
 
 var current_force: float = 0.0
@@ -23,10 +22,10 @@ var drag_node_last_pos:Vector3
 var drag_node_last_rot:Vector3
 
 func _update() -> void:
-	if !root:
+	if !item:
 		return
 	
-	object = R_WorldObject.find_in(root)
+	object = R_WorldObject.find_in(item)
 
 func _ready() -> void:
 	SimusNetRPC.register(
@@ -45,7 +44,7 @@ func _ready() -> void:
 		return
 	
 	_update()
-	local_camera = get_tree().root.get_camera_3d()
+	local_camera = get_viewport().get_camera_3d() 
 	drag_node_last_pos = drag_node.position
 	drag_node_last_rot = drag_node.rotation
 
@@ -55,52 +54,46 @@ func _input(event: InputEvent) -> void:
 		current_force = min_force
 		
 	if event.is_action_released("throw") and is_charging:
-		print(get_multiplayer_authority())
-		SimusNetRPC.invoke_on_server(throw, local_camera, current_force)
+		SimusNetRPC.invoke_on_server(throw, item, current_force)
 		is_charging = false
 		current_force = 0.0
 		_on_thrown()
 
-func throw(camera:Camera3D, force:float) -> void:
+func throw(sender_item:W_Item, force:float) -> void:
 	if !object:
-		object = R_WorldObject.find_in(root)
+		if !sender_item:
+			return
+		object = R_WorldObject.find_in(sender_item)
 		if !object:
 			return
 	
 	if !object.viewmodel:
 		return
 	
+	var cam_xform = sender_item.entity_head.camera.global_transform
+	
 	var world_node = object.viewmodel.instantiate_world()
 	if not world_node:
-		print(1)
 		return
 	
-	if !camera:
-		print(camera)
-		return
-	var direction:Vector3 = -camera.global_transform.basis.z
-	var spawn_offset = direction * 1.5
+	var direction:Vector3 = -cam_xform.basis.z
+	var spawn_offset:float = 1.5
 	
 	object.set_in(world_node)
 	
-	NodeGroup3D.get_by_name("NetworkedObjects").add_child(world_node)
+	var container = NodeGroup3D.get_by_name("NetworkedObjects")
+	if container:
+		container.add_child(world_node)
 	
-	if world_node is Node3D:
-		world_node.global_transform.origin = camera.global_transform.origin + spawn_offset
-		world_node.global_basis = root.global_basis
-		
-		if world_node is RigidBody3D:
-			_apply_impulse(camera, world_node, direction, force)
-			_apply_torque(camera, world_node, force)
-
-
-func _apply_impulse(camera:Camera3D, rigid_body:RigidBody3D, direction:Vector3, force:float) -> void:
-	rigid_body.apply_central_impulse(direction * force)
-
-func _apply_torque(camera:Camera3D, rigid_body:RigidBody3D, force:float) -> void:
-	var right_axis = camera.global_transform.basis.x
-	rigid_body.apply_torque_impulse(right_axis * (torque_force * (force / min_force)))
-
+		if world_node is Node3D:
+			world_node.global_transform = cam_xform
+			world_node.global_transform.origin = cam_xform.origin + (direction * spawn_offset)
+			
+			
+			if world_node is RigidBody3D:
+				world_node.apply_central_impulse(direction * force)
+				var right_axis = cam_xform.basis.x
+				world_node.apply_torque_impulse(right_axis * (torque_force * (force / min_force)))
 
 func _on_thrown() -> void:
 	if drag_node:

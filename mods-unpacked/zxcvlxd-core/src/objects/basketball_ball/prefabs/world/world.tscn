@@ -32,28 +32,20 @@ func _process(delta):
 func _on_body_entered(_body):
 	var velocity = linear_velocity.length()
 	
-	# 1. Проверка: достаточно ли сильный удар и прошел ли откат?
 	if velocity > min_velocity and sound_cooldown <= 0:
 		play_bounce_sound(velocity)
 		sound_cooldown = min_time_between_sounds
 
 func play_bounce_sound(velocity):
-	# 1. Рассчитываем громкость (как и раньше)
 	var volume = remap(clamp(velocity, min_velocity, max_velocity), min_velocity, max_velocity, -24, 0)
 	bounce_sound.volume_db = volume
 	
-	# 2. РЕАЛИСТИЧНЫЙ ПИТЧ:
-	# При сильном ударе (высокая velocity) звук становится чуть ниже (например, 0.9)
-	# При слабом ударе (низкая velocity) звук становится чуть выше (например, 1.1)
 	var base_pitch = remap(clamp(velocity, min_velocity, max_velocity), min_velocity, max_velocity, 1.1, 0.9)
 	
-	# 3. Добавляем небольшую случайность, чтобы звуки не были одинаковыми
-	# Это создает эффект \"разных точек соприкосновения\" на мяче
 	var random_variation = randf_range(-0.05, 0.05)
 	
 	bounce_sound.pitch_scale = base_pitch + random_variation
 	
-	# Перезапуск звука
 	bounce_sound.play()
 "
 
@@ -69,7 +61,8 @@ script = SubResource("GDScript_0ga8a")
 [node name="SimusNetTransform" type="Node" parent="." unique_id=1849495983 node_paths=PackedStringArray("node")]
 script = ExtResource("1_pesh6")
 node = NodePath("..")
-tickrate = 64.0
+interpolate_speed = 0.0
+tickrate = 128.0
 server_authorative = true
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 

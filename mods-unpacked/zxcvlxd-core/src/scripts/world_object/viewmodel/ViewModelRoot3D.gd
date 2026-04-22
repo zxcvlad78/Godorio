@@ -5,6 +5,8 @@ enum ViewModelType {
 	ENTITY,
 }
 
+@export var entity_head:EntityHead
+
 @export var type:ViewModelType = ViewModelType.VIEW :
 	set(val):
 		type = val
@@ -39,5 +41,7 @@ func _update() -> void:
 		return
 	
 	_ref.set_multiplayer_authority(get_multiplayer_authority())
+	_ref.set("entity", entity_head.entity)
+	_ref.set("entity_head", entity_head)
 	object.set_in(_ref)
 	add_child(_ref, true)

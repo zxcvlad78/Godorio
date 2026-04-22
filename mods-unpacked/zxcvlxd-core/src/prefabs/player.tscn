@@ -87,13 +87,19 @@ state_machine = NodePath("../../BaseStateMachine")
 walk_bob = 6.8
 sprint_bob = 10.2
 
-[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437]
+[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437 node_paths=PackedStringArray("entity_head")]
 script = ExtResource("8_dufgj")
+entity_head = NodePath("../..")
 object = ExtResource("9_t483b")
 metadata/_custom_type_script = "uid://b6denlouq17uw"
 
 [node name="ViewModelSway" type="Node" parent="PlayerHead/ViewModelShake3D/ViewModelRoot3D" unique_id=1184471938]
 script = ExtResource("11_12alp")
+
+[node name="SimusNetTransform" type="Node" parent="PlayerHead" unique_id=554355906 node_paths=PackedStringArray("node")]
+script = ExtResource("1_0x4ww")
+node = NodePath("..")
+metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1241226587]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.84999996, 0)
