@@ -1,11 +1,14 @@
 [gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://0qs3wls072x"]
 
 [ext_resource type="Script" uid="uid://cuaacsvf2hnmk" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/R_WorldObject.gd" id="1_7qo70"]
+[ext_resource type="Texture2D" uid="uid://bwdrfw8lnlbum" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/icon.png" id="1_35j2o"]
 [ext_resource type="Script" uid="uid://dkvwih2bnsj28" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/custom/R_ViewModelResources3D.gd" id="2_famto"]
 [ext_resource type="Script" uid="uid://b2jd4rd50y2g" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/custom/R_ViewModelResource3D.gd" id="3_1yofn"]
+[ext_resource type="PackedScene" uid="uid://dpj1pyor6rnkt" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/prefabs/world/world.tscn" id="3_35j2o"]
 
 [sub_resource type="Resource" id="Resource_35j2o"]
 script = ExtResource("3_1yofn")
+prefab = ExtResource("3_35j2o")
 metadata/_custom_type_script = "uid://b2jd4rd50y2g"
 
 [sub_resource type="Resource" id="Resource_h2pyf"]
@@ -17,5 +20,6 @@ metadata/_custom_type_script = "uid://dkvwih2bnsj28"
 script = ExtResource("1_7qo70")
 id = &"basketball_hoop"
 name = &"Basketball Hoop"
+icon = ExtResource("1_35j2o")
 viewmodel = SubResource("Resource_h2pyf")
 metadata/_custom_type_script = "uid://cuaacsvf2hnmk"

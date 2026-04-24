@@ -1,0 +1,338 @@
+[gd_scene format=3 uid="uid://2cg6c2nbj660"]
+
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_6gwym"]
+[ext_resource type="Script" uid="uid://bxycsjbmhbgx6" path="res://addons/simusdev/ui/SD_UIControlDrag.gd" id="2_rt034"]
+[ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="3_6gwym"]
+[ext_resource type="PackedScene" uid="uid://b6xjfcagfdefg" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_ui_inventory_slot.tscn" id="4_6gwym"]
+
+[sub_resource type="GDScript" id="GDScript_ftngv"]
+resource_name = "script"
+script/source = "extends Control
+
+@export var c_inventory_ui:C_InventoryUI
+@export var container:Container
+@export var hotbar_container:Container
+@export var title:Label
+
+func _ready() -> void:
+	_update()
+	c_inventory_ui.inventory.slot_added.connect(add_ui_slot)
+	c_inventory_ui.inventory.slot_removed.connect(remove_ui_slot)
+	
+	if title:
+		var target_text:String = \"Inventory\"
+		var entity = c_inventory_ui.inventory.entity
+		if entity:
+			if entity is W_Player:
+				#var player = 
+				pass
+		
+		title.text = target_text
+
+func _update() -> void:
+	for c in container.get_children():
+		c.queue_free()
+	
+	for c in hotbar_container.get_children():
+		c.queue_free()
+	
+	for slot in c_inventory_ui.inventory.slots:
+		add_ui_slot(slot)
+
+func add_ui_slot(slot:InventorySlot) -> UI_InventorySlot:
+	var new_ui_slot = c_inventory_ui.ui_slot_prefab.instantiate() as UI_InventorySlot
+	if !new_ui_slot:
+		return null
+	
+	new_ui_slot.c_inventory_ui = c_inventory_ui
+	new_ui_slot.slot = slot
+	
+	if slot.tags.has(\"hotbar\"):
+		hotbar_container.add_child(new_ui_slot, true)
+	else:
+		container.add_child(new_ui_slot, true)
+	
+	
+	return new_ui_slot
+
+func remove_ui_slot(slot:InventorySlot) -> void:
+	var ui_slot:UI_InventorySlot
+	for c in container.get_children():
+		if c.get(\"slot\") == slot:
+			ui_slot = c
+			break
+	
+	ui_slot.queue_free()
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt034"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.5529412)
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0j52p"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.078431375, 0.078431375, 0.078431375, 0.8901961)
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_detail = 5
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ce3dg"]
+content_margin_left = 4.0
+content_margin_top = 4.0
+content_margin_right = 4.0
+content_margin_bottom = 4.0
+bg_color = Color(1, 1, 1, 0.75)
+draw_center = false
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+corner_radius_top_left = 3
+corner_radius_top_right = 3
+corner_radius_bottom_right = 3
+corner_radius_bottom_left = 3
+corner_detail = 5
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="LabelSettings" id="LabelSettings_jb7ik"]
+font = ExtResource("3_6gwym")
+font_size = 10
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="DefaultInventoryUI" type="Control" unique_id=1089579221 node_paths=PackedStringArray("container", "hotbar_container", "title")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_ftngv")
+container = NodePath("Popup/Content/ScrollContainer/Container")
+hotbar_container = NodePath("Popup/Hotbar/Content/ScrollContainer/Container")
+title = NodePath("Popup/Head/Title")
+
+[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=1060245996 node_paths=PackedStringArray("target")]
+script = ExtResource("1_6gwym")
+target = NodePath("..")
+input_action = "inventory"
+close_on_escape = false
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="Popup" type="Control" parent="." unique_id=316491314]
+layout_mode = 1
+anchor_left = 0.2875
+anchor_top = 0.1
+anchor_right = 0.7125
+anchor_bottom = 0.8
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SE_UIControlDrag" type="Node" parent="Popup" unique_id=579817549 node_paths=PackedStringArray("TARGET_INPUT", "TARGET_DRAG")]
+script = ExtResource("2_rt034")
+TARGET_INPUT = NodePath("../Head")
+TARGET_DRAG = NodePath("..")
+metadata/_custom_type_script = "uid://bxycsjbmhbgx6"
+
+[node name="BG" type="Panel" parent="Popup" unique_id=686966356]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rt034")
+
+[node name="Head" type="Panel" parent="Popup" unique_id=837132530]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0j52p")
+
+[node name="Title" type="Label" parent="Popup/Head" unique_id=160817599]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_ce3dg")
+text = "Inventory (root)"
+label_settings = SubResource("LabelSettings_jb7ik")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="Control" parent="Popup" unique_id=1487895168]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Popup/Content" unique_id=161497863]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="GridContainer" parent="Popup/Content/ScrollContainer" unique_id=1492500852]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 8
+
+[node name="UI_InventorySlot3" parent="Popup/Content/ScrollContainer/Container" unique_id=312672634 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot4" parent="Popup/Content/ScrollContainer/Container" unique_id=1650719773 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot5" parent="Popup/Content/ScrollContainer/Container" unique_id=811894281 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot6" parent="Popup/Content/ScrollContainer/Container" unique_id=1890864303 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot7" parent="Popup/Content/ScrollContainer/Container" unique_id=985883573 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot8" parent="Popup/Content/ScrollContainer/Container" unique_id=880687502 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot9" parent="Popup/Content/ScrollContainer/Container" unique_id=946260292 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot10" parent="Popup/Content/ScrollContainer/Container" unique_id=613752930 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot11" parent="Popup/Content/ScrollContainer/Container" unique_id=661195764 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="Hotbar" type="Control" parent="Popup" unique_id=611244576]
+layout_mode = 1
+anchor_left = -0.024
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0158731
+offset_left = 13.056
+offset_top = 8.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="SE_UIControlDrag" type="Node" parent="Popup/Hotbar" unique_id=856251217 node_paths=PackedStringArray("TARGET_INPUT", "TARGET_DRAG")]
+script = ExtResource("2_rt034")
+TARGET_INPUT = NodePath("../Head")
+TARGET_DRAG = NodePath("..")
+metadata/_custom_type_script = "uid://bxycsjbmhbgx6"
+
+[node name="BG" type="Panel" parent="Popup/Hotbar" unique_id=1799346348]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_rt034")
+
+[node name="Head" type="Panel" parent="Popup/Hotbar" unique_id=2069385241]
+visible = false
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = -24.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_0j52p")
+
+[node name="Title" type="Label" parent="Popup/Hotbar/Head" unique_id=361297936]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxFlat_ce3dg")
+text = "Inventory (root)"
+label_settings = SubResource("LabelSettings_jb7ik")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Content" type="Control" parent="Popup/Hotbar" unique_id=1827690585]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = -8.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScrollContainer" type="ScrollContainer" parent="Popup/Hotbar/Content" unique_id=1576878235]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="GridContainer" parent="Popup/Hotbar/Content/ScrollContainer" unique_id=2043620134]
+layout_mode = 2
+size_flags_horizontal = 2
+size_flags_vertical = 4
+theme_override_constants/h_separation = 2
+theme_override_constants/v_separation = 2
+columns = 8
+
+[node name="UI_InventorySlot3" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=734652916 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot4" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=1014559557 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot5" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=1405371088 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot6" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=979359257 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot7" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=127992662 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot8" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=510736563 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot9" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=1599035867 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot10" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=1688265325 instance=ExtResource("4_6gwym")]
+layout_mode = 2
+
+[node name="UI_InventorySlot11" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=624878926 instance=ExtResource("4_6gwym")]
+layout_mode = 2

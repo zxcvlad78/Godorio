@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://cx01w5fvujmvp"]
+
+[ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="1_i7aln"]
+[ext_resource type="Texture2D" uid="uid://bt0vvwyx7fw1u" path="res://mods-unpacked/zxcvlxd-core/src/textures/dirt/0.png" id="2_cy30o"]
+
+[sub_resource type="GDScript" id="GDScript_i7aln"]
+resource_name = "script"
+script/source = "extends Control
+
+@export var resource:R_WorldObject
+
+@onready var button: Button = $Button
+@onready var label_id: Label = $label_id
+@onready var texture_rect: TextureRect = $TextureRect
+
+
+func _ready() -> void:
+	if !resource:
+		return
+	
+	label_id.text = resource.id
+	texture_rect.texture = resource.icon
+	
+	button.pressed.connect(_on_button_pressed)
+
+
+func _on_button_pressed() -> void:
+	var node_group:NodeGroup3D = NodeGroup3D.get_by_name(\"NetworkedObjects\")
+	if !node_group:
+		return
+	
+	WorldObjectReference.spawn_reference(node_group, resource)
+"
+
+[sub_resource type="LabelSettings" id="LabelSettings_l5vsb"]
+font = ExtResource("1_i7aln")
+font_size = 8
+outline_size = 2
+outline_color = Color(0.080783345, 0.080783345, 0.080783345, 1)
+
+[node name="wo_ref_ui" type="Control" unique_id=324770068]
+custom_minimum_size = Vector2(104, 104)
+layout_mode = 3
+anchor_right = 0.081
+anchor_bottom = 0.14400001
+offset_right = -103.68
+offset_bottom = -103.68001
+script = SubResource("GDScript_i7aln")
+
+[node name="Panel" type="Panel" parent="." unique_id=1223035407]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="." unique_id=456949644]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="label_id" type="Label" parent="." unique_id=1217593548]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+text = "basketball_ball"
+label_settings = SubResource("LabelSettings_l5vsb")
+horizontal_alignment = 1
+vertical_alignment = 2
+text_overrun_behavior = 5
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1077334778]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.019000001
+anchor_right = 1.0
+anchor_bottom = 0.827
+offset_left = 0.02399993
+offset_top = 2.0
+offset_right = -2.0
+offset_bottom = -0.008003235
+mouse_filter = 2
+texture = ExtResource("2_cy30o")
+expand_mode = 1
+stretch_mode = 5
+metadata/_edit_use_anchors_ = true

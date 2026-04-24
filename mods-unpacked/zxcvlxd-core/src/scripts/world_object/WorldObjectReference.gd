@@ -37,31 +37,36 @@ func _on_cmd_executed(cmd:SD_ConsoleCommand) -> void:
 				_logger.debug("spawn failed: id not found", SD_ConsoleCategories.ERROR)
 				return
 			
-			var tree = Engine.get_main_loop() as SceneTree
-			var camera = tree.root.get_camera_3d()
-			
-			if not camera:
-				_logger.debug("spawn failed: no active camera found", SD_ConsoleCategories.ERROR)
-				return
-			
-			var space_state = camera.get_world_3d().direct_space_state
-			var ray_origin = camera.global_position
-			var ray_end = ray_origin - camera.global_transform.basis.z * 5.0
-			
-			var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
-
-			var result = space_state.intersect_ray(query)
-			
-			var spawn_pos: Vector3
-			if result:
-				spawn_pos = result.position
-			else:
-				spawn_pos = ray_origin - camera.global_transform.basis.z * 5.0
+			var spawn_pos:Vector3 = get_player_look_point()
 			
 			var new_node = spawn_reference(parent, resource)
 			print(new_node)
 			if new_node and new_node is Node3D:
 				new_node.global_position = spawn_pos
+
+static func get_player_look_point() -> Vector3:
+	var tree = Engine.get_main_loop() as SceneTree
+	var camera = tree.root.get_camera_3d()
+	
+	if !camera:
+		_logger.debug("'get_player_look_point': camera not found", SD_ConsoleCategories.ERROR)
+		return Vector3.ZERO
+	
+	var space_state = camera.get_world_3d().direct_space_state
+	var ray_origin = camera.global_position
+	var ray_end = ray_origin - camera.global_transform.basis.z * 5.0
+	
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	
+	var result = space_state.intersect_ray(query)
+	
+	var point:Vector3
+	if result:
+		point = result.position
+	else:
+		point = ray_origin - camera.global_transform.basis.z * 5.0
+	
+	return point
 
 static func append_reference(resource:R_WorldObject) -> Error:
 	if not resource or resource.id.is_empty():
@@ -93,6 +98,10 @@ static func spawn_reference(parent_node: Node, resource: R_WorldObject, properti
 	
 	resource.set_in(inst)
 	parent_node.add_child(inst)
+	
+	var look_point:Vector3 = get_player_look_point()
+	if look_point:
+		inst.set("global_position", look_point)
 	
 	for prop in properties:
 		inst.set(prop, properties[prop])

@@ -12,10 +12,64 @@
 [ext_resource type="Resource" uid="uid://cbkadwl124nx0" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball_ball.tres" id="9_t483b"]
 [ext_resource type="Script" uid="uid://c30gc2bkifa8w" path="res://mods-unpacked/zxcvlxd-core/src/components/ViewModelShake3D.gd" id="10_goy0h"]
 [ext_resource type="Script" uid="uid://dwd0ahnw8rjgl" path="res://mods-unpacked/zxcvlxd-core/src/components/C_ViewModelSway.gd" id="11_12alp"]
+[ext_resource type="Script" uid="uid://snig3fifk5co" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_Inventory.gd" id="13_o2j7e"]
+[ext_resource type="Script" uid="uid://8hb14ep8irja" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/InventorySlot.gd" id="14_vdjqi"]
+[ext_resource type="Script" uid="uid://7mtju6gx8jbv" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStack.gd" id="15_4g4hw"]
+[ext_resource type="Script" uid="uid://bdsvfvfac3oko" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_InventoryUI.gd" id="16_4g4hw"]
+[ext_resource type="PackedScene" uid="uid://2cg6c2nbj660" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_inventory_ui.tscn" id="17_gak78"]
+[ext_resource type="PackedScene" uid="uid://b6xjfcagfdefg" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_ui_inventory_slot.tscn" id="18_sdsu3"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
 radius = 0.3
 height = 1.7
+
+[sub_resource type="Resource" id="Resource_ujtsc"]
+script = ExtResource("15_4g4hw")
+object = ExtResource("9_t483b")
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
+
+[sub_resource type="Resource" id="Resource_gak78"]
+resource_name = "HotBarInventorySlot"
+script = ExtResource("14_vdjqi")
+item_stack = SubResource("Resource_ujtsc")
+tags = Array[StringName]([&"hotbar"])
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_sdsu3"]
+resource_name = "HotBarInventorySlot"
+script = ExtResource("14_vdjqi")
+tags = Array[StringName]([&"hotbar"])
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_u44up"]
+resource_name = "HotBarInventorySlot"
+script = ExtResource("14_vdjqi")
+tags = Array[StringName]([&"hotbar"])
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_xyh7o"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_bj6mi"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_2epga"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_nwlm2"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_oyvxu"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_tkfda"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
 
 [node name="Player" type="CharacterBody3D" unique_id=507290672]
 script = ExtResource("1_s4s1d")
@@ -87,8 +141,9 @@ state_machine = NodePath("../../BaseStateMachine")
 walk_bob = 6.8
 sprint_bob = 10.2
 
-[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437 node_paths=PackedStringArray("entity_head")]
+[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437 node_paths=PackedStringArray("inventory", "entity_head")]
 script = ExtResource("8_dufgj")
+inventory = NodePath("../../../C_Inventory")
 entity_head = NodePath("../..")
 object = ExtResource("9_t483b")
 metadata/_custom_type_script = "uid://b6denlouq17uw"
@@ -117,5 +172,19 @@ metadata/_custom_type_script = "uid://u84lpd488cwl"
 [node name="AudioStreamPlayer3D" type="AudioStreamPlayer3D" parent="C_EntityFootsteps" unique_id=105225626]
 volume_db = -15.0
 max_distance = 25.0
+
+[node name="C_Inventory" type="Node" parent="." unique_id=1000467198 node_paths=PackedStringArray("entity")]
+script = ExtResource("13_o2j7e")
+entity = NodePath("..")
+slots = Array[ExtResource("14_vdjqi")]([SubResource("Resource_gak78"), SubResource("Resource_sdsu3"), SubResource("Resource_u44up"), SubResource("Resource_xyh7o"), SubResource("Resource_bj6mi"), SubResource("Resource_2epga"), SubResource("Resource_nwlm2"), SubResource("Resource_oyvxu"), SubResource("Resource_tkfda")])
+metadata/_custom_type_script = "uid://snig3fifk5co"
+
+[node name="C_InventoryUI" type="Node" parent="C_Inventory" unique_id=1400433097]
+script = ExtResource("16_4g4hw")
+ui_prefab = ExtResource("17_gak78")
+ui_slot_prefab = ExtResource("18_sdsu3")
+metadata/_custom_type_script = "uid://bdsvfvfac3oko"
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=1533419962]
 
 [editable path="AnimatedModel3D"]

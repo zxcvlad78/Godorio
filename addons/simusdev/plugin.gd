@@ -27,8 +27,10 @@ func _enter_tree() -> void:
 		editor_plugins = SD_EditorPlugins.new()
 		add_child(editor_plugins)
 #чут чут нормально
-	inspector_plugin = SD_MetadataMaterial.SD_MetadataButtonInspectorPlugin.new()
-	add_inspector_plugin(inspector_plugin)
+	
+	if OS.has_feature("editor_hint"):
+		inspector_plugin = load("res://addons/simusdev/components/metadata/SD_MetadataButtonInspectorPlugin.gd").new()
+		add_inspector_plugin(inspector_plugin)
 	
 	for s in AUTOLOAD:
 		add_autoload_singleton(s, AUTOLOAD[s])

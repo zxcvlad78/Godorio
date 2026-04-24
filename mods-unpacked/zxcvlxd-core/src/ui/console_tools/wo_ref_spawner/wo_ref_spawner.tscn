@@ -1,0 +1,141 @@
+[gd_scene format=3 uid="uid://drygckfg36xa7"]
+
+[ext_resource type="PackedScene" uid="uid://cx01w5fvujmvp" path="res://mods-unpacked/zxcvlxd-core/src/ui/console_tools/wo_ref_spawner/wo_ref_ui.tscn" id="1_l5vsb"]
+[ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="1_tdp56"]
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="2_e8n06"]
+[ext_resource type="FontFile" uid="uid://d20lb1behl2yo" path="res://fonts/VMVTZARCARI-Regular.otf" id="4_jmfho"]
+
+[sub_resource type="GDScript" id="GDScript_l5vsb"]
+resource_name = "script"
+script/source = "extends Control
+
+@export var wo_ref_ui_prefab:PackedScene
+@onready var container:Container = %Container
+
+func _ready() -> void:
+	_update()
+	visibility_changed.connect(_on_visibility_changed)
+
+func _on_visibility_changed() -> void:
+	_update()
+
+func _update() -> void:
+	for c in container.get_children():
+		container.remove_child(c)
+		c.queue_free()
+	
+	var wo_references = WorldObjectReference.get_references()
+	for wo_ref in wo_references:
+		add_ref_item(wo_references[wo_ref])
+
+func add_ref_item(resource:R_WorldObject) -> Node:
+	if !wo_ref_ui_prefab:
+		return null
+	
+	if !resource:
+		return null
+	
+	var inst = wo_ref_ui_prefab.instantiate()
+	inst.set(\"resource\", resource)
+	container.add_child(inst)
+	
+	return inst
+"
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_1ketn"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.101960786, 0.101960786, 0.101960786, 0.8392157)
+corner_detail = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_l5vsb"]
+font = ExtResource("1_tdp56")
+font_size = 8
+outline_size = 2
+outline_color = Color(0.080783345, 0.080783345, 0.080783345, 1)
+
+[sub_resource type="GDScript" id="GDScript_ru3hg"]
+resource_name = "script"
+script/source = "extends Button
+
+@export var interface_menu:SD_UIInterfaceMenu
+
+func _pressed() -> void:
+	if !interface_menu:
+		return
+	
+	interface_menu.close()
+"
+
+[node name="wo_ref_spawner" type="Control" unique_id=1063933041]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = SubResource("GDScript_l5vsb")
+wo_ref_ui_prefab = ExtResource("1_l5vsb")
+
+[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=1594664642 node_paths=PackedStringArray("target")]
+script = ExtResource("2_e8n06")
+target = NodePath("..")
+open_at_start = true
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="Panel" type="Panel" parent="." unique_id=1781549302]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_1ketn")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="." unique_id=875589917]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 8.0
+offset_top = 64.0
+offset_right = -8.0
+offset_bottom = -88.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Container" type="HBoxContainer" parent="ScrollContainer" unique_id=1508509450]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 2
+
+[node name="wo_ref_ui" parent="ScrollContainer/Container" unique_id=324770068 instance=ExtResource("1_l5vsb")]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="." unique_id=1312853994]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = 0.076000005
+anchor_bottom = 0.076000005
+offset_left = 8.0
+offset_top = -13.720005
+offset_right = 268.0
+offset_bottom = 0.27999496
+text = "World Object Reference List"
+label_settings = SubResource("LabelSettings_l5vsb")
+
+[node name="Button" type="Button" parent="." unique_id=257615254]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 30.0
+grow_horizontal = 0
+theme_override_fonts/font = ExtResource("4_jmfho")
+theme_override_font_sizes/font_size = 16
+text = "X"
+flat = true
+script = SubResource("GDScript_ru3hg")

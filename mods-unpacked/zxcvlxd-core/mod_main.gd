@@ -34,7 +34,12 @@ func add_translations() -> void:
 
 func _ready() -> void:
 	if core_settings:
-		get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
+		var project_main_scene = load(ProjectSettings.get_setting("application/run/main_scene"))
+		var current_scene = load(get_tree().current_scene.scene_file_path)
+		if project_main_scene and current_scene:
+			if project_main_scene == current_scene:
+				get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
+		
 		WorldObjectHandler.new(core_settings.scan_paths, true).scan()
 	
 	world_object_reference = WorldObjectReference.new() #init

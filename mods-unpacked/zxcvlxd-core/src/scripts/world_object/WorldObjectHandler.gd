@@ -29,7 +29,8 @@ func _scan_recursive(path:String) -> void:
 		if dir.current_is_dir():
 			_scan_recursive(full_path)
 		else:
-			if full_path.ends_with(".tres") or full_path.ends_with(".res"):
+			full_path = clean_path(full_path)
+			if is_valid_path(full_path):
 				if ResourceLoader.exists(full_path):
 					var res = load(full_path)
 					if res is R_WorldObject:
@@ -39,3 +40,17 @@ func _scan_recursive(path:String) -> void:
 								print_rich("[color=white][WorldObjectHandler][/color][color=green]'%s' successfully added to the reference list[/color]" % res.id)
 							
 		file_name = dir.get_next()
+
+static func clean_path(path:String) -> String:
+	var p = path
+	if p.ends_with(".remap"):
+		p = p.trim_suffix(".remap")
+	
+	return p
+
+static func is_valid_path(path:String) -> bool:
+	var is_valid = path.ends_with(".tres") or path.ends_with(".res")
+	
+	print("[is_valid_path]: %s, %s" % [is_valid, path])
+	
+	return is_valid

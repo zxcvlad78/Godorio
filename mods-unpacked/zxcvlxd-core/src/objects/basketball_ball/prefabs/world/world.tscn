@@ -75,8 +75,8 @@ script = SubResource("GDScript_0ga8a")
 [node name="SimusNetTransform" type="Node" parent="." unique_id=1849495983 node_paths=PackedStringArray("node")]
 script = ExtResource("1_pesh6")
 node = NodePath("..")
-interpolate_speed = 0.0
-tickrate = 128.0
+interpolate_speed = 32.0
+tickrate = 64.0
 server_authorative = true
 metadata/_custom_type_script = "uid://d1jwapkumdp1u"
 

@@ -49,6 +49,9 @@ func _ready() -> void:
 	drag_node_last_rot = drag_node.rotation
 
 func _input(event: InputEvent) -> void:
+	if SimusDev.ui.has_active_interface():
+		return
+	
 	if event.is_action_pressed("throw"):
 		is_charging = true
 		current_force = min_force

@@ -5,13 +5,14 @@ enum ViewModelType {
 	ENTITY,
 }
 
-@export var entity_head:EntityHead
 
 @export var type:ViewModelType = ViewModelType.VIEW :
 	set(val):
 		type = val
 		if is_inside_tree(): _update()
 
+@export var inventory:C_Inventory
+@export var entity_head:EntityHead
 @export var object:R_WorldObject :
 	set(val):
 		object = val
