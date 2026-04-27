@@ -1,69 +1,9 @@
 [gd_scene format=3 uid="uid://2cg6c2nbj660"]
 
-[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="1_6gwym"]
+[ext_resource type="Script" uid="uid://bj1hsuowqceo4" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/InventoryUI.gd" id="1_rt034"]
 [ext_resource type="Script" uid="uid://bxycsjbmhbgx6" path="res://addons/simusdev/ui/SD_UIControlDrag.gd" id="2_rt034"]
 [ext_resource type="FontFile" uid="uid://dmwiplorkr5kb" path="res://fonts/LCD40x2Display-Regular.otf" id="3_6gwym"]
 [ext_resource type="PackedScene" uid="uid://b6xjfcagfdefg" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_ui_inventory_slot.tscn" id="4_6gwym"]
-
-[sub_resource type="GDScript" id="GDScript_ftngv"]
-resource_name = "script"
-script/source = "extends Control
-
-@export var c_inventory_ui:C_InventoryUI
-@export var container:Container
-@export var hotbar_container:Container
-@export var title:Label
-
-func _ready() -> void:
-	_update()
-	c_inventory_ui.inventory.slot_added.connect(add_ui_slot)
-	c_inventory_ui.inventory.slot_removed.connect(remove_ui_slot)
-	
-	if title:
-		var target_text:String = \"Inventory\"
-		var entity = c_inventory_ui.inventory.entity
-		if entity:
-			if entity is W_Player:
-				#var player = 
-				pass
-		
-		title.text = target_text
-
-func _update() -> void:
-	for c in container.get_children():
-		c.queue_free()
-	
-	for c in hotbar_container.get_children():
-		c.queue_free()
-	
-	for slot in c_inventory_ui.inventory.slots:
-		add_ui_slot(slot)
-
-func add_ui_slot(slot:InventorySlot) -> UI_InventorySlot:
-	var new_ui_slot = c_inventory_ui.ui_slot_prefab.instantiate() as UI_InventorySlot
-	if !new_ui_slot:
-		return null
-	
-	new_ui_slot.c_inventory_ui = c_inventory_ui
-	new_ui_slot.slot = slot
-	
-	if slot.tags.has(\"hotbar\"):
-		hotbar_container.add_child(new_ui_slot, true)
-	else:
-		container.add_child(new_ui_slot, true)
-	
-	
-	return new_ui_slot
-
-func remove_ui_slot(slot:InventorySlot) -> void:
-	var ui_slot:UI_InventorySlot
-	for c in container.get_children():
-		if c.get(\"slot\") == slot:
-			ui_slot = c
-			break
-	
-	ui_slot.queue_free()
-"
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rt034"]
 content_margin_left = 0.0
@@ -119,29 +59,27 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = SubResource("GDScript_ftngv")
+size_flags_horizontal = 3
+script = ExtResource("1_rt034")
 container = NodePath("Popup/Content/ScrollContainer/Container")
 hotbar_container = NodePath("Popup/Hotbar/Content/ScrollContainer/Container")
 title = NodePath("Popup/Head/Title")
 
-[node name="SD_UIInterfaceMenu" type="Node" parent="." unique_id=1060245996 node_paths=PackedStringArray("target")]
-script = ExtResource("1_6gwym")
-target = NodePath("..")
-input_action = "inventory"
-close_on_escape = false
-metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
-
 [node name="Popup" type="Control" parent="." unique_id=316491314]
 layout_mode = 1
-anchor_left = 0.2875
-anchor_top = 0.1
-anchor_right = 0.7125
-anchor_bottom = 0.8
+anchor_left = 0.50200003
+anchor_top = 0.5
+anchor_right = 0.50200003
+anchor_bottom = 0.5
+offset_left = -274.56006
+offset_top = -288.0
+offset_right = 269.43994
+offset_bottom = 216.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
 [node name="SE_UIControlDrag" type="Node" parent="Popup" unique_id=579817549 node_paths=PackedStringArray("TARGET_INPUT", "TARGET_DRAG")]
+process_mode = 4
 script = ExtResource("2_rt034")
 TARGET_INPUT = NodePath("../Head")
 TARGET_DRAG = NodePath("..")

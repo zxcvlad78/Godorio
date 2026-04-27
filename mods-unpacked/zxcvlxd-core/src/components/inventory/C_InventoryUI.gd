@@ -1,24 +1,40 @@
 class_name C_InventoryUI extends Node
 
-#const DEFAULT_UI_PREFAB = preload()
+var _default_ui_prefab = load("res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_inventory_ui.tscn")
+var _default_ui_slot_prefab = load("res://mods-unpacked/zxcvlxd-core/src/components/inventory/default_ui/default_ui_inventory_slot.tscn")
 
-@export var ui_prefab:PackedScene :
+@export var ui_prefab:PackedScene = _default_ui_prefab :
 	set(val):
 		ui_prefab = val
 		if not is_node_ready():
 			await ready
-		_update_ui_instance()
-@export var ui_slot_prefab:PackedScene
+		pass
+
+@export var ui_slot_prefab:PackedScene = _default_ui_slot_prefab
 
 @export_group("Custom", "custom_")
 @export var custom_inventory:C_Inventory
 
-var inventory:C_Inventory
+var c_interactable:C_Interactable
 
-var canvas_layer:CanvasLayer
-var ui_inst:Control
+var inventory:C_Inventory
+var ui_inst:InventoryUI
 
 func _ready() -> void:
+	SimusNetRPC.register(
+		[
+			_request_open_container,
+		],
+		SimusNetRPCConfig.new().flag_mode_any_peer()
+	)
+	
+	SimusNetRPC.register(
+		[
+			_open_ui_client,
+		],
+		SimusNetRPCConfig.new().flag_mode_server_only()
+	)
+	
 	var auth:bool = is_multiplayer_authority()
 	set_process(auth)
 	set_physics_process(auth)
@@ -28,31 +44,55 @@ func _ready() -> void:
 	
 	_auto_bind_inventory()
 	
-	if !is_multiplayer_authority():
+	c_interactable = C_Interactable.new()
+	c_interactable.target = inventory.root
+	add_child(c_interactable)
+	
+	c_interactable.interacted.connect(_on_interacted)
+	
+	if !auth:
 		return
 	
-	canvas_layer = CanvasLayer.new()
-	#canvas_layer.input
-	add_child(canvas_layer)
-	
-	_update_ui_instance()
+	_setup_instance()
 
-
-func _update_ui_instance() -> void:
-	if !canvas_layer:
-		return
-	if !ui_prefab:
-		return
-	
+func _setup_instance() -> void:
 	if is_instance_valid(ui_inst):
 		ui_inst.queue_free()
 	
-	ui_inst = ui_prefab.instantiate() as Control
+	ui_inst = ui_prefab.instantiate()
 	if !ui_inst:
+		print("sex 2 23525 3423 5 235532 235")
 		return
 	
 	ui_inst.set("c_inventory_ui", self)
-	canvas_layer.add_child(ui_inst)
+
+func _on_interacted(ray:C_InteractionRay) -> void:
+	if not ray.is_multiplayer_authority():
+		return
+	
+	request_open_container()
+
+func request_open_container() -> void:
+	SimusNetRPC.invoke_on_server(_request_open_container)
+
+func _request_open_container() -> void:
+	if inventory.private and inventory.get_multiplayer_authority() != SimusNetRemote.sender_id:
+		return
+	
+	SimusNetRPC.invoke_on_sender(_open_ui_client)
+
+
+func _open_ui_client() -> void:
+	var player_ui = PlayerUI.i()
+	if !player_ui: return
+	
+	player_ui.other_inventory = ui_inst
+	
+	if not player_ui.other_inventory.is_inside_tree():
+		player_ui.inventory_container.add_child(player_ui.other_inventory)
+	
+	player_ui.other_inventory.show()
+	player_ui.inventory_interface_menu.open()
 
 func _notification(what: int) -> void:
 	if what == NOTIFICATION_PARENTED:
@@ -61,5 +101,6 @@ func _notification(what: int) -> void:
 func _auto_bind_inventory() -> void:
 	if custom_inventory:
 		inventory = custom_inventory
+		return
 	
 	inventory = get_parent() as C_Inventory

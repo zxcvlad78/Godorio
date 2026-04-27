@@ -30,6 +30,12 @@ cache = SubResource("Resource_wyevy")
 script = ExtResource("8_g3kiw")
 developer = "zxcvlxd"
 game_code = "godorio"
+game = Dictionary[String, Variant]({
+"minimize_feature": false,
+"minimize_feature_on_release": true,
+"mute_audio_when_minimized": false,
+"pause_when_minimized": false
+})
 gamebuild = SubResource("Resource_tmnv5")
 tools = Array[PackedScene]([ExtResource("9_tfge0")])
 network = SubResource("Resource_ow402")

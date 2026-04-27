@@ -14,8 +14,82 @@
 [ext_resource type="Animation" uid="uid://ck01aor5oq8ta" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/skeleton.anim" id="12_tgh6d"]
 [ext_resource type="Animation" uid="uid://b0jmmpqt01kvf" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation/res/walking.anim" id="13_wbbn8"]
 
+[sub_resource type="Animation" id="Animation_cd82i"]
+resource_name = "basketball_ball"
+tracks/0/type = "rotation_3d"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("rig/Skeleton3D:upper_arm.L")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = PackedFloat32Array(0, 1, -0.008242852, -0.628015, 0.7394664, -0.24231932)
+tracks/1/type = "rotation_3d"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("rig/Skeleton3D:forearm.L")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = PackedFloat32Array(0, 1, 0.70082647, -0.40261024, -0.05258677, 0.5864997)
+tracks/2/type = "rotation_3d"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("rig/Skeleton3D:hand.L")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = PackedFloat32Array(0, 1, 0.004074208, 0.14788765, 0.12231335, 0.9814031)
+tracks/3/type = "rotation_3d"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("rig/Skeleton3D:hand.L_end")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/4/type = "rotation_3d"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("rig/Skeleton3D:upper_arm.R")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = PackedFloat32Array(0, 1, -0.27112085, -0.7867945, 0.15720508, 0.5317279)
+tracks/5/type = "rotation_3d"
+tracks/5/imported = false
+tracks/5/enabled = true
+tracks/5/path = NodePath("rig/Skeleton3D:forearm.R")
+tracks/5/interp = 1
+tracks/5/loop_wrap = true
+tracks/5/keys = PackedFloat32Array(0, 1, -0.38425803, 0.12914452, 0.8075309, -0.4284406)
+tracks/6/type = "rotation_3d"
+tracks/6/imported = false
+tracks/6/enabled = true
+tracks/6/path = NodePath("rig/Skeleton3D:hand.R")
+tracks/6/interp = 1
+tracks/6/loop_wrap = true
+tracks/6/keys = PackedFloat32Array(0, 1, -0.056013063, 0.9144454, 0.024482075, 0.40006596)
+tracks/7/type = "rotation_3d"
+tracks/7/imported = false
+tracks/7/enabled = true
+tracks/7/path = NodePath("rig/Skeleton3D:hand.R_end")
+tracks/7/interp = 1
+tracks/7/loop_wrap = true
+tracks/7/keys = PackedFloat32Array(0, 1, 0, 0, 0, 1)
+tracks/8/type = "rotation_3d"
+tracks/8/imported = false
+tracks/8/enabled = true
+tracks/8/path = NodePath("rig/Skeleton3D:shoulder.L")
+tracks/8/interp = 1
+tracks/8/loop_wrap = true
+tracks/8/keys = PackedFloat32Array(0, 1, -0.51888436, -0.43141305, -0.56079745, 0.4797376)
+tracks/9/type = "rotation_3d"
+tracks/9/imported = false
+tracks/9/enabled = true
+tracks/9/path = NodePath("rig/Skeleton3D:shoulder.R")
+tracks/9/interp = 1
+tracks/9/loop_wrap = true
+tracks/9/keys = PackedFloat32Array(0, 1, -0.53421724, 0.40805703, 0.5630341, 0.48072237)
+
 [resource]
 _data = {
+&"basketball_ball": SubResource("Animation_cd82i"),
 &"idle": ExtResource("1_nyheo"),
 &"jump": ExtResource("2_cd82i"),
 &"left strafe": ExtResource("3_w07qv"),

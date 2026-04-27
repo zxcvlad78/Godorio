@@ -11,6 +11,8 @@
 [sub_resource type="Resource" id="Resource_v2sfb"]
 script = ExtResource("3_cxb4s")
 prefab = ExtResource("2_mxqtr")
+position = Vector3(-0.19493878, 0.02722466, -0.029870033)
+scale = Vector3(0.73999995, 0.73999995, 0.73999995)
 metadata/_custom_type_script = "uid://b2jd4rd50y2g"
 
 [sub_resource type="Resource" id="Resource_alttg"]
@@ -28,6 +30,7 @@ script = ExtResource("4_xcem1")
 view = SubResource("Resource_alttg")
 entity = SubResource("Resource_v2sfb")
 world = SubResource("Resource_lbcr7")
+entity_animation = &"basketball_ball"
 metadata/_custom_type_script = "uid://dkvwih2bnsj28"
 
 [resource]

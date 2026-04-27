@@ -1,0 +1,43 @@
+[gd_scene format=3 uid="uid://dgq3mbu4e6p40"]
+
+[ext_resource type="Script" uid="uid://wypdpby4o6jq" path="res://mods-unpacked/zxcvlxd-core/src/scripts/PlayerUI.gd" id="1_0y8wl"]
+[ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="2_bncix"]
+
+[node name="PlayerUI" type="CanvasLayer" unique_id=340657117 node_paths=PackedStringArray("inventory_container", "inventory_interface_menu")]
+script = ExtResource("1_0y8wl")
+inventory_container = NodePath("Control/inventory/InventoryContainer")
+inventory_interface_menu = NodePath("Control/inventory/InventoryInterfaceMenu")
+metadata/_custom_type_script = "uid://wypdpby4o6jq"
+
+[node name="Control" type="Control" parent="." unique_id=535879146]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="inventory" type="Control" parent="Control" unique_id=1316915019]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="InventoryInterfaceMenu" type="Node" parent="Control/inventory" unique_id=570376055 node_paths=PackedStringArray("target")]
+script = ExtResource("2_bncix")
+target = NodePath("..")
+input_action = "inventory"
+close_on_escape = false
+metadata/_custom_type_script = "uid://d1l1jkmj6s53f"
+
+[node name="InventoryContainer" type="HBoxContainer" parent="Control/inventory" unique_id=1074203682]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1

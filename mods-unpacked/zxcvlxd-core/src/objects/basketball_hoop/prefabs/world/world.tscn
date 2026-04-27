@@ -14,26 +14,24 @@ script/source = "extends Area3D
 
 func _ready() -> void:
 	SimusNetRPC.register(
-		[
-			_receive,
-			success,
-			
-		],
-		
+		[_send],
+		SimusNetRPCConfig.new().flag_mode_any_peer()
 	)
-	
+	SimusNetRPC.register(
+		[_receive, success],
+		SimusNetRPCConfig.new().flag_mode_server_only()
+	)
+
 	if multiplayer.is_server():
-		multiplayer.peer_connected.connect(_on_peer_connected)
 		body_entered.connect(_on_body_entered)
+	else:
+		_request_receive_data()
 
-func _on_peer_connected(id:int) -> void:
-	_send(id)
+func _request_receive_data() -> void:
+	SimusNetRPC.invoke_on_server(_send)
 
-func _send(peer:int = -1) -> void:
-	if peer == -1:
-		SimusNetRPC.invoke_all(_receive, count)
-		return
-	SimusNetRPC.invoke_on(peer, _receive, count)
+func _send() -> void:
+	SimusNetRPC.invoke_on_sender(_receive, count)
 
 func _receive(s_count:int) -> void:
 	count = s_count

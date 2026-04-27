@@ -88,6 +88,3 @@ max_distance = 40.0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=1035170096]
 shape = SubResource("SphereShape3D_3v5w6")
-
-[editable path="Model"]
-[editable path="Model/Sketchfab_Scene"]

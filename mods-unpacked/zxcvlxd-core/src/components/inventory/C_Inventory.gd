@@ -1,47 +1,93 @@
 class_name C_Inventory extends Node
 
+signal slot_selected(slot:InventorySlot)
+signal slot_deselected(slot:InventorySlot)
+
 signal slot_added(slot:InventorySlot)
 signal slot_removed(slot:InventorySlot)
 
-@export var entity:BaseEntity
+@export var root:Node3D
+@export var private:bool = false
 @export var slots:Array[InventorySlot]
 
+var selected_slot:InventorySlot
+
 func _ready() -> void:
+	var auth:bool = is_multiplayer_authority()
+	set_process_input(auth)
+	set_process_unhandled_input(auth)
+	
 	SimusNetRPC.register(
 		[
+			_send,
+			_requset_receive_data,
 			_receive,
+			local_select_slot,
 			local_add_slot,
 			local_remove_slot,
 		],
-		#SimusNetRPCConfig.new()
+		SimusNetRPCConfig.new().flag_mode_any_peer()
 	)
 	
-	if multiplayer.is_server():
-		multiplayer.peer_connected.connect(_on_peer_connected)
+	if !multiplayer.is_server():
+		_requset_receive_data()
 
-func _on_peer_connected(id:int) -> void:
-	_send(id)
+func _requset_receive_data() -> void:
+	SimusNetRPC.invoke_on_server(_send)
 
-#region test
 func _input(_event: InputEvent) -> void:
-	if !is_multiplayer_authority():
-		return
-	
-	if Input.is_action_just_pressed("ui_accept"):
-		var item_stack:ItemStack = ItemStack.new(WorldObjectReference.get_reference_by_id("basketball_hoop"))
-		add_item(item_stack)
-#endregion
+	if Input.is_action_just_pressed("hotbar_slot_0"): select_slot_by_idx(0, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_1"): select_slot_by_idx(1, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_2"): select_slot_by_idx(2, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_3"): select_slot_by_idx(3, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_4"): select_slot_by_idx(4, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_5"): select_slot_by_idx(5, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_6"): select_slot_by_idx(6, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_7"): select_slot_by_idx(7, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_8"): select_slot_by_idx(8, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_9"): select_slot_by_idx(9, ["hotbar"])
+	if Input.is_action_just_pressed("hotbar_slot_10"): select_slot_by_idx(10, ["hotbar"])
 
-func _send(peer_id:int = -1) -> void:
-	if peer_id == -1:
-		SimusNetRPC.invoke(_receive, slots)
-		return
-	print(peer_id)
-	SimusNetRPC.invoke_on(peer_id, _receive, slots)
+	if Input.is_action_just_pressed("ui_accept"):
+		var item_stack1:ItemStack = ItemStack.new(
+			WorldObjectReference.get_reference_by_id("basketball_hoop")
+			)
+		add_item(item_stack1)
+
+		var item_stack2:ItemStack = ItemStack.new(
+			WorldObjectReference.get_reference_by_id("basketball_ball")
+			)
+		add_slot(InventorySlot.new(item_stack2))
+
+
+func _send() -> void:
+	SimusNetRPC.invoke_on_sender(_receive, slots)
 
 func _receive(s_slots:Array[InventorySlot]) -> void:
 	slots = s_slots
-	print("Received slots: %s" % s_slots)
+
+
+func select_slot_by_idx(idx:int, tags:Array[StringName]) -> InventorySlot:
+	var found_slots = get_slots_by_tags(tags)
+	if found_slots.is_empty():
+		return null
+	
+	if idx > found_slots.size() - 1:
+		return null
+	
+	var slot = found_slots[idx]
+	if slot:
+		select_slot(slot)
+	
+	return slot
+
+func select_slot(slot:InventorySlot) -> void:
+	local_select_slot(slot)
+	SimusNetRPC.invoke(local_select_slot, slot)
+
+func local_select_slot(slot:InventorySlot) -> void:
+	selected_slot = slot
+	slot_selected.emit(slot)
 
 func add_slot(slot:InventorySlot) -> InventorySlot:
 	var new_slot:InventorySlot = local_add_slot(slot)
@@ -71,6 +117,7 @@ func local_remove_slot(idx:int) -> InventorySlot:
 	return null
 
 func add_item(item_stack:ItemStack) -> ItemStack:
+
 	var free_slot = get_free_slot()
 	if !free_slot:
 		return

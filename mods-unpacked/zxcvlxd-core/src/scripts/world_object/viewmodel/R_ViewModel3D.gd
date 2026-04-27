@@ -8,3 +8,5 @@ func instantiate_entity() -> Node:
 
 func instantiate_world() -> Node:
 	return null
+
+@export var entity_animation:StringName

@@ -3,19 +3,20 @@
 importer="texture"
 type="CompressedTexture2D"
 uid="uid://q7wnttd6uwp5"
-path="res://.godot/imported/icon_inv.png-2989628e09fd1c98521cf6b8eef68c94.ctex"
+path.s3tc="res://.godot/imported/icon_inv.png-2989628e09fd1c98521cf6b8eef68c94.s3tc.ctex"
 metadata={
-"vram_texture": false
+"imported_formats": ["s3tc_bptc"],
+"vram_texture": true
 }
 
 [deps]
 
 source_file="res://addons/simusdev/components/inventory/icon_inv.png"
-dest_files=["res://.godot/imported/icon_inv.png-2989628e09fd1c98521cf6b8eef68c94.ctex"]
+dest_files=["res://.godot/imported/icon_inv.png-2989628e09fd1c98521cf6b8eef68c94.s3tc.ctex"]
 
 [params]
 
-compress/mode=0
+compress/mode=2
 compress/high_quality=false
 compress/lossy_quality=0.7
 compress/uastc_level=0
@@ -37,4 +38,4 @@ process/normal_map_invert_y=false
 process/hdr_as_srgb=false
 process/hdr_clamp_exposure=false
 process/size_limit=0
-detect_3d/compress_to=1
+detect_3d/compress_to=0

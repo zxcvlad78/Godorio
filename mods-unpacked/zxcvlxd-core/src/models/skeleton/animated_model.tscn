@@ -6,6 +6,8 @@
 [ext_resource type="AnimationLibrary" uid="uid://2tjuq5oxvs3y" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animation_library.tres" id="3_wmmkt"]
 [ext_resource type="AnimationNodeBlendTree" uid="uid://b6jyaoc56yfma" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/blend_tree.tres" id="4_ccs8m"]
 [ext_resource type="Script" uid="uid://skm08tu2sqki" path="res://mods-unpacked/zxcvlxd-core/src/components/C_NodeNetworkVisibility.gd" id="6_4g1ca"]
+[ext_resource type="Script" uid="uid://hso2ju3bqqww" path="res://addons/simusdev/SimusNet/SimusNetIdentity.gd" id="6_ig2gs"]
+[ext_resource type="Script" uid="uid://b6denlouq17uw" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/ViewModelRoot3D.gd" id="7_lwb3f"]
 
 [sub_resource type="Resource" id="Resource_ccs8m"]
 script = ExtResource("2_ccs8m")
@@ -21,10 +23,16 @@ property_path = &"parameters/StateMachine/Walking/blend_position"
 property_value_path = &"actor_blend_position"
 metadata/_custom_type_script = "uid://b0h5c2ihivpv1"
 
+[sub_resource type="Resource" id="Resource_8gbya"]
+script = ExtResource("6_ig2gs")
+
+[sub_resource type="Resource" id="Resource_ig2gs"]
+script = ExtResource("6_ig2gs")
+
 [node name="AnimatedModel3D" type="Node3D" unique_id=188275085 node_paths=PackedStringArray("root", "model", "tree", "player", "skeleton")]
 script = ExtResource("1_wmmkt")
 _process_properties = Array[ExtResource("2_ccs8m")]([SubResource("Resource_ccs8m"), SubResource("Resource_4g1ca")])
-root = NodePath("")
+root = NodePath("..")
 model_scene = ExtResource("2_ymsli")
 library = ExtResource("3_wmmkt")
 blend_tree = ExtResource("4_ccs8m")
@@ -33,9 +41,50 @@ tree = NodePath("AnimationTree")
 player = NodePath("AnimationPlayer")
 skeleton = NodePath("model3d/rig/Skeleton3D")
 metadata/_custom_type_script = "uid://pf622qfdiljm"
+metadata/SimusNetIdentity = SubResource("Resource_8gbya")
+metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"))
+
 
 [node name="model3d" parent="." unique_id=1361024678 instance=ExtResource("2_ymsli")]
 transform = Transform3D(-1, 0, -8.742278e-08, 0, 1, 0, 8.742278e-08, 0, -1, 0, 0, 0)
+
+[node name="rig" parent="model3d" index="0" unique_id=705305829]
+transform = Transform3D(0.9948426, 0.087933116, 0.05055275, -0.04432264, -0.07141562, 0.9964613, 0.091232195, -0.99356294, -0.067149885, -0.04918557, -0.0055328235, 0.08487543)
+
+[node name="Skeleton3D" parent="model3d/rig" index="0" unique_id=2116021239]
+bones/1/rotation = Quaternion(-0.21657151, 0.006734498, 0.017174404, 0.9760925)
+bones/2/rotation = Quaternion(0.14323807, 0.009424316, 0.03466705, 0.989036)
+bones/3/rotation = Quaternion(0.16300778, -0.00059524283, 0.0027100206, 0.98662096)
+bones/4/rotation = Quaternion(-0.1068565, -0.0005602175, 0.0027196205, 0.99427056)
+bones/5/rotation = Quaternion(0.9326431, 0.0020675575, 0.0018503314, 0.36078966)
+bones/7/rotation = Quaternion(-0.52011454, -0.43101743, -0.55509335, 0.48536208)
+bones/8/position = Vector3(0.0016979116, 0.16241618, 0.003998202)
+bones/8/rotation = Quaternion(-0.21030171, 0.6978097, -0.5775926, 0.36772493)
+bones/8/scale = Vector3(0.9999999, 0.99999964, 1.0000001)
+bones/9/position = Vector3(-6.889826e-08, 0.31926608, -4.9611437e-08)
+bones/9/rotation = Quaternion(0.013765916, -0.05750021, -3.8132075e-05, 0.99825066)
+bones/9/scale = Vector3(1.0000001, 0.99999964, 0.9999999)
+bones/10/position = Vector3(-4.4109072e-10, 0.26767948, -1.0875485e-08)
+bones/10/rotation = Quaternion(0.02287538, -0.2670157, -0.052347653, 0.9619975)
+bones/10/scale = Vector3(0.9999996, 1.0000001, 1.0000001)
+bones/12/rotation = Quaternion(-0.5356698, 0.40621617, 0.5617452, 0.48217076)
+bones/13/position = Vector3(-0.00169788, 0.16241622, 0.003998465)
+bones/13/rotation = Quaternion(-0.12165512, -0.7694513, 0.53363687, 0.32920572)
+bones/13/scale = Vector3(0.99999964, 1, 0.9999998)
+bones/14/position = Vector3(-2.230428e-07, 0.3192662, 9.101434e-08)
+bones/14/rotation = Quaternion(0.05760751, 0.057410207, 0.00015961986, 0.9966873)
+bones/14/scale = Vector3(0.9999999, 0.99999976, 0.9999998)
+bones/15/position = Vector3(2.066005e-07, 0.2676794, -1.1157176e-07)
+bones/15/rotation = Quaternion(0.0014784085, 0.1634014, 0.05539799, 0.98500204)
+bones/15/scale = Vector3(0.9999999, 0.9999998, 0.99999934)
+bones/17/rotation = Quaternion(0.9709235, 0.05777813, -0.1412715, 0.1844231)
+bones/18/rotation = Quaternion(0.14959827, -0.014330251, -0.03890478, 0.9878773)
+bones/19/rotation = Quaternion(-0.5509013, -0.037037063, 0.0539897, 0.8319984)
+bones/20/rotation = Quaternion(1.2821297e-07, 0.962863, -0.2699907, -3.5951455e-08)
+bones/22/rotation = Quaternion(0.99150133, 0.031342674, 0.08954417, 0.08902073)
+bones/23/rotation = Quaternion(0.09083904, 0.08426676, 0.030307394, 0.99183106)
+bones/24/rotation = Quaternion(-0.58529675, 0.027078796, -0.020239975, 0.81011415)
+bones/25/rotation = Quaternion(-7.2140864e-08, 0.9579741, -0.286855, -3.8923385e-08)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1277635137]
 root_node = NodePath("../model3d")
@@ -45,9 +94,627 @@ libraries/animation_library = ExtResource("3_wmmkt")
 root_node = NodePath("../model3d")
 tree_root = ExtResource("4_ccs8m")
 anim_player = NodePath("../AnimationPlayer")
-parameters/StateMachine/Running/blend_position = Vector2(0.0020747185, 0.0038022995)
+parameters/StateMachine/Running/blend_position = Vector2(-0.0010649562, 0.0047392845)
 parameters/StateMachine/Walking/blend_position = Vector2(0.879, 0.033)
+parameters/ItemAnimationBlend/blend_amount = 0.0
 
 [node name="C_NodeNetworkVisibility" type="Node" parent="." unique_id=1750799557]
 script = ExtResource("6_4g1ca")
 metadata/_custom_type_script = "uid://skm08tu2sqki"
+
+[node name="RightHand" type="BoneAttachment3D" parent="." unique_id=1836939162]
+transform = Transform3D(0.9289987, -0.018369704, -0.36962456, 0.011575799, -0.99683595, 0.078635246, -0.36989984, -0.07733082, -0.92584664, 0.2529805, 0.70594496, -0.07961179)
+bone_name = "hand.R_end"
+bone_idx = 16
+use_external_skeleton = true
+external_skeleton = NodePath("../model3d/rig/Skeleton3D")
+
+[node name="ViewModelRoot3D" type="Node3D" parent="RightHand" unique_id=2141301044]
+script = ExtResource("7_lwb3f")
+type = null
+metadata/_custom_type_script = "uid://b6denlouq17uw"
+metadata/SimusNetIdentity = SubResource("Resource_ig2gs")
+metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"),"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+&"_receive": null,
+&"_send": null
+}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({
+0: null,
+1: null
+}),"_callables":Dictionary[StringName, Callable]({
+&"_receive": Callable(),
+&"_send": Callable()
+}),"_object":Object(Node3D,"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","transform":Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0),"rotation_edit_mode":0,"rotation_order":2,"top_level":false,"visible":true,"visibility_parent":NodePath(""),"script":ExtResource("7_lwb3f"),"type":null,"inventory":null,"entity_head":null,"animated_model":null,"object":null,"_ref":null,"metadata/_custom_type_script":"uid://b6denlouq17uw","metadata/SimusNetIdentity":SubResource("Resource_ig2gs"),"metadata/SimusNetRPCConfigHandler":Object(RefCounted,"script":null,"_list_by_name":Dictionary[StringName, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({}),"_list_by_unique_id":Dictionary[int, Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfig.gd")]({}),"_callables":Dictionary[StringName, Callable]({}),"_object":null,"_object_weak_ref":null,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+)
+,"_object_weak_ref":Object(WeakRef,"script":null)
+,"_async_method":&"","_async_args":[])
+
+
+[editable path="model3d"]
