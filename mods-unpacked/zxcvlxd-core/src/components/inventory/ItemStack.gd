@@ -6,15 +6,18 @@ signal quantity_changed()
 @export var quantity:int = 1 :
 	set(val):
 		quantity = val
-		
 		quantity_changed.emit()
 
 @export var stack_size:int = 1
 
+
 func _init(p_object:R_WorldObject = null) -> void:
+	SimusNetIdentity.register(self)
+	
 	SimusNetVars.register(
 		self,
 		[
+			"object",
 			"quantity",
 			"stack_size",
 		],

@@ -82,7 +82,6 @@ func _request_open_container() -> void:
 func _open_ui_client() -> void:
 	var player_ui = PlayerUI.i()
 	if !player_ui:
-		print(1)
 		return
 	
 	player_ui.other_inventory = ui_inst

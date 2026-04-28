@@ -10,7 +10,8 @@ signal slot_removed(slot:InventorySlot)
 @export var private:bool = false
 
 #region SLOTS
-@export var slots:Array[InventorySlot]
+@export var initial_slots:Array[InventorySlot]
+var slots:Array[InventorySlot]
 
 func _append_slot(slot:InventorySlot) -> void:
 	SimusNetRPC.invoke_all(_rpc_append_slot, slot)
@@ -63,7 +64,9 @@ func _ready() -> void:
 		SimusNetRPCConfig.new().flag_mode_to_server()
 	)
 	
-	if !multiplayer.is_server():
+	if multiplayer.is_server():
+		slots = initial_slots.duplicate(true)
+	else:
 		_requset_receive_data()
 
 
@@ -88,6 +91,7 @@ func _requset_receive_data() -> void: ##Client
 	SimusNetRPC.invoke_on_server(_send)
 
 func _receive(s_slots:Array[InventorySlot]) -> void: ##Client
+	print(s_slots)
 	slots = s_slots
 #endregion
 
@@ -204,8 +208,8 @@ func _server_split_item(from_slot:InventorySlot, to_slot:InventorySlot) -> void:
 		from_slot.item_stack.quantity -= amount_to_split
 		to_slot.item_stack = new_stack
 		
-	elif to_slot.item_stack.id == from_slot.item_stack.id:
-		var space_left = to_slot.item_stack.max_stack_size - to_slot.item_stack.quantity
+	elif to_slot.can_stack_with(from_slot.item_stack):
+		var space_left = to_slot.item_stack.stack_size - to_slot.item_stack.quantity
 		var actual_transfer = min(amount_to_split, space_left)
 		
 		if actual_transfer > 0:

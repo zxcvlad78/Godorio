@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://8hb14ep8irja" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/InventorySlot.gd" id="14_vdjqi"]
 [ext_resource type="Script" uid="uid://7mtju6gx8jbv" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStack.gd" id="15_4g4hw"]
 [ext_resource type="Script" uid="uid://blvex1oeocxkg" path="res://mods-unpacked/zxcvlxd-core/src/prefabs/C_PlayerInventoryUI.gd" id="18_u44up"]
+[ext_resource type="Resource" uid="uid://culuc2byns5ms" path="res://mods-unpacked/zxcvlxd-core/src/objects/test_object/test_object.tres" id="19_u44up"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
 radius = 0.3
@@ -33,44 +34,33 @@ script = ExtResource("7_sdsu3")
 [sub_resource type="Resource" id="Resource_ykvms"]
 script = ExtResource("7_sdsu3")
 
-[sub_resource type="Resource" id="Resource_ujtsc"]
+[sub_resource type="Resource" id="Resource_u44up"]
 script = ExtResource("15_4g4hw")
 object = ExtResource("9_t483b")
 metadata/_custom_type_script = "uid://7mtju6gx8jbv"
 
-[sub_resource type="Resource" id="Resource_gak78"]
-resource_name = "HotBarInventorySlot"
-script = ExtResource("14_vdjqi")
-item_stack = SubResource("Resource_ujtsc")
-tags = Array[StringName]([&"hotbar"])
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
-[sub_resource type="Resource" id="Resource_sdsu3"]
-resource_name = "HotBarInventorySlot"
-script = ExtResource("14_vdjqi")
-tags = Array[StringName]([&"hotbar"])
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
-[sub_resource type="Resource" id="Resource_u44up"]
-resource_name = "HotBarInventorySlot"
-script = ExtResource("14_vdjqi")
-tags = Array[StringName]([&"hotbar"])
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
 [sub_resource type="Resource" id="Resource_xyh7o"]
 script = ExtResource("14_vdjqi")
+item_stack = SubResource("Resource_u44up")
+tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
 [sub_resource type="Resource" id="Resource_bj6mi"]
-script = ExtResource("14_vdjqi")
-metadata/_custom_type_script = "uid://8hb14ep8irja"
+script = ExtResource("15_4g4hw")
+object = ExtResource("19_u44up")
+quantity = 64
+stack_size = 64
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
 
 [sub_resource type="Resource" id="Resource_2epga"]
 script = ExtResource("14_vdjqi")
+item_stack = SubResource("Resource_bj6mi")
+tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
 [sub_resource type="Resource" id="Resource_nwlm2"]
 script = ExtResource("14_vdjqi")
+tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
 [sub_resource type="Resource" id="Resource_oyvxu"]
@@ -78,6 +68,30 @@ script = ExtResource("14_vdjqi")
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
 [sub_resource type="Resource" id="Resource_tkfda"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_fo8vr"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_tovff"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_nqgwj"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_5g1v5"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_s0g0q"]
+script = ExtResource("14_vdjqi")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_1lg82"]
 script = ExtResource("14_vdjqi")
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
@@ -138,35 +152,35 @@ metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://a
 
 
 [node name="rig" parent="AnimatedModel3D/model3d" parent_id_path=PackedInt32Array(188275085, 1361024678) index="0" unique_id=705305829]
-transform = Transform3D(0.99477124, 0.0869197, 0.053615358, -0.047895998, -0.066602446, 0.9966291, 0.09019766, -0.9939862, -0.06209111, -0.05214255, -0.0063575893, 0.07749155)
+transform = Transform3D(0.9950236, 0.08376483, 0.05395396, -0.04769874, -0.074962065, 0.9960447, 0.08747802, -0.99366176, -0.07059356, -0.0533487, -0.006239174, 0.08742211)
 
 [node name="Skeleton3D" parent="AnimatedModel3D/model3d/rig" index="0" unique_id=2116021239]
-bones/1/rotation = Quaternion(-0.21399891, 0.008120821, 0.017405154, 0.9766451)
-bones/2/rotation = Quaternion(0.15053003, 0.012438856, 0.03571628, 0.9878817)
-bones/3/rotation = Quaternion(0.16458426, -0.00077091914, 0.0018243293, 0.986361)
-bones/4/rotation = Quaternion(-0.10518016, -0.00072697655, 0.0018589085, 0.9944512)
-bones/5/rotation = Quaternion(0.9332102, 0.0012139868, 0.0015684468, 0.35932553)
-bones/7/rotation = Quaternion(-0.5195306, -0.42994052, -0.562977, 0.47780347)
-bones/8/rotation = Quaternion(-0.20247988, 0.6986258, -0.57482386, 0.37483525)
-bones/9/rotation = Quaternion(0.013149343, -0.057500724, -3.6399815e-05, 0.9982589)
-bones/10/rotation = Quaternion(0.025656084, -0.27297536, -0.0471312, 0.96052325)
-bones/12/rotation = Quaternion(-0.5331194, 0.40847123, 0.5676636, 0.476123)
-bones/13/rotation = Quaternion(-0.12502761, -0.7687005, 0.53304434, 0.33065322)
-bones/14/rotation = Quaternion(0.057654183, 0.057409912, 0.00015963569, 0.99668455)
-bones/15/rotation = Quaternion(0.0016414396, 0.16689377, 0.05512332, 0.98443145)
-bones/17/rotation = Quaternion(0.9689606, 0.059862617, -0.14406787, 0.19177194)
-bones/18/rotation = Quaternion(0.15583596, -0.010811936, -0.037766986, 0.98700154)
-bones/19/rotation = Quaternion(-0.552627, -0.03658882, 0.05327057, 0.8309194)
-bones/22/rotation = Quaternion(0.99111843, 0.03345384, 0.08799225, 0.0939285)
-bones/23/rotation = Quaternion(0.09481472, 0.08421426, 0.030767752, 0.9914492)
-bones/24/rotation = Quaternion(-0.5858872, 0.027721165, -0.019627817, 0.8096806)
-bones/25/rotation = Quaternion(-1.1786311e-07, 0.9574382, -0.28863844, -3.558304e-08)
+bones/1/rotation = Quaternion(-0.21448474, 0.007813982, 0.017618584, 0.97653717)
+bones/2/rotation = Quaternion(0.15065327, 0.0126692485, 0.036057238, 0.9878476)
+bones/3/rotation = Quaternion(0.16468967, -0.0009199329, 0.0019291898, 0.9863432)
+bones/4/rotation = Quaternion(-0.10489494, -0.0009299706, 0.0017659132, 0.9944813)
+bones/5/rotation = Quaternion(0.9332412, 0.0012608371, 0.0017562141, 0.3592442)
+bones/7/rotation = Quaternion(-0.5196794, -0.42985103, -0.56249195, 0.4782931)
+bones/8/rotation = Quaternion(-0.20292707, 0.6978216, -0.5752202, 0.375483)
+bones/9/rotation = Quaternion(0.013316973, -0.057500586, -3.6873862e-05, 0.9982567)
+bones/10/rotation = Quaternion(0.025236234, -0.2733377, -0.0472629, 0.96042484)
+bones/12/rotation = Quaternion(-0.533115, 0.40862742, 0.56711423, 0.47664824)
+bones/13/rotation = Quaternion(-0.12660834, -0.7686149, 0.53264797, 0.3308894)
+bones/14/rotation = Quaternion(0.0573604, 0.05741088, 0.00015880587, 0.9967014)
+bones/15/rotation = Quaternion(0.00065659365, 0.16567594, 0.05486184, 0.98465294)
+bones/17/rotation = Quaternion(0.9693052, 0.060699947, -0.14525022, 0.18885286)
+bones/18/rotation = Quaternion(0.15964712, -0.00771081, -0.037822492, 0.98641926)
+bones/19/rotation = Quaternion(-0.55415374, -0.036837067, 0.05346738, 0.82987833)
+bones/22/rotation = Quaternion(0.9912988, 0.033361796, 0.08891504, 0.09114816)
+bones/23/rotation = Quaternion(0.099257804, 0.084087305, 0.03151909, 0.9910015)
+bones/24/rotation = Quaternion(-0.5887152, 0.029231774, -0.019563744, 0.807575)
+bones/25/rotation = Quaternion(-9.838217e-08, 0.9575694, -0.28820288, -1.4029436e-08)
 
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
 
 [node name="RightHand" parent="AnimatedModel3D" index="4" unique_id=1836939162]
-transform = Transform3D(0.9244714, -0.028445773, -0.38018584, -0.0060726553, -0.998184, 0.05991861, -0.38120025, -0.05308438, -0.9229655, 0.24508022, 0.7009921, -0.07397105)
+transform = Transform3D(0.9237176, -0.02588956, -0.38219574, -0.0016074181, -0.9979662, 0.06371633, -0.38306823, -0.058241785, -0.92188054, 0.24662659, 0.7011243, -0.07684405)
 
 [node name="ViewModelRoot3D" parent="AnimatedModel3D/RightHand" index="0" unique_id=2141301044 node_paths=PackedStringArray("inventory", "entity_head")]
 inventory = NodePath("../../../C_Inventory")
@@ -238,7 +252,7 @@ max_distance = 25.0
 script = ExtResource("13_o2j7e")
 root = NodePath("..")
 private = true
-slots = Array[ExtResource("14_vdjqi")]([SubResource("Resource_gak78"), SubResource("Resource_sdsu3"), SubResource("Resource_u44up"), SubResource("Resource_xyh7o"), SubResource("Resource_bj6mi"), SubResource("Resource_2epga"), SubResource("Resource_nwlm2"), SubResource("Resource_oyvxu"), SubResource("Resource_tkfda")])
+initial_slots = Array[ExtResource("14_vdjqi")]([SubResource("Resource_xyh7o"), SubResource("Resource_2epga"), SubResource("Resource_nwlm2"), SubResource("Resource_oyvxu"), SubResource("Resource_tkfda"), SubResource("Resource_fo8vr"), SubResource("Resource_tovff"), SubResource("Resource_nqgwj"), SubResource("Resource_5g1v5"), SubResource("Resource_s0g0q"), SubResource("Resource_1lg82")])
 metadata/_custom_type_script = "uid://snig3fifk5co"
 
 [node name="C_InventoryUI" type="Node" parent="C_Inventory" unique_id=560529819]

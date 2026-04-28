@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="R_WorldObject" format=3 uid="uid://culuc2byns5ms"]
+
+[ext_resource type="Script" uid="uid://cuaacsvf2hnmk" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/R_WorldObject.gd" id="1_togkm"]
+[ext_resource type="Texture2D" uid="uid://q8v4bw35ciw4" path="res://addons/simusdev/icons/FiniteStateMachine.png" id="1_v04ni"]
+
+[resource]
+script = ExtResource("1_togkm")
+id = &"test_object"
+name = &"Test Object"
+icon = ExtResource("1_v04ni")
+metadata/_custom_type_script = "uid://cuaacsvf2hnmk"

@@ -1,6 +1,6 @@
 class_name InventorySlot extends Resource
 
-signal item_stack_changed(new_item_stack:ItemStack)
+signal item_stack_changed()
 
 @export var item_stack:ItemStack :
 	set(val):
@@ -11,12 +11,13 @@ signal item_stack_changed(new_item_stack:ItemStack)
 					item_stack.quantity_changed.disconnect(_on_item_stack_quantity_changed)
 		
 		item_stack = val
-		item_stack_changed.emit(item_stack)
+		item_stack_changed.emit()
 		
 		if is_server:
 			if item_stack:
 				if not item_stack.quantity_changed.is_connected(_on_item_stack_quantity_changed):
 					item_stack.quantity_changed.connect(_on_item_stack_quantity_changed)
+
 
 @export var tags:Array[StringName]
 
@@ -41,6 +42,8 @@ func can_stack_with(p_item_stack:ItemStack) -> bool:
 	return true
 
 func _init(p_item_stack:ItemStack = null) -> void:
+	SimusNetIdentity.register(self)
+	
 	SimusNetVars.register(
 		self,
 		["item_stack"],

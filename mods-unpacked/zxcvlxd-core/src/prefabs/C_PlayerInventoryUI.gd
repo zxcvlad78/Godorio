@@ -1,19 +1,9 @@
 class_name C_PlayerInventoryUI extends C_InventoryUI
 
-#var initialized:bool = false
-
 func _ready() -> void:
 	super()
 	
 	if is_multiplayer_authority():
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
-		await get_tree().process_frame
 		await get_tree().process_frame
 		var player_ui:PlayerUI = PlayerUI.i()
 		if !player_ui:

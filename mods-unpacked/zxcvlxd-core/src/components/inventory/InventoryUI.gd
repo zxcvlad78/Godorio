@@ -15,7 +15,7 @@ func _ready() -> void:
 		var root = c_inventory_ui.inventory.root
 		if root:
 			if root is W_Player:
-				#var player = 
+				target_text = "Inventory (%s)" % str(c_inventory_ui.get_multiplayer_authority())
 				pass
 		
 		title.text = target_text

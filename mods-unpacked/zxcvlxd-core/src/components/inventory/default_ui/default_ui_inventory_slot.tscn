@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://blqcegmwwvpi" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/UI_InventorySlot.gd" id="1_trphd"]
 [ext_resource type="Texture2D" uid="uid://q7wnttd6uwp5" path="res://addons/simusdev/components/inventory/icon_inv.png" id="2_omdmc"]
 [ext_resource type="Script" uid="uid://bmwl6ctnkt45h" path="res://addons/simusdev/ui/SD_UIDragAndDrop.gd" id="3_omdmc"]
+[ext_resource type="FontFile" uid="uid://d20lb1behl2yo" path="res://fonts/VMVTZARCARI-Regular.otf" id="3_ucysw"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8o3x"]
 content_margin_left = 0.0
@@ -12,12 +13,19 @@ content_margin_bottom = 0.0
 bg_color = Color(0.026410008, 0.024805404, 0.02640998, 1)
 corner_detail = 5
 
-[node name="UI_InventorySlot" type="Control" unique_id=312672634 node_paths=PackedStringArray("icon_texture_rect")]
+[sub_resource type="LabelSettings" id="LabelSettings_virre"]
+font = ExtResource("3_ucysw")
+font_size = 8
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="UI_InventorySlot" type="Control" unique_id=312672634 node_paths=PackedStringArray("icon_texture_rect", "label_quantity")]
 custom_minimum_size = Vector2(64, 64)
 layout_mode = 3
 anchors_preset = 0
 script = ExtResource("1_trphd")
-icon_texture_rect = NodePath("TextureRect")
+icon_texture_rect = NodePath("IconTextureRect")
+label_quantity = NodePath("LabelQuantity")
 metadata/_custom_type_script = "uid://blqcegmwwvpi"
 
 [node name="Panel" type="Panel" parent="." unique_id=189577302]
@@ -29,7 +37,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_f8o3x")
 
-[node name="TextureRect" type="TextureRect" parent="." unique_id=143100932]
+[node name="IconTextureRect" type="TextureRect" parent="." unique_id=143100932]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -44,12 +52,23 @@ texture = ExtResource("2_omdmc")
 expand_mode = 1
 stretch_mode = 5
 
+[node name="LabelQuantity" type="Label" parent="." unique_id=608028999]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -11.0
+offset_right = 64.0
+grow_vertical = 0
+text = "123456"
+label_settings = SubResource("LabelSettings_virre")
+
 [node name="DragAndDrop" type="Node2D" parent="." unique_id=1776053170 node_paths=PackedStringArray("input_node", "draggable_node", "drop_node", "preview_node")]
 script = ExtResource("3_omdmc")
 input_node = NodePath("..")
 draggable_node = NodePath("..")
 drop_node = NodePath("..")
-preview_node = NodePath("../TextureRect")
+preview_node = NodePath("../IconTextureRect")
 metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
 
 [connection signal="drag_started" from="DragAndDrop" to="." method="_on_drag_and_drop_drag_started"]
