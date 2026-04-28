@@ -40,7 +40,7 @@ func _ready() -> void:
 			if project_main_scene == current_scene:
 				get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
 		
-		WorldObjectHandler.new(core_settings.scan_paths, true).scan()
+		WorldObjectHandler.new(core_settings.scan_paths).scan()
 	
 	world_object_reference = WorldObjectReference.new() #init
 	

@@ -4,22 +4,52 @@ signal item_stack_changed(new_item_stack:ItemStack)
 
 @export var item_stack:ItemStack :
 	set(val):
+		var is_server:bool = SimusNetConnection.is_server()
+		if is_server:
+			if item_stack:
+				if item_stack.quantity_changed.is_connected(_on_item_stack_quantity_changed):
+					item_stack.quantity_changed.disconnect(_on_item_stack_quantity_changed)
+		
 		item_stack = val
 		item_stack_changed.emit(item_stack)
+		
+		if is_server:
+			if item_stack:
+				if not item_stack.quantity_changed.is_connected(_on_item_stack_quantity_changed):
+					item_stack.quantity_changed.connect(_on_item_stack_quantity_changed)
 
 @export var tags:Array[StringName]
 
 @export_group("Custom", "custom_")
 @export var custom_ui:PackedScene
 
+#region SERVER
+func _on_item_stack_quantity_changed() -> void:
+	if !item_stack:
+		return
+	
+	if item_stack.quantity < 1:
+		item_stack = null
 
 func is_free() -> bool:
 	return item_stack == null
 
 func can_stack_with(p_item_stack:ItemStack) -> bool:
-	return item_stack.object == p_item_stack.object
+	if item_stack.object != p_item_stack.object:
+		return false
+	
+	return true
 
 func _init(p_item_stack:ItemStack = null) -> void:
+	SimusNetVars.register(
+		self,
+		["item_stack"],
+		SimusNetVarConfig.new()
+			.flag_mode_server_only()
+			.flag_replication()
+			.flag_serialization()
+	)
+	
 	item_stack = p_item_stack
 
 func simusnet_serialize(serialization:SimusNetCustomSerialization) -> void:

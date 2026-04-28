@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://blqcegmwwvpi" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/UI_InventorySlot.gd" id="1_trphd"]
 [ext_resource type="Texture2D" uid="uid://q7wnttd6uwp5" path="res://addons/simusdev/components/inventory/icon_inv.png" id="2_omdmc"]
+[ext_resource type="Script" uid="uid://bmwl6ctnkt45h" path="res://addons/simusdev/ui/SD_UIDragAndDrop.gd" id="3_omdmc"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8o3x"]
 content_margin_left = 0.0
@@ -42,3 +43,15 @@ grow_vertical = 2
 texture = ExtResource("2_omdmc")
 expand_mode = 1
 stretch_mode = 5
+
+[node name="DragAndDrop" type="Node2D" parent="." unique_id=1776053170 node_paths=PackedStringArray("input_node", "draggable_node", "drop_node", "preview_node")]
+script = ExtResource("3_omdmc")
+input_node = NodePath("..")
+draggable_node = NodePath("..")
+drop_node = NodePath("..")
+preview_node = NodePath("../TextureRect")
+metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
+
+[connection signal="drag_started" from="DragAndDrop" to="." method="_on_drag_and_drop_drag_started"]
+[connection signal="drag_stopped" from="DragAndDrop" to="." method="_on_drag_and_drop_drag_stopped"]
+[connection signal="dropped" from="DragAndDrop" to="." method="_on_dnd_dropped"]

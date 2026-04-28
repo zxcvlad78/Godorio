@@ -110,7 +110,8 @@ func _handle_state_transitions() -> void:
 	else:
 		target_state_name = &"Idle"
 	
-	state_machine.switch_by_name(target_state_name)
+	if state_machine:
+		state_machine.switch_by_name(target_state_name)
 
 func _get_configuration_warnings() -> PackedStringArray:
 	var warnings = []

@@ -138,35 +138,35 @@ metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://a
 
 
 [node name="rig" parent="AnimatedModel3D/model3d" parent_id_path=PackedInt32Array(188275085, 1361024678) index="0" unique_id=705305829]
-transform = Transform3D(0.99526185, 0.08405956, 0.04886028, -0.04267354, -0.073885076, 0.99635315, 0.08736305, -0.9937176, -0.06994788, -0.049168877, -0.0059193894, 0.08672938)
+transform = Transform3D(0.99477124, 0.0869197, 0.053615358, -0.047895998, -0.066602446, 0.9966291, 0.09019766, -0.9939862, -0.06209111, -0.05214255, -0.0063575893, 0.07749155)
 
 [node name="Skeleton3D" parent="AnimatedModel3D/model3d/rig" index="0" unique_id=2116021239]
-bones/1/rotation = Quaternion(-0.21605594, 0.00721919, 0.017708309, 0.9761937)
-bones/2/rotation = Quaternion(0.14563759, 0.010270108, 0.036266003, 0.98861974)
-bones/3/rotation = Quaternion(0.16318862, -0.0008353151, 0.003057262, 0.98658985)
-bones/4/rotation = Quaternion(-0.106651604, -0.00080612116, 0.0030650708, 0.9942914)
-bones/5/rotation = Quaternion(0.93270844, 0.002251989, 0.0022300566, 0.36061752)
-bones/7/rotation = Quaternion(-0.51922363, -0.4322383, -0.5552798, 0.4850168)
-bones/8/rotation = Quaternion(-0.20960554, 0.69630176, -0.57953256, 0.36792853)
-bones/9/rotation = Quaternion(0.013561156, -0.057500392, -3.7559315e-05, 0.99825346)
-bones/10/rotation = Quaternion(0.024042374, -0.2696964, -0.053041656, 0.9611829)
-bones/12/rotation = Quaternion(-0.5340335, 0.4081475, 0.56373775, 0.48002458)
-bones/13/rotation = Quaternion(-0.12320199, -0.76790905, 0.5340748, 0.33151343)
-bones/14/rotation = Quaternion(0.056971245, 0.057412174, 0.00015770923, 0.9967237)
-bones/15/rotation = Quaternion(0.0016001407, 0.16299812, 0.054372694, 0.9851258)
-bones/17/rotation = Quaternion(0.9707846, 0.057847884, -0.14242624, 0.18424395)
-bones/18/rotation = Quaternion(0.15050474, -0.011081568, -0.038447805, 0.9877992)
-bones/19/rotation = Quaternion(-0.55075765, -0.036907375, 0.05379305, 0.8321119)
-bones/22/rotation = Quaternion(0.99124056, 0.031195257, 0.08979878, 0.09168057)
-bones/23/rotation = Quaternion(0.09848957, 0.084129296, 0.031087019, 0.99108815)
-bones/24/rotation = Quaternion(-0.58863753, 0.02879162, -0.019222477, 0.8076556)
-bones/25/rotation = Quaternion(-7.0006216e-08, 0.9577602, -0.28756842, 1.73656e-08)
+bones/1/rotation = Quaternion(-0.21399891, 0.008120821, 0.017405154, 0.9766451)
+bones/2/rotation = Quaternion(0.15053003, 0.012438856, 0.03571628, 0.9878817)
+bones/3/rotation = Quaternion(0.16458426, -0.00077091914, 0.0018243293, 0.986361)
+bones/4/rotation = Quaternion(-0.10518016, -0.00072697655, 0.0018589085, 0.9944512)
+bones/5/rotation = Quaternion(0.9332102, 0.0012139868, 0.0015684468, 0.35932553)
+bones/7/rotation = Quaternion(-0.5195306, -0.42994052, -0.562977, 0.47780347)
+bones/8/rotation = Quaternion(-0.20247988, 0.6986258, -0.57482386, 0.37483525)
+bones/9/rotation = Quaternion(0.013149343, -0.057500724, -3.6399815e-05, 0.9982589)
+bones/10/rotation = Quaternion(0.025656084, -0.27297536, -0.0471312, 0.96052325)
+bones/12/rotation = Quaternion(-0.5331194, 0.40847123, 0.5676636, 0.476123)
+bones/13/rotation = Quaternion(-0.12502761, -0.7687005, 0.53304434, 0.33065322)
+bones/14/rotation = Quaternion(0.057654183, 0.057409912, 0.00015963569, 0.99668455)
+bones/15/rotation = Quaternion(0.0016414396, 0.16689377, 0.05512332, 0.98443145)
+bones/17/rotation = Quaternion(0.9689606, 0.059862617, -0.14406787, 0.19177194)
+bones/18/rotation = Quaternion(0.15583596, -0.010811936, -0.037766986, 0.98700154)
+bones/19/rotation = Quaternion(-0.552627, -0.03658882, 0.05327057, 0.8309194)
+bones/22/rotation = Quaternion(0.99111843, 0.03345384, 0.08799225, 0.0939285)
+bones/23/rotation = Quaternion(0.09481472, 0.08421426, 0.030767752, 0.9914492)
+bones/24/rotation = Quaternion(-0.5858872, 0.027721165, -0.019627817, 0.8096806)
+bones/25/rotation = Quaternion(-1.1786311e-07, 0.9574382, -0.28863844, -3.558304e-08)
 
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
 
 [node name="RightHand" parent="AnimatedModel3D" index="4" unique_id=1836939162]
-transform = Transform3D(0.9255109, -0.025096815, -0.3778862, 0.006314926, -0.99663997, 0.08165711, -0.3786659, -0.07796093, -0.9222425, 0.2504524, 0.7033338, -0.08240804)
+transform = Transform3D(0.9244714, -0.028445773, -0.38018584, -0.0060726553, -0.998184, 0.05991861, -0.38120025, -0.05308438, -0.9229655, 0.24508022, 0.7009921, -0.07397105)
 
 [node name="ViewModelRoot3D" parent="AnimatedModel3D/RightHand" index="0" unique_id=2141301044 node_paths=PackedStringArray("inventory", "entity_head")]
 inventory = NodePath("../../../C_Inventory")
@@ -192,8 +192,10 @@ state_machine = NodePath("../../BaseStateMachine")
 walk_bob = 6.8
 sprint_bob = 10.2
 
-[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437]
+[node name="ViewModelRoot3D" type="Node3D" parent="PlayerHead/ViewModelShake3D" unique_id=506176437 node_paths=PackedStringArray("inventory", "entity_head")]
 script = ExtResource("8_dufgj")
+inventory = NodePath("../../../C_Inventory")
+entity_head = NodePath("../..")
 metadata/_custom_type_script = "uid://b6denlouq17uw"
 metadata/SimusNetIdentity = SubResource("Resource_ykvms")
 metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"))

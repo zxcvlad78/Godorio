@@ -40,7 +40,7 @@ var _sounds: Dictionary[String, AudioStreamPlayer3D]
 func _ready() -> void:
 	SimusNetIdentity.register(self)
 	
-	entity = entity_head.get_entity()
+	entity = entity_head.entity
 	
 	net_config = (SimusNetRPCConfig.new()
 		.flag_set_channel("item")

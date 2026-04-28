@@ -1,10 +1,28 @@
 class_name ItemStack extends Resource
 
+signal quantity_changed()
+
 @export var object:R_WorldObject
-@export var quantity:int = 1
+@export var quantity:int = 1 :
+	set(val):
+		quantity = val
+		
+		quantity_changed.emit()
+
 @export var stack_size:int = 1
 
 func _init(p_object:R_WorldObject = null) -> void:
+	SimusNetVars.register(
+		self,
+		[
+			"quantity",
+			"stack_size",
+		],
+		SimusNetVarConfig.new()
+			.flag_mode_server_only()
+			.flag_replication()
+	)
+	
 	object = p_object
 
 func simusnet_serialize(serialization:SimusNetCustomSerialization) -> void:

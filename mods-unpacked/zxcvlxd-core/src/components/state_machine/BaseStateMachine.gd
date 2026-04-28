@@ -7,7 +7,7 @@ signal state_exit(state_name:String)
 
 var current_state:BaseState
 
-func _init(state_list:Array[BaseState]) -> void:
+func _init(state_list:Array[BaseState] = []) -> void:
 	SimusNetRPC.register(
 		[
 			local_switch,

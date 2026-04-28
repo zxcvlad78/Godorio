@@ -136,7 +136,7 @@ func _spawn_bullet() -> void:
 		if final_direction.length() > 0.001:
 			bullet.look_at(bullet.global_position + final_direction)
 		
-		bullet.setup_bullet(_get_stack().ammo)
+		#bullet.setup_bullet(_get_stack().ammo)
 
 func _spawn_fake_bullet() -> void:
 	pass

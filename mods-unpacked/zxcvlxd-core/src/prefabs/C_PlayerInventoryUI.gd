@@ -7,8 +7,17 @@ func _ready() -> void:
 	
 	if is_multiplayer_authority():
 		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
+		await get_tree().process_frame
 		var player_ui:PlayerUI = PlayerUI.i()
 		if !player_ui:
+			print("Failed to create player inventory UI")
 			return
 		
 		if player_ui.player_inventory:

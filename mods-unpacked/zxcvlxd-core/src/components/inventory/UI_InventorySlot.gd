@@ -8,7 +8,9 @@ class_name UI_InventorySlot extends Control
 @export_group("Custom", "custom_")
 @export var custom_missing_texture:Texture
 
+var is_mouse_inside:bool = false
 var missing_texture:Texture = preload("res://mods-unpacked/zxcvlxd-core/src/textures/missing.png")
+
 
 func _ready() -> void:
 	if custom_missing_texture:
@@ -40,4 +42,43 @@ func update_icon() -> void:
 			target_texture = missing_texture
 	
 	icon_texture_rect.texture = target_texture
+
+func _on_dnd_dropped(draggable: Control, at: Control) -> void:
+	print(at)
 	
+	if slot.is_free(): 
+		return
+	
+	
+	if at is UI_InventorySlot:
+		if at.slot == self.slot:
+			return
+			
+		if Input.is_action_pressed("inventory.split"):
+			c_inventory_ui.inventory.split_item(slot, at.slot)
+		else:
+			c_inventory_ui.inventory.move_item(slot, at.slot)
+			
+	elif at is UI_InventoryDropZone:
+		c_inventory_ui.inventory.drop_item(slot)
+
+
+func _input(event: InputEvent) -> void:
+	if is_mouse_inside:
+		if Input.is_action_just_pressed("inventory.fast_drop"):
+			if slot.item_stack:
+				c_inventory_ui.inventory.drop_item(slot)
+
+func _on_sd_ui_drag_and_drop_drag_started() -> void:
+	icon_texture_rect.self_modulate.a = 0.5
+func _on_sd_ui_drag_and_drop_drag_stopped() -> void:
+	icon_texture_rect.self_modulate.a = 1.0
+
+func _on_mouse_entered() -> void:
+	is_mouse_inside = true
+func _on_mouse_exited() -> void:
+	is_mouse_inside = false
+
+
+func _on_drag_and_drop_drag_stopped() -> void:
+	pass # Replace with function body.

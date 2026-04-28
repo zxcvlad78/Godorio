@@ -51,6 +51,4 @@ static func clean_path(path:String) -> String:
 static func is_valid_path(path:String) -> bool:
 	var is_valid = path.ends_with(".tres") or path.ends_with(".res")
 	
-	print("[is_valid_path]: %s, %s" % [is_valid, path])
-	
 	return is_valid

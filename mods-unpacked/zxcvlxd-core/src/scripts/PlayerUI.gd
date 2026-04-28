@@ -1,5 +1,6 @@
 class_name PlayerUI extends CanvasLayer
 
+
 static var instance:PlayerUI
 static func i() -> PlayerUI:
 	return instance
@@ -12,6 +13,7 @@ static func i() -> PlayerUI:
 @export var other_inventory:InventoryUI
 
 func _ready() -> void:
+	
 	if is_multiplayer_authority():
 		instance = self
 		

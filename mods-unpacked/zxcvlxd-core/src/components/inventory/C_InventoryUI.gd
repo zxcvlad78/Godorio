@@ -49,11 +49,11 @@ func _ready() -> void:
 	add_child(c_interactable)
 	
 	c_interactable.interacted.connect(_on_interacted)
+	_setup_instance()
 	
 	if !auth:
 		return
 	
-	_setup_instance()
 
 func _setup_instance() -> void:
 	if is_instance_valid(ui_inst):
@@ -61,15 +61,11 @@ func _setup_instance() -> void:
 	
 	ui_inst = ui_prefab.instantiate()
 	if !ui_inst:
-		print("sex 2 23525 3423 5 235532 235")
 		return
 	
 	ui_inst.set("c_inventory_ui", self)
 
 func _on_interacted(ray:C_InteractionRay) -> void:
-	if not ray.is_multiplayer_authority():
-		return
-	
 	request_open_container()
 
 func request_open_container() -> void:
@@ -77,6 +73,7 @@ func request_open_container() -> void:
 
 func _request_open_container() -> void:
 	if inventory.private and inventory.get_multiplayer_authority() != SimusNetRemote.sender_id:
+		print("err")
 		return
 	
 	SimusNetRPC.invoke_on_sender(_open_ui_client)
@@ -84,9 +81,13 @@ func _request_open_container() -> void:
 
 func _open_ui_client() -> void:
 	var player_ui = PlayerUI.i()
-	if !player_ui: return
+	if !player_ui:
+		print(1)
+		return
 	
 	player_ui.other_inventory = ui_inst
+	if !player_ui.other_inventory:
+		return
 	
 	if not player_ui.other_inventory.is_inside_tree():
 		player_ui.inventory_container.add_child(player_ui.other_inventory)
