@@ -10,7 +10,8 @@ enum ViewModelType {
 @export var type:ViewModelType = ViewModelType.VIEW :
 	set(val):
 		type = val
-		if is_inside_tree(): _update()
+		if is_inside_tree():
+			_update()
 
 @export var inventory:C_Inventory
 @export var entity_head:EntityHead
@@ -19,6 +20,8 @@ var animated_model:BaseAnimatedModel
 @export var object:R_WorldObject :
 	set(val):
 		object = val
+		if Engine.is_editor_hint(): 
+			return
 		if is_inside_tree():
 			_update()
 
@@ -89,9 +92,6 @@ func _on_inventory_slot_selected(slot:InventorySlot) -> void:
 	object = slot.item_stack.object
 
 func _update() -> void:
-	if Engine.is_editor_hint(): 
-		return
-	
 	if _ref:
 		remove_child(_ref)
 		_ref.queue_free()

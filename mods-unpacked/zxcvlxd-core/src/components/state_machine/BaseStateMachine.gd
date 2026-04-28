@@ -7,7 +7,7 @@ signal state_exit(state_name:String)
 
 var current_state:BaseState
 
-func _init() -> void:
+func _init(state_list:Array[BaseState]) -> void:
 	SimusNetRPC.register(
 		[
 			local_switch,
@@ -15,6 +15,9 @@ func _init() -> void:
 		],
 		SimusNetRPCConfig.new().flag_mode_any_peer()
 	)
+	
+	for state in state_list:
+		add_child(state)
 
 func _enter_tree() -> void:
 	SD_ECS.append_to(get_parent(), self)
