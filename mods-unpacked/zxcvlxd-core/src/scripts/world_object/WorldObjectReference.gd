@@ -40,7 +40,6 @@ func _on_cmd_executed(cmd:SD_ConsoleCommand) -> void:
 			var spawn_pos:Vector3 = get_player_look_point()
 			
 			var new_node = spawn_reference(parent, resource)
-			print(new_node)
 			if new_node and new_node is Node3D:
 				new_node.global_position = spawn_pos
 
@@ -113,5 +112,9 @@ static func spawn_reference(parent_node: Node, resource: R_WorldObject, properti
 	
 	for prop in properties:
 		inst.set(prop, properties[prop])
+	
+	var c_i = C_Interactable.get_or_create_in(inst)
+	c_i.add_action(load("uid://cv3mfgjfjpeom"), 1)
+	print(c_i)
 	
 	return inst

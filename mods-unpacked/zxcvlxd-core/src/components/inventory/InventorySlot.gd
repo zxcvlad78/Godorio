@@ -11,12 +11,12 @@ signal item_stack_changed()
 					item_stack.quantity_changed.disconnect(_on_item_stack_quantity_changed)
 		
 		item_stack = val
-		item_stack_changed.emit()
 		
 		if is_server:
 			if item_stack:
 				if not item_stack.quantity_changed.is_connected(_on_item_stack_quantity_changed):
 					item_stack.quantity_changed.connect(_on_item_stack_quantity_changed)
+		item_stack_changed.emit()
 
 
 @export var tags:Array[StringName]
@@ -41,7 +41,11 @@ func can_stack_with(p_item_stack:ItemStack) -> bool:
 	
 	return true
 
-func _init(p_item_stack:ItemStack = null) -> void:
+func _init() -> void:
+	if SimusNetConnection.is_server():
+		_network_ready()
+
+func _network_ready() -> void:
 	SimusNetIdentity.register(self)
 	
 	SimusNetVars.register(
@@ -52,28 +56,30 @@ func _init(p_item_stack:ItemStack = null) -> void:
 			.flag_replication()
 			.flag_serialization()
 	)
-	
-	item_stack = p_item_stack
 
 func simusnet_serialize(serialization:SimusNetCustomSerialization) -> void:
-	var is_copy:bool = resource_path.is_empty()
-	serialization.pack(is_copy)
-	if !is_copy:
-		serialization.pack(resource_path)
-		return
-	
 	serialization.pack(item_stack)
 	serialization.pack(tags)
+	serialization.pack(SimusNetIdentity.register(self).get_unique_id())
 
 static func simusnet_deserialize(serialization:SimusNetCustomSerialization) -> void:
-	var new_inventory_slot:InventorySlot = InventorySlot.new()
-	var is_copy:bool = serialization.unpack()
+	var incoming_item_stack = serialization.unpack()
+	var incoming_tags = serialization.unpack()
+	var network_id = serialization.unpack()
 	
-	if !is_copy:
-		var res_path = serialization.unpack()
-		new_inventory_slot = load(res_path)
+	var identity:SimusNetIdentity = SimusNetIdentity.get_dictionary_by_unique_id().get(network_id)
+	var slot:InventorySlot
+	
+	if identity and is_instance_valid(identity.owner):
+		slot = identity.owner
+		slot.item_stack = incoming_item_stack
+		slot.tags = incoming_tags
 	else:
-		new_inventory_slot.item_stack = serialization.unpack()
-		new_inventory_slot.tags = serialization.unpack()
+		slot = InventorySlot.new()
+		slot.item_stack = incoming_item_stack
+		slot.tags = incoming_tags
+		SimusNetIdentity.register(slot, network_id)
+		slot._network_ready()
 	
-	serialization.set_result(new_inventory_slot)
+	
+	serialization.set_result(slot)

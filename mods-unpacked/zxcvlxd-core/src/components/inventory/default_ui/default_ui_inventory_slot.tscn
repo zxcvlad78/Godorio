@@ -71,6 +71,6 @@ drop_node = NodePath("..")
 preview_node = NodePath("../IconTextureRect")
 metadata/_custom_type_script = "uid://bmwl6ctnkt45h"
 
-[connection signal="drag_started" from="DragAndDrop" to="." method="_on_drag_and_drop_drag_started"]
-[connection signal="drag_stopped" from="DragAndDrop" to="." method="_on_drag_and_drop_drag_stopped"]
+[connection signal="drag_started" from="DragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_started"]
+[connection signal="drag_stopped" from="DragAndDrop" to="." method="_on_sd_ui_drag_and_drop_drag_stopped"]
 [connection signal="dropped" from="DragAndDrop" to="." method="_on_dnd_dropped"]

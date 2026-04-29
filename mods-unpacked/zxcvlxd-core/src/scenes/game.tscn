@@ -18,17 +18,9 @@
 [ext_resource type="Resource" uid="uid://dkg5cxpimcom4" path="res://mods-unpacked/zxcvlxd-core/resources/sd_metadata/grass_material.tres" id="15_b4ity"]
 [ext_resource type="Texture2D" uid="uid://c1vwcdcdvb74a" path="res://addons/sky_3d/assets/thirdparty/textures/milkyway/Milkyway.jpg" id="15_essgc"]
 [ext_resource type="Script" uid="uid://deo0gxkmk2ahd" path="res://addons/sky_3d/src/Sky3D.gd" id="16_04qjr"]
-[ext_resource type="Texture2D" uid="uid://yf4p7w3h6qdb" path="res://addons/simusdev/components/inventory/icon_item.png" id="17_ai43s"]
 [ext_resource type="Script" uid="uid://b4tkplvh7fq40" path="res://addons/sky_3d/src/SkyDome.gd" id="17_otq5w"]
-[ext_resource type="Script" uid="uid://snig3fifk5co" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_Inventory.gd" id="17_wf75w"]
-[ext_resource type="Script" uid="uid://8hb14ep8irja" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/InventorySlot.gd" id="18_ai43s"]
 [ext_resource type="Script" uid="uid://cjmkcj8hwm7ts" path="res://addons/sky_3d/src/TimeOfDay.gd" id="18_epvwj"]
-[ext_resource type="Script" uid="uid://bdsvfvfac3oko" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_InventoryUI.gd" id="18_essgc"]
-[ext_resource type="FontFile" uid="uid://d20lb1behl2yo" path="res://fonts/VMVTZARCARI-Regular.otf" id="18_x36eb"]
-[ext_resource type="Resource" uid="uid://0qs3wls072x" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/basketball_hoop.tres" id="19_x36eb"]
-[ext_resource type="Script" uid="uid://7mtju6gx8jbv" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStack.gd" id="20_7stue"]
 [ext_resource type="PackedScene" uid="uid://dpj1pyor6rnkt" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_hoop/prefabs/world/world.tscn" id="21_5y2f8"]
-[ext_resource type="Resource" uid="uid://cbkadwl124nx0" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball_ball.tres" id="21_o0fnv"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ai43s"]
 shader = ExtResource("9_cc1b0")
@@ -83,8 +75,8 @@ shader_parameter/cirrus_absorption = 2.0
 shader_parameter/cirrus_sky_tint_fade = 0.5
 shader_parameter/cirrus_size = 1.0
 shader_parameter/cirrus_uv = Vector2(0.16, 0.11)
-shader_parameter/cirrus_position1 = Vector2(0.08125483, 0.08125483)
-shader_parameter/cirrus_position2 = Vector2(0.08125483, 0.08125483)
+shader_parameter/cirrus_position1 = Vector2(0.31710532, 0.31710532)
+shader_parameter/cirrus_position2 = Vector2(0.31710532, 0.31710532)
 shader_parameter/cirrus_texture = ExtResource("10_b4ity")
 shader_parameter/cumulus_visible = true
 shader_parameter/cumulus_intensity = 0.6
@@ -94,7 +86,7 @@ shader_parameter/cumulus_absorption = 2.0
 shader_parameter/cumulus_noise_freq = 2.7
 shader_parameter/cumulus_sky_tint_fade = 0.0
 shader_parameter/cumulus_size = 0.5
-shader_parameter/cumulus_position = Vector2(0.40627956, 0.40627956)
+shader_parameter/cumulus_position = Vector2(1.5852547, 1.5852547)
 shader_parameter/cumulus_texture = ExtResource("11_tlvn8")
 shader_parameter/cumulus_partial_mie_phase = Vector3(0.957564, 1.042436, 0.412)
 shader_parameter/cumulus_mie_intensity = 1.0
@@ -128,37 +120,7 @@ ssil_enabled = true
 albedo_texture = ExtResource("4_meesc")
 uv1_triplanar = true
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x36eb"]
-albedo_texture = ExtResource("17_ai43s")
-uv1_offset = Vector3(0.5, 0.5, -0.5)
-uv1_triplanar = true
-
-[sub_resource type="BoxMesh" id="BoxMesh_7stue"]
-material = SubResource("StandardMaterial3D_x36eb")
-
-[sub_resource type="Resource" id="Resource_xarcc"]
-script = ExtResource("20_7stue")
-object = ExtResource("19_x36eb")
-metadata/_custom_type_script = "uid://7mtju6gx8jbv"
-
-[sub_resource type="Resource" id="Resource_csqix"]
-script = ExtResource("18_ai43s")
-item_stack = SubResource("Resource_xarcc")
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
-[sub_resource type="Resource" id="Resource_k0jms"]
-script = ExtResource("20_7stue")
-object = ExtResource("21_o0fnv")
-metadata/_custom_type_script = "uid://7mtju6gx8jbv"
-
-[sub_resource type="Resource" id="Resource_ae2q1"]
-script = ExtResource("18_ai43s")
-item_stack = SubResource("Resource_k0jms")
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
-[sub_resource type="BoxShape3D" id="BoxShape3D_x36eb"]
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_x36eb"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wf75w"]
 render_priority = 0
 shader = ExtResource("5_5l746")
 shader_parameter/albedo = Color(1, 1, 1, 1)
@@ -244,6 +206,7 @@ dome_path = NodePath("../SkyDome")
 current_time = 14.9
 
 [node name="NetworkedObjects" type="Node3D" parent="." unique_id=308448975]
+transform = Transform3D(0.9848077, 0, -0.17364818, 0, 1, 0, 0.17364818, 0, 0.9848077, -1, 1.1, -5.5)
 script = ExtResource("14_tlvn8")
 metadata/_custom_type_script = "uid://dxga02bvnswip"
 
@@ -258,38 +221,12 @@ size = Vector3(250, 1, 250)
 material = SubResource("StandardMaterial3D_dmgt7")
 metadata/SD_Metadata_List = [ExtResource("15_b4ity")]
 
-[node name="CSGBox3D" type="RigidBody3D" parent="CSGBox3D" unique_id=371943881]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2, 1.3083305, -5)
-
-[node name="MeshInstance3D" type="MeshInstance3D" parent="CSGBox3D/CSGBox3D" unique_id=757834088]
-mesh = SubResource("BoxMesh_7stue")
-
-[node name="Label3D" type="Label3D" parent="CSGBox3D/CSGBox3D" unique_id=1349377329]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80521035, 0)
-billboard = 1
-shaded = true
-text = "Korobka (sex box)"
-font = ExtResource("18_x36eb")
-
-[node name="C_Inventory" type="Node" parent="CSGBox3D/CSGBox3D" unique_id=1511205533 node_paths=PackedStringArray("root")]
-script = ExtResource("17_wf75w")
-root = NodePath("..")
-slots = Array[ExtResource("18_ai43s")]([SubResource("Resource_csqix"), SubResource("Resource_ae2q1")])
-metadata/_custom_type_script = "uid://snig3fifk5co"
-
-[node name="C_InventoryUI" type="Node" parent="CSGBox3D/CSGBox3D/C_Inventory" unique_id=153518234]
-script = ExtResource("18_essgc")
-metadata/_custom_type_script = "uid://bdsvfvfac3oko"
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="CSGBox3D/CSGBox3D" unique_id=487052833]
-shape = SubResource("BoxShape3D_x36eb")
-
 [node name="sp" type="Marker3D" parent="." unique_id=1452027228]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.1, 0)
 
 [node name="SimpleGrassTextured" type="MultiMeshInstance3D" parent="." unique_id=207149785]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.035, 0)
-material_override = SubResource("ShaderMaterial_x36eb")
+material_override = SubResource("ShaderMaterial_wf75w")
 multimesh = SubResource("MultiMesh_kxwc0")
 script = ExtResource("8_fecbe")
 texture_albedo = ExtResource("6_8ytua")

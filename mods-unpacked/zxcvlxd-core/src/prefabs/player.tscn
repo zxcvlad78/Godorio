@@ -20,6 +20,7 @@
 [ext_resource type="Script" uid="uid://7mtju6gx8jbv" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStack.gd" id="15_4g4hw"]
 [ext_resource type="Script" uid="uid://blvex1oeocxkg" path="res://mods-unpacked/zxcvlxd-core/src/prefabs/C_PlayerInventoryUI.gd" id="18_u44up"]
 [ext_resource type="Resource" uid="uid://culuc2byns5ms" path="res://mods-unpacked/zxcvlxd-core/src/objects/test_object/test_object.tres" id="19_u44up"]
+[ext_resource type="Resource" uid="uid://b1wmhod3inm5i" path="res://mods-unpacked/zxcvlxd-core/src/objects/sex_box/sex_box.tres" id="20_xyh7o"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_ae415"]
 radius = 0.3
@@ -58,8 +59,14 @@ item_stack = SubResource("Resource_bj6mi")
 tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
+[sub_resource type="Resource" id="Resource_sxaoy"]
+script = ExtResource("15_4g4hw")
+object = ExtResource("20_xyh7o")
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
+
 [sub_resource type="Resource" id="Resource_nwlm2"]
 script = ExtResource("14_vdjqi")
+item_stack = SubResource("Resource_sxaoy")
 tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
@@ -152,35 +159,35 @@ metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://a
 
 
 [node name="rig" parent="AnimatedModel3D/model3d" parent_id_path=PackedInt32Array(188275085, 1361024678) index="0" unique_id=705305829]
-transform = Transform3D(0.9950236, 0.08376483, 0.05395396, -0.04769874, -0.074962065, 0.9960447, 0.08747802, -0.99366176, -0.07059356, -0.0533487, -0.006239174, 0.08742211)
+transform = Transform3D(0.9938866, 0.092917964, 0.05962338, -0.053761747, -0.06436059, 0.9964772, 0.09642804, -0.99359125, -0.058971714, -0.0538367, -0.0059272237, 0.07002713)
 
 [node name="Skeleton3D" parent="AnimatedModel3D/model3d/rig" index="0" unique_id=2116021239]
-bones/1/rotation = Quaternion(-0.21448474, 0.007813982, 0.017618584, 0.97653717)
-bones/2/rotation = Quaternion(0.15065327, 0.0126692485, 0.036057238, 0.9878476)
-bones/3/rotation = Quaternion(0.16468967, -0.0009199329, 0.0019291898, 0.9863432)
-bones/4/rotation = Quaternion(-0.10489494, -0.0009299706, 0.0017659132, 0.9944813)
-bones/5/rotation = Quaternion(0.9332412, 0.0012608371, 0.0017562141, 0.3592442)
-bones/7/rotation = Quaternion(-0.5196794, -0.42985103, -0.56249195, 0.4782931)
-bones/8/rotation = Quaternion(-0.20292707, 0.6978216, -0.5752202, 0.375483)
-bones/9/rotation = Quaternion(0.013316973, -0.057500586, -3.6873862e-05, 0.9982567)
-bones/10/rotation = Quaternion(0.025236234, -0.2733377, -0.0472629, 0.96042484)
-bones/12/rotation = Quaternion(-0.533115, 0.40862742, 0.56711423, 0.47664824)
-bones/13/rotation = Quaternion(-0.12660834, -0.7686149, 0.53264797, 0.3308894)
-bones/14/rotation = Quaternion(0.0573604, 0.05741088, 0.00015880587, 0.9967014)
-bones/15/rotation = Quaternion(0.00065659365, 0.16567594, 0.05486184, 0.98465294)
-bones/17/rotation = Quaternion(0.9693052, 0.060699947, -0.14525022, 0.18885286)
-bones/18/rotation = Quaternion(0.15964712, -0.00771081, -0.037822492, 0.98641926)
-bones/19/rotation = Quaternion(-0.55415374, -0.036837067, 0.05346738, 0.82987833)
-bones/22/rotation = Quaternion(0.9912988, 0.033361796, 0.08891504, 0.09114816)
-bones/23/rotation = Quaternion(0.099257804, 0.084087305, 0.03151909, 0.9910015)
-bones/24/rotation = Quaternion(-0.5887152, 0.029231774, -0.019563744, 0.807575)
-bones/25/rotation = Quaternion(-9.838217e-08, 0.9575694, -0.28820288, -1.4029436e-08)
+bones/1/rotation = Quaternion(-0.21552101, 0.005374994, 0.01655305, 0.9763441)
+bones/2/rotation = Quaternion(0.14668648, 0.006933813, 0.032681435, 0.9886188)
+bones/3/rotation = Quaternion(0.16401076, -0.00029705762, 0.002060617, 0.9864564)
+bones/4/rotation = Quaternion(-0.10581547, -0.00027480925, 0.0020660541, 0.9943837)
+bones/5/rotation = Quaternion(0.93300945, 0.001648999, 0.0012714687, 0.35984603)
+bones/7/rotation = Quaternion(-0.5183317, -0.43225992, -0.56054765, 0.47986448)
+bones/8/rotation = Quaternion(-0.20503229, 0.70197695, -0.57325315, 0.369555)
+bones/9/rotation = Quaternion(0.012775962, -0.057501014, -3.535114e-05, 0.99826366)
+bones/10/rotation = Quaternion(0.023508336, -0.27354452, -0.049909003, 0.960276)
+bones/12/rotation = Quaternion(-0.53378856, 0.40882498, 0.5625107, 0.4811586)
+bones/13/rotation = Quaternion(-0.12312908, -0.76678914, 0.536031, 0.33097494)
+bones/14/rotation = Quaternion(0.058308586, 0.057407733, 0.00016148388, 0.99664664)
+bones/15/rotation = Quaternion(0.0029972233, 0.16289137, 0.05954621, 0.984841)
+bones/17/rotation = Quaternion(0.968131, 0.0612054, -0.14261198, 0.19656567)
+bones/18/rotation = Quaternion(0.15878181, -0.015615027, -0.03810468, 0.98645455)
+bones/19/rotation = Quaternion(-0.5538164, -0.036061466, 0.052451238, 0.83020234)
+bones/22/rotation = Quaternion(0.99110913, 0.03459329, 0.086855926, 0.09466897)
+bones/23/rotation = Quaternion(0.086562775, 0.084151335, 0.029546684, 0.9922462)
+bones/24/rotation = Quaternion(-0.5795426, 0.026429407, -0.020296318, 0.8142604)
+bones/25/rotation = Quaternion(-1.6125657e-07, 0.9571453, -0.28960833, -8.359347e-08)
 
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
 
 [node name="RightHand" parent="AnimatedModel3D" index="4" unique_id=1836939162]
-transform = Transform3D(0.9237176, -0.02588956, -0.38219574, -0.0016074181, -0.9979662, 0.06371633, -0.38306823, -0.058241785, -0.92188054, 0.24662659, 0.7011243, -0.07684405)
+transform = Transform3D(0.93282956, -0.018573835, -0.3598365, 0.0059118867, -0.9977463, 0.06682664, -0.36026713, -0.064465284, -0.9306177, 0.2503754, 0.70762646, -0.0679142)
 
 [node name="ViewModelRoot3D" parent="AnimatedModel3D/RightHand" index="0" unique_id=2141301044 node_paths=PackedStringArray("inventory", "entity_head")]
 inventory = NodePath("../../../C_Inventory")
@@ -251,7 +258,6 @@ max_distance = 25.0
 [node name="C_Inventory" type="Node" parent="." unique_id=1000467198 node_paths=PackedStringArray("root")]
 script = ExtResource("13_o2j7e")
 root = NodePath("..")
-private = true
 initial_slots = Array[ExtResource("14_vdjqi")]([SubResource("Resource_xyh7o"), SubResource("Resource_2epga"), SubResource("Resource_nwlm2"), SubResource("Resource_oyvxu"), SubResource("Resource_tkfda"), SubResource("Resource_fo8vr"), SubResource("Resource_tovff"), SubResource("Resource_nqgwj"), SubResource("Resource_5g1v5"), SubResource("Resource_s0g0q"), SubResource("Resource_1lg82")])
 metadata/_custom_type_script = "uid://snig3fifk5co"
 

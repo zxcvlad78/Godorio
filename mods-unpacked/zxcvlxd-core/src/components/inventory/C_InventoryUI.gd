@@ -21,6 +21,8 @@ var inventory:C_Inventory
 var ui_inst:InventoryUI
 
 func _ready() -> void:
+	SD_ECS.append_to(inventory, self)
+	
 	SimusNetRPC.register(
 		[
 			_request_open_container,
@@ -44,16 +46,24 @@ func _ready() -> void:
 	
 	_auto_bind_inventory()
 	
-	c_interactable = C_Interactable.new()
-	c_interactable.target = inventory.root
-	add_child(c_interactable)
+	c_interactable = C_Interactable.get_or_create_in(inventory.root)
+	c_interactable.add_action(load("uid://ceub68nm5e7jw"),  0)
+	print("Inv intct: %s" % c_interactable)
 	
-	c_interactable.interacted.connect(_on_interacted)
-	_setup_instance()
+	if !inventory.is_syncronized:
+		inventory.syncronized.connect(_on_inventory_syncronized)
+	else:
+		_on_inventory_syncronized()
 	
 	if !auth:
 		return
 	
+
+static func find_in(node:Node) -> C_InventoryUI:
+	return SD_ECS.find_first_component_by_script(node, [C_InventoryUI])
+
+func _on_inventory_syncronized() -> void:
+	_setup_instance()
 
 func _setup_instance() -> void:
 	if is_instance_valid(ui_inst):
@@ -65,8 +75,6 @@ func _setup_instance() -> void:
 	
 	ui_inst.set("c_inventory_ui", self)
 
-func _on_interacted(ray:C_InteractionRay) -> void:
-	request_open_container()
 
 func request_open_container() -> void:
 	SimusNetRPC.invoke_on_server(_request_open_container)

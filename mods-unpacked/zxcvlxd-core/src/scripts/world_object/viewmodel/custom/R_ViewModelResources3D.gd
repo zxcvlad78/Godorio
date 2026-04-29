@@ -1,3 +1,4 @@
+@tool
 class_name R_ViewModelResources3D extends R_ViewModel3D
 
 @export var view:R_ViewModelResource3D

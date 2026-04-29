@@ -11,7 +11,11 @@ signal quantity_changed()
 @export var stack_size:int = 1
 
 
-func _init(p_object:R_WorldObject = null) -> void:
+func _init() -> void:
+	if SimusNetConnection.is_server():
+		_network_ready()
+
+func _network_ready() -> void:
 	SimusNetIdentity.register(self)
 	
 	SimusNetVars.register(
@@ -25,30 +29,38 @@ func _init(p_object:R_WorldObject = null) -> void:
 			.flag_mode_server_only()
 			.flag_replication()
 	)
+
+
+static func create_from(input:Object) -> ItemStack:
+	var item_stack:ItemStack = ItemStack.new()
+	var world_object:R_WorldObject
 	
-	object = p_object
+	if input is R_WorldObject:
+		world_object = input
+	elif input is Node:
+		world_object = R_WorldObject.find_in(input)
+	
+	if !world_object:
+		return null
+	
+	item_stack.object = world_object
+	item_stack.stack_size = world_object.item_stack_config.stack_size
+	return item_stack
+
 
 func simusnet_serialize(serialization:SimusNetCustomSerialization) -> void:
-	var is_copy:bool = resource_path.is_empty()
-	serialization.pack(is_copy)
-	if !is_copy:
-		serialization.pack(resource_path)
-		return
-	
 	serialization.pack(object)
 	serialization.pack(quantity)
 	serialization.pack(stack_size)
+	serialization.pack(SimusNetIdentity.register(self).get_unique_id())
 
 static func simusnet_deserialize(serialization:SimusNetCustomSerialization) -> void:
 	var new_item_stack:ItemStack = ItemStack.new()
-	var is_copy:bool = serialization.unpack()
 	
-	if !is_copy:
-		var res_path = serialization.unpack()
-		new_item_stack = load(res_path)
-	else:
-		new_item_stack.object = serialization.unpack()
-		new_item_stack.quantity = serialization.unpack()
-		new_item_stack.stack_size = serialization.unpack()
+	new_item_stack.object = serialization.unpack()
+	new_item_stack.quantity = serialization.unpack()
+	new_item_stack.stack_size = serialization.unpack()
 	
+	SimusNetIdentity.register(new_item_stack, serialization.unpack())
+	new_item_stack._network_ready()
 	serialization.set_result(new_item_stack)

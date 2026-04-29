@@ -1,3 +1,4 @@
+@tool
 class_name R_ViewModel3D extends Resource
 
 func instantiate_view() -> Node:

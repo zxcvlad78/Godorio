@@ -89,6 +89,7 @@ func _ready() -> void:
 				BaseState.new(&"Inspecting"),
 			]
 		)
+		state_machine.name = "StateMachine"
 		add_child(state_machine, true)
 	if !alt_state_machine:
 		alt_state_machine = BaseStateMachine.new(
@@ -99,6 +100,7 @@ func _ready() -> void:
 				BaseState.new(&"Inspecting"),
 			]
 		)
+		alt_state_machine.name = "AltStateMachine"
 		add_child(alt_state_machine, true)
 
 func _get_or_create_sound(key: String) -> AudioStreamPlayer3D:

@@ -1,0 +1,7 @@
+[gd_resource type="Resource" format=3 uid="uid://cv3mfgjfjpeom"]
+
+[ext_resource type="Script" uid="uid://d05ghsbf6a8is" path="res://mods-unpacked/zxcvlxd-core/resources/interactable_action/pickup.gd" id="1_neijh"]
+
+[resource]
+script = ExtResource("1_neijh")
+metadata/_custom_type_script = "uid://cqmtm401qy0an"

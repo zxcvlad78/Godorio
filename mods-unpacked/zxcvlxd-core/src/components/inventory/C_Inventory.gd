@@ -6,8 +6,12 @@ signal slot_deselected(slot:InventorySlot)
 signal slot_added(slot:InventorySlot)
 signal slot_removed(slot:InventorySlot)
 
+signal syncronized()
+
 @export var root:Node3D
 @export var private:bool = false
+
+var is_syncronized:bool = false
 
 #region SLOTS
 @export var initial_slots:Array[InventorySlot]
@@ -33,7 +37,16 @@ var selected_slot:InventorySlot
 
 var _drop_node:NodeGroup3D
 
+func _init() -> void:
+	if SimusNetConnection.is_server():
+		is_syncronized = true
+
+static func find_in(node: Node) -> C_Inventory:
+	return SD_ECS.find_first_component_by_script(node, [C_Inventory])
+
 func _ready() -> void:
+	SD_ECS.append_to(root, self)
+	
 	var auth:bool = is_multiplayer_authority()
 	set_process_input(auth)
 	set_process_unhandled_input(auth)
@@ -55,20 +68,27 @@ func _ready() -> void:
 			_server_remove_item,
 			_server_add_slot,
 			_server_remove_slot,
+			_server_pickup_item,
 			_server_drop_item,
 			_server_move_item,
 			_server_split_item,
 			_server_stack_item,
 			_server_swap_item,
 		],
-		SimusNetRPCConfig.new().flag_mode_to_server()
+		SimusNetRPCConfig.new()
+			.flag_mode_to_server()
+			.flag_serializer_block_method(&"parse_custom")
 	)
 	
 	if multiplayer.is_server():
-		slots = initial_slots.duplicate(true)
+		_init_slots()
 	else:
 		_requset_receive_data()
 
+func _init_slots() -> void:
+	slots = initial_slots.duplicate_deep()
+	for slot in slots:
+		slot._network_ready()
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("hotbar_slot_0"): select_slot_by_idx(0, ["hotbar"])
@@ -91,8 +111,9 @@ func _requset_receive_data() -> void: ##Client
 	SimusNetRPC.invoke_on_server(_send)
 
 func _receive(s_slots:Array[InventorySlot]) -> void: ##Client
-	print(s_slots)
 	slots = s_slots
+	is_syncronized = true
+	syncronized.emit()
 #endregion
 
 func select_slot_by_idx(idx:int, tags:Array[StringName]) -> InventorySlot:
@@ -117,6 +138,24 @@ func local_select_slot(slot:InventorySlot) -> void:
 	selected_slot = slot
 	slot_selected.emit(slot)
 
+#region PICKUP_ITEM
+func pickup_item(node:Node) -> void:
+	SimusNetRPC.invoke_on_server(_server_pickup_item, node)
+
+func _server_pickup_item(node:Node) -> void:
+	if !node:
+		return
+	
+	if !get_free_slot():
+		return
+	
+	var item_stack = ItemStack.create_from(node)
+	if !item_stack:
+		return
+	
+	node.queue_free()
+	_server_add_item(item_stack)
+#endregion
 
 #region ADD_SLOT
 func add_slot(slot:InventorySlot) -> void:
@@ -146,7 +185,7 @@ func add_item(incoming:ItemStack) -> void:
 
 func _server_add_item(incoming:ItemStack) -> void:
 	for slot in slots:
-		if !slot.is_free() and slot.item_stack.id == incoming.id:
+		if !slot.is_free() and slot.can_stack_with(incoming):
 			_server_stack_item(slot, incoming)
 			if incoming.quantity <= 0: return
 
@@ -177,7 +216,7 @@ func _server_move_item(from_slot:InventorySlot, to_slot:InventorySlot) -> void:
 		return
 	if from_slot.is_free():
 		return
-
+	
 	if to_slot.is_free():
 		to_slot.item_stack = from_slot.item_stack
 		from_slot.item_stack = null
@@ -266,11 +305,24 @@ func _server_drop_item(slot:InventorySlot) -> void:
 	if !_drop_node:
 		return
 	
+	var space_state = root.get_world_3d().direct_space_state
+	var ray_origin = root.global_position
+	var ray_end = ray_origin - root.global_transform.basis.z * 1.5
+	
+	var query = PhysicsRayQueryParameters3D.create(ray_origin, ray_end)
+	
+	var result = space_state.intersect_ray(query)
+	
+	var point:Vector3
+	if result:
+		point = result.position
+	else:
+		point = ray_origin - root.global_transform.basis.z * 1.5
 	
 	var _world_ref:Node = WorldObjectReference.spawn_reference(
 		_drop_node,
 		slot.item_stack.object,
-		{"look_range": 1.5}
+		{"global_position": point}
 	)
 	_world_ref.set("item_stack", slot.item_stack)
 	slot.item_stack.quantity -= 1

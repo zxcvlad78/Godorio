@@ -75,28 +75,27 @@ func throw(sender_item:W_Item, force:float) -> void:
 	
 	var cam_xform = sender_item.entity_head.camera.global_transform
 	
-	var world_node = object.viewmodel.instantiate_world()
+	var world_node = WorldObjectReference.spawn_reference(
+		NodeGroup3D.get_by_name(&"NetworkedObjects"),
+		item.object
+		)
+	
 	if not world_node:
 		return
 	
 	var direction:Vector3 = -cam_xform.basis.z
 	var spawn_offset:float = 1.5
 	
-	object.set_in(world_node)
 	
-	var container = NodeGroup3D.get_by_name("NetworkedObjects")
-	if container:
-		container.add_child(world_node)
-	
-		if world_node is Node3D:
-			world_node.global_transform = cam_xform
-			world_node.global_transform.origin = cam_xform.origin + (direction * spawn_offset)
-			
-			
-			if world_node is RigidBody3D:
-				world_node.apply_central_impulse(direction * force)
-				var right_axis = cam_xform.basis.x
-				world_node.apply_torque_impulse(right_axis * (torque_force * (force / min_force)))
+	if world_node is Node3D:
+		world_node.global_transform = cam_xform
+		world_node.global_transform.origin = cam_xform.origin + (direction * spawn_offset)
+		
+		
+		if world_node is RigidBody3D:
+			world_node.apply_central_impulse(direction * force)
+			var right_axis = cam_xform.basis.x
+			world_node.apply_torque_impulse(right_axis * (torque_force * (force / min_force)))
 
 func _on_thrown() -> void:
 	if drag_node:

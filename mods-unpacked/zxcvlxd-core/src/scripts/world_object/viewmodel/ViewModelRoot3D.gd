@@ -19,13 +19,18 @@ var animated_model:BaseAnimatedModel
 
 @export var object:R_WorldObject :
 	set(val):
+		if object == val:
+			return
+		
 		object = val
+		
 		if Engine.is_editor_hint(): 
 			return
 		if is_inside_tree():
 			_update()
 
 var _ref:Node
+var _last_slot:InventorySlot
 
 func _get_property_list() -> Array:
 	var properties = []
@@ -82,19 +87,35 @@ func _receive(s_object:R_WorldObject) -> void:
 	object = s_object
 
 func _on_inventory_slot_selected(slot:InventorySlot) -> void:
-	if !slot:
-		return
+	if _last_slot and _last_slot.item_stack_changed.is_connected(_on_item_stack_changed):
+		_last_slot.item_stack_changed.disconnect(_on_item_stack_changed)
 	
-	if !slot.item_stack:
+	_last_slot = slot
+	
+	if !slot:
 		object = null
 		return
 	
-	object = slot.item_stack.object
+	
+	slot.item_stack_changed.connect(_on_item_stack_changed)
+	
+	if slot.item_stack:
+		object = slot.item_stack.object
+	else:
+		object = null
+
+func _on_item_stack_changed() -> void:
+	if not _last_slot or not _last_slot.item_stack:
+		object = null
+		return
+	
+	object = _last_slot.item_stack.object
 
 func _update() -> void:
 	if _ref:
 		remove_child(_ref)
 		_ref.queue_free()
+		_ref = null
 	
 	if !object or !object.viewmodel:
 		if animated_model:

@@ -97,7 +97,3 @@ func _on_mouse_entered() -> void:
 	is_mouse_inside = true
 func _on_mouse_exited() -> void:
 	is_mouse_inside = false
-
-
-func _on_drag_and_drop_drag_stopped() -> void:
-	pass # Replace with function body.

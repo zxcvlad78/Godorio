@@ -1,0 +1,99 @@
+[gd_scene format=3 uid="uid://cuaha15vmi4ra"]
+
+[ext_resource type="Texture2D" uid="uid://yf4p7w3h6qdb" path="res://addons/simusdev/components/inventory/icon_item.png" id="1_ww7u1"]
+[ext_resource type="FontFile" uid="uid://d20lb1behl2yo" path="res://fonts/VMVTZARCARI-Regular.otf" id="2_ntl6l"]
+[ext_resource type="Script" uid="uid://snig3fifk5co" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_Inventory.gd" id="3_04xfv"]
+[ext_resource type="Script" uid="uid://8hb14ep8irja" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/InventorySlot.gd" id="4_uly0p"]
+[ext_resource type="Resource" uid="uid://cbkadwl124nx0" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball_ball.tres" id="5_v8o7d"]
+[ext_resource type="Script" uid="uid://7mtju6gx8jbv" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStack.gd" id="6_eh0at"]
+[ext_resource type="Resource" uid="uid://culuc2byns5ms" path="res://mods-unpacked/zxcvlxd-core/src/objects/test_object/test_object.tres" id="7_y5peq"]
+[ext_resource type="Script" uid="uid://bdsvfvfac3oko" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_InventoryUI.gd" id="8_14ofu"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_x36eb"]
+albedo_texture = ExtResource("1_ww7u1")
+uv1_offset = Vector3(0.5, 0.5, -0.5)
+uv1_triplanar = true
+
+[sub_resource type="BoxMesh" id="BoxMesh_7stue"]
+material = SubResource("StandardMaterial3D_x36eb")
+
+[sub_resource type="Resource" id="Resource_7stue"]
+script = ExtResource("6_eh0at")
+object = ExtResource("5_v8o7d")
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
+
+[sub_resource type="Resource" id="Resource_o0fnv"]
+script = ExtResource("4_uly0p")
+item_stack = SubResource("Resource_7stue")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_xarcc"]
+script = ExtResource("6_eh0at")
+object = ExtResource("7_y5peq")
+quantity = 64
+stack_size = 64
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
+
+[sub_resource type="Resource" id="Resource_csqix"]
+script = ExtResource("4_uly0p")
+item_stack = SubResource("Resource_xarcc")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_k0jms"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_ae2q1"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_qdl54"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_vcert"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_8vw1e"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_y6qnq"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_52u02"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_tlag8"]
+script = ExtResource("4_uly0p")
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_x36eb"]
+
+[node name="CSGBox3D" type="RigidBody3D" unique_id=63680786]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="." unique_id=1620966576]
+mesh = SubResource("BoxMesh_7stue")
+
+[node name="Label3D" type="Label3D" parent="." unique_id=883743283]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.80521035, 0)
+billboard = 1
+shaded = true
+text = "Korobka (sex box)"
+font = ExtResource("2_ntl6l")
+
+[node name="C_Inventory" type="Node" parent="." unique_id=1504843145 node_paths=PackedStringArray("root")]
+script = ExtResource("3_04xfv")
+root = NodePath("..")
+initial_slots = Array[ExtResource("4_uly0p")]([SubResource("Resource_o0fnv"), SubResource("Resource_csqix"), SubResource("Resource_k0jms"), SubResource("Resource_ae2q1"), SubResource("Resource_qdl54"), SubResource("Resource_vcert"), SubResource("Resource_8vw1e"), SubResource("Resource_y6qnq"), SubResource("Resource_52u02"), SubResource("Resource_tlag8")])
+metadata/_custom_type_script = "uid://snig3fifk5co"
+
+[node name="C_InventoryUI" type="Node" parent="C_Inventory" unique_id=57972438]
+script = ExtResource("8_14ofu")
+metadata/_custom_type_script = "uid://bdsvfvfac3oko"
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=2132688823]
+shape = SubResource("BoxShape3D_x36eb")

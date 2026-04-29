@@ -2,11 +2,15 @@
 
 [ext_resource type="Script" uid="uid://cuaacsvf2hnmk" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/R_WorldObject.gd" id="1_k18e7"]
 [ext_resource type="Texture2D" uid="uid://cav8svssxr0aj" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/icon.png" id="1_mxqtr"]
+[ext_resource type="Script" uid="uid://eoarbwvy1al0" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStackConfig.gd" id="2_cxb4s"]
 [ext_resource type="PackedScene" uid="uid://bnanncyle2x31" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/model.tscn" id="2_mxqtr"]
 [ext_resource type="Script" uid="uid://b2jd4rd50y2g" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/custom/R_ViewModelResource3D.gd" id="3_cxb4s"]
 [ext_resource type="Script" uid="uid://dkvwih2bnsj28" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/custom/R_ViewModelResources3D.gd" id="4_xcem1"]
 [ext_resource type="PackedScene" uid="uid://bugyreyceecyj" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/prefabs/view/view.tscn" id="5_oyjkl"]
 [ext_resource type="PackedScene" uid="uid://dc1vb5734qt3v" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/prefabs/world/world.tscn" id="6_dq84w"]
+
+[sub_resource type="Resource" id="Resource_xcem1"]
+script = ExtResource("2_cxb4s")
 
 [sub_resource type="Resource" id="Resource_v2sfb"]
 script = ExtResource("3_cxb4s")
@@ -39,4 +43,5 @@ id = &"basketball_ball"
 name = &"Basketball Ball"
 icon = ExtResource("1_mxqtr")
 viewmodel = SubResource("Resource_emt1d")
+item_stack_config = SubResource("Resource_xcem1")
 metadata/_custom_type_script = "uid://cuaacsvf2hnmk"

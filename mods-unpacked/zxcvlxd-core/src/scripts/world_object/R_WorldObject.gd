@@ -1,9 +1,12 @@
+@tool
 class_name R_WorldObject extends Resource
 
 @export var id:StringName = ""
 @export var name:StringName = "World Object"
 @export var icon:Texture = null
 @export var viewmodel:R_ViewModel3D
+
+@export var item_stack_config:ItemStackConfig = ItemStackConfig.new()
 
 func set_in(node: Node) -> void:
 	node.set_meta(&"R_WorldObject", self)

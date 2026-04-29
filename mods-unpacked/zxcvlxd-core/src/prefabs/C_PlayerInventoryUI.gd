@@ -1,6 +1,6 @@
 class_name C_PlayerInventoryUI extends C_InventoryUI
 
-func _ready() -> void:
+func _on_inventory_syncronized() -> void:
 	super()
 	
 	if is_multiplayer_authority():

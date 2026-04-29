@@ -159,6 +159,8 @@ func _set_ready() -> void:
 		#print("caching: ", get_generated_unique_id())
 		#print(get_dictionary_by_generated_id().has(get_generated_unique_id()))
 	#
+	
+	
 	is_ready = true
 	on_ready.emit()
 	

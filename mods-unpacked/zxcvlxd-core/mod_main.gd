@@ -33,20 +33,27 @@ func add_translations() -> void:
 
 
 func _ready() -> void:
-	if core_settings:
-		var project_main_scene = load(ProjectSettings.get_setting("application/run/main_scene"))
-		var current_scene = load(get_tree().current_scene.scene_file_path)
-		if project_main_scene and current_scene:
-			if project_main_scene == current_scene:
-				get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
+	SimusDev.on_notification.connect(_on_simusdev_notification)
+
+func _on_simusdev_notification(what:int) -> void:
+	if what == NOTIFICATION_READY:
+		if SimusDev.on_notification.is_connected(_on_simusdev_notification):
+			SimusDev.on_notification.disconnect(_on_simusdev_notification)
 		
-		WorldObjectHandler.new(core_settings.scan_paths).scan()
-	
-	world_object_reference = WorldObjectReference.new() #init
-	
-	SimusNetEvents.event_connected.listen(_on_network_connected)
-	SimusNetEvents.event_disconnected.listen(_on_network_disconnected)
-	SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
+		if core_settings:
+			var project_main_scene = load(ProjectSettings.get_setting("application/run/main_scene"))
+			var current_scene = load(get_tree().current_scene.scene_file_path)
+			if project_main_scene and current_scene:
+				if project_main_scene == current_scene:
+					get_tree().change_scene_to_file.call_deferred(core_settings.main_scene)
+			
+			WorldObjectHandler.new(core_settings.scan_paths).scan()
+		
+		world_object_reference = WorldObjectReference.new() #init
+		
+		SimusNetEvents.event_connected.listen(_on_network_connected)
+		SimusNetEvents.event_disconnected.listen(_on_network_disconnected)
+		SimusNetEvents.event_peer_disconnected.listen(_on_peer_disconnected, true)
 
 
 func _on_network_connected() -> void:

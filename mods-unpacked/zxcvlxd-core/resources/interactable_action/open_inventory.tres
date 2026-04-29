@@ -1,0 +1,7 @@
+[gd_resource type="Resource" format=3 uid="uid://ceub68nm5e7jw"]
+
+[ext_resource type="Script" uid="uid://dlumiyoc25bv3" path="res://mods-unpacked/zxcvlxd-core/resources/interactable_action/open_inventory.gd" id="1_s2f78"]
+
+[resource]
+script = ExtResource("1_s2f78")
+metadata/_custom_type_script = "uid://cqmtm401qy0an"
