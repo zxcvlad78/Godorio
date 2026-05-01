@@ -5,6 +5,7 @@ enum Mode {
 	NOT_AUTHORITY,
 	AUTHORITY,
 	ALWAYS,
+	NEVER,
 }
 
 @export var mode:Mode = Mode.NOT_AUTHORITY :
@@ -52,6 +53,8 @@ func _update():
 	
 	if mode == Mode.ALWAYS:
 		target.visible = true
+	elif mode == Mode.NEVER:
+		target.visible = false
 	elif mode == Mode.AUTHORITY:
 		target.visible = is_multiplayer_authority()
 	elif mode == Mode.NOT_AUTHORITY:

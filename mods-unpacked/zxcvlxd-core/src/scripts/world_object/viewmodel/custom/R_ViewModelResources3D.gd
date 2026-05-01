@@ -34,7 +34,6 @@ func _set_instance_transform(instance:Node, resource:R_ViewModelResource3D) -> v
 	if not instance.is_inside_tree():
 		return
 	
-	
 	if instance is Node3D:
 		instance.scale = resource.scale
 		

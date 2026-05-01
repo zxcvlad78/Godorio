@@ -96,8 +96,9 @@ func _process(_delta: float) -> void:
 func _handle_state_transitions() -> void:
 	var input_dir = Input.get_vector(key_left, key_right, key_forward, key_backward)
 	var is_moving = input_dir.length() > 0.1
-	var wants_sprint = Input.is_action_pressed(key_sprint)
+	var wants_sprint = Input.is_action_pressed(key_sprint) and -(character.velocity.normalized() * character.transform.basis).z >= -0.1
 	var wants_crouch = Input.is_action_pressed(key_crouch)
+	
 	
 	var target_state_name: StringName = &"Idle"
 	

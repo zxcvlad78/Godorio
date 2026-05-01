@@ -40,7 +40,7 @@ func update_label_quantity() -> void:
 		
 		if slot:
 			if slot.item_stack:
-				if slot.item_stack.quantity > 0:
+				if slot.item_stack.quantity > 1:
 					target_text = str(slot.item_stack.quantity)
 		
 		

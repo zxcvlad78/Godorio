@@ -8,22 +8,20 @@ signal quantity_changed()
 		quantity = val
 		quantity_changed.emit()
 
-@export var stack_size:int = 1
-
 
 func _init() -> void:
 	if SimusNetConnection.is_server():
 		_network_ready()
 
+
 func _network_ready() -> void:
-	SimusNetIdentity.register(self)
+	var id = SimusNetIdentity.register(self)
 	
 	SimusNetVars.register(
 		self,
 		[
 			"object",
 			"quantity",
-			"stack_size",
 		],
 		SimusNetVarConfig.new()
 			.flag_mode_server_only()
@@ -44,23 +42,32 @@ static func create_from(input:Object) -> ItemStack:
 		return null
 	
 	item_stack.object = world_object
-	item_stack.stack_size = world_object.item_stack_config.stack_size
 	return item_stack
 
 
 func simusnet_serialize(serialization:SimusNetCustomSerialization) -> void:
 	serialization.pack(object)
 	serialization.pack(quantity)
-	serialization.pack(stack_size)
 	serialization.pack(SimusNetIdentity.register(self).get_unique_id())
 
 static func simusnet_deserialize(serialization:SimusNetCustomSerialization) -> void:
-	var new_item_stack:ItemStack = ItemStack.new()
+	var incoming_object = serialization.unpack()
+	var incoming_quantity = serialization.unpack()
+	var network_id = serialization.unpack()
 	
-	new_item_stack.object = serialization.unpack()
-	new_item_stack.quantity = serialization.unpack()
-	new_item_stack.stack_size = serialization.unpack()
+	var identity:SimusNetIdentity = SimusNetIdentity.get_dictionary_by_unique_id().get(network_id)
+	var item_stack:ItemStack
 	
-	SimusNetIdentity.register(new_item_stack, serialization.unpack())
-	new_item_stack._network_ready()
-	serialization.set_result(new_item_stack)
+	if identity and is_instance_valid(identity.owner):
+		item_stack = identity.owner
+		item_stack.object = incoming_object
+		item_stack.quantity = incoming_quantity
+	else:
+		item_stack = ItemStack.new()
+		item_stack.object = incoming_object
+		item_stack.quantity = incoming_quantity
+		SimusNetIdentity.register(item_stack, network_id)
+		item_stack._network_ready()
+	
+	
+	serialization.set_result(item_stack)

@@ -53,6 +53,25 @@ font_size = 10
 outline_size = 2
 outline_color = Color(0, 0, 0, 1)
 
+[sub_resource type="GDScript" id="GDScript_0j52p"]
+resource_name = "script"
+script/source = "extends HBoxContainer
+
+func _ready() -> void:
+	visible = multiplayer.is_server()
+"
+
+[sub_resource type="GDScript" id="GDScript_rt034"]
+resource_name = "script"
+script/source = "extends Button
+
+@onready var default_inventory_ui: InventoryUI = $\"../../..\"
+
+func _pressed() -> void:
+	if multiplayer.is_server():
+		default_inventory_ui.c_inventory_ui.inventory.add_slot(InventorySlot.new())
+"
+
 [node name="DefaultInventoryUI" type="Control" unique_id=1089579221 node_paths=PackedStringArray("container", "hotbar_container", "title")]
 layout_mode = 3
 anchors_preset = 15
@@ -286,3 +305,19 @@ layout_mode = 2
 
 [node name="UI_InventorySlot11" parent="Popup/Hotbar/Content/ScrollContainer/Container" unique_id=624878926 instance=ExtResource("4_6gwym")]
 layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Popup" unique_id=1106909655]
+layout_mode = 1
+anchors_preset = -1
+anchor_top = -0.048
+anchor_right = 1.0
+anchor_bottom = -0.048
+offset_top = -31.808
+offset_bottom = -4.8080006
+script = SubResource("GDScript_0j52p")
+
+[node name="Button" type="Button" parent="Popup/HBoxContainer" unique_id=1456683943]
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "Add slot"
+script = SubResource("GDScript_rt034")

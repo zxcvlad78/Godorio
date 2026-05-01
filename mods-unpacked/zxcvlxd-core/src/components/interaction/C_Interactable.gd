@@ -59,6 +59,24 @@ static func find_in(node:Node) -> C_Interactable:
 	
 	return node.get_meta("C_Interactable")
 
+func on_select(ray:C_InteractionRay) -> void:
+	ray_selected.emit(ray)
+	
+	var player_ui = PlayerUI.i()
+	if !player_ui:
+		return
+	
+	player_ui.open_interaction_interface(target, actions[selected_action_idx])
+
+func on_deselect(ray:C_InteractionRay) -> void:
+	ray_deselected.emit(ray)
+	
+	var player_ui = PlayerUI.i()
+	if !player_ui:
+		return
+	
+	player_ui.hide_interaction_interface()
+
 func on_interact(ray:C_InteractionRay) -> void:
 	if actions.size() > selected_action_idx:
 		actions[selected_action_idx].on_interact(ray, self)

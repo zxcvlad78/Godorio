@@ -6,6 +6,8 @@ signal slot_deselected(slot:InventorySlot)
 signal slot_added(slot:InventorySlot)
 signal slot_removed(slot:InventorySlot)
 
+signal item_picked_up(item_stack:ItemStack)
+
 signal syncronized()
 
 @export var root:Node3D
@@ -80,6 +82,17 @@ func _ready() -> void:
 			.flag_serializer_block_method(&"parse_custom")
 	)
 	
+	SimusNetRPC.register(
+		[
+			_rpc_append_slot,
+			_rpc_erase_slot,
+			_rpc_item_picked_up,
+		],
+		SimusNetRPCConfig.new()
+			.flag_mode_server_only()
+	)
+	
+	
 	if multiplayer.is_server():
 		_init_slots()
 	else:
@@ -89,6 +102,8 @@ func _init_slots() -> void:
 	slots = initial_slots.duplicate_deep()
 	for slot in slots:
 		slot._network_ready()
+		if slot.item_stack:
+			slot.item_stack._network_ready()
 
 func _input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("hotbar_slot_0"): select_slot_by_idx(0, ["hotbar"])
@@ -155,6 +170,13 @@ func _server_pickup_item(node:Node) -> void:
 	
 	node.queue_free()
 	_server_add_item(item_stack)
+	
+	SimusNetRPC.invoke_all(_rpc_item_picked_up, item_stack)
+
+func _rpc_item_picked_up(item_stack:ItemStack) -> void:
+	C_EntityAnimations.local_create_event_in(root, "picked_up")
+	item_picked_up.emit(item_stack)
+
 #endregion
 
 #region ADD_SLOT
@@ -220,7 +242,7 @@ func _server_move_item(from_slot:InventorySlot, to_slot:InventorySlot) -> void:
 	if to_slot.is_free():
 		to_slot.item_stack = from_slot.item_stack
 		from_slot.item_stack = null
-	elif to_slot.can_stack_with(to_slot.item_stack):
+	elif to_slot.can_stack_with(from_slot.item_stack):
 		_server_stack_item(to_slot, from_slot.item_stack)
 	else:
 		_server_swap_item(from_slot, to_slot)
@@ -248,7 +270,7 @@ func _server_split_item(from_slot:InventorySlot, to_slot:InventorySlot) -> void:
 		to_slot.item_stack = new_stack
 		
 	elif to_slot.can_stack_with(from_slot.item_stack):
-		var space_left = to_slot.item_stack.stack_size - to_slot.item_stack.quantity
+		var space_left = to_slot.item_stack.object.item_stack_config.stack_size - to_slot.item_stack.quantity
 		var actual_transfer = min(amount_to_split, space_left)
 		
 		if actual_transfer > 0:
@@ -270,7 +292,7 @@ func _server_stack_item(slot:InventorySlot, incoming:ItemStack) -> void:
 		return
 
 	if slot.can_stack_with(incoming):
-		var max_amount = slot.item_stack.stack_size
+		var max_amount = slot.item_stack.object.item_stack_config.stack_size
 		var current_amount = slot.item_stack.quantity
 		var space_left = max_amount - current_amount
 		

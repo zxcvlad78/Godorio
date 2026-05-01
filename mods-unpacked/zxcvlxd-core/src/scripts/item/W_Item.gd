@@ -15,7 +15,7 @@ signal on_server_use_released()
 signal on_server_use_alt_pressed()
 signal on_server_use_alt_released()
 
-@export var object:R_WorldObject
+@export var item_stack:ItemStack
 @export var state_machine:BaseStateMachine
 @export var alt_state_machine:BaseStateMachine
 
@@ -63,15 +63,13 @@ func _ready() -> void:
 	], SimusNetVarConfig.new().flag_replication())
 	
 	
-	if not object:
-		object = R_WorldObject.find_in(self)
-	
-	if object is R_Item:
-		cooldown_timer = Timer.new()
-		cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
-		add_child(cooldown_timer)
-		cooldown_timer.wait_time = object.use_cooldown
-		cooldown_timer.one_shot = true
+	if item_stack:
+		if item_stack.object is R_Item:
+			cooldown_timer = Timer.new()
+			cooldown_timer.process_callback = Timer.TIMER_PROCESS_PHYSICS
+			add_child(cooldown_timer)
+			cooldown_timer.wait_time = item_stack.object.use_cooldown
+			cooldown_timer.one_shot = true
 	
 	var auth:bool = is_multiplayer_authority()
 	
@@ -198,5 +196,5 @@ func can_use() -> bool:
 func in_cooldown() -> bool:
 	if not is_instance_valid(cooldown_timer):
 		return true
-	cooldown_timer.wait_time = (object as R_Item).use_cooldown
+	cooldown_timer.wait_time = (item_stack.object as R_Item).use_cooldown
 	return cooldown_timer.time_left > 0

@@ -2,10 +2,16 @@
 
 [ext_resource type="Script" uid="uid://cuaacsvf2hnmk" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/R_WorldObject.gd" id="1_togkm"]
 [ext_resource type="Texture2D" uid="uid://q8v4bw35ciw4" path="res://addons/simusdev/icons/FiniteStateMachine.png" id="1_v04ni"]
+[ext_resource type="Script" uid="uid://eoarbwvy1al0" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/ItemStackConfig.gd" id="2_uepxi"]
+
+[sub_resource type="Resource" id="Resource_a3g7y"]
+script = ExtResource("2_uepxi")
+stack_size = 64
 
 [resource]
 script = ExtResource("1_togkm")
 id = &"test_object"
 name = &"Test Object"
 icon = ExtResource("1_v04ni")
+item_stack_config = SubResource("Resource_a3g7y")
 metadata/_custom_type_script = "uid://cuaacsvf2hnmk"

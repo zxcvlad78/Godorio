@@ -36,16 +36,18 @@ func is_free() -> bool:
 	return item_stack == null
 
 func can_stack_with(p_item_stack:ItemStack) -> bool:
-	if item_stack.object != p_item_stack.object:
-		return false
+	if item_stack.object == p_item_stack.object:
+		return true
 	
-	return true
+	return false
 
 func _init() -> void:
+	print("init", self)
 	if SimusNetConnection.is_server():
 		_network_ready()
 
 func _network_ready() -> void:
+	print("net_ready")
 	SimusNetIdentity.register(self)
 	
 	SimusNetVars.register(

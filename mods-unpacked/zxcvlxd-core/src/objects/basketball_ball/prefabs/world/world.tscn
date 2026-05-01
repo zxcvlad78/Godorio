@@ -64,7 +64,7 @@ func play_bounce_sound(velocity):
 "
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_3v5w6"]
-radius = 0.1881716
+radius = 0.24854828
 
 [node name="World" type="RigidBody3D" unique_id=2088901561]
 physics_material_override = SubResource("PhysicsMaterial_0ga8a")

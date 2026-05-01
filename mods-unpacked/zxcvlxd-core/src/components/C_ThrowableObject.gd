@@ -15,7 +15,6 @@ class_name C_ThrowableObject extends Node
 var current_force: float = 0.0
 var is_charging: bool = false
 
-var object:R_WorldObject
 var local_camera:Camera3D
 
 var drag_node_last_pos:Vector3
@@ -24,8 +23,6 @@ var drag_node_last_rot:Vector3
 func _update() -> void:
 	if !item:
 		return
-	
-	object = R_WorldObject.find_in(item)
 
 func _ready() -> void:
 	SimusNetRPC.register(
@@ -63,28 +60,32 @@ func _input(event: InputEvent) -> void:
 		_on_thrown()
 
 func throw(sender_item:W_Item, force:float) -> void:
-	if !object:
-		if !sender_item:
-			return
-		object = R_WorldObject.find_in(sender_item)
-		if !object:
-			return
-	
-	if !object.viewmodel:
+	if !sender_item:
 		return
 	
-	var cam_xform = sender_item.entity_head.camera.global_transform
+	if !item.item_stack:
+		return
+	
+	if !item.item_stack.object:
+		return
+	
+	if !item.item_stack.object.viewmodel:
+		return
+	
+	if sender_item.item_stack:
+		sender_item.item_stack.quantity -= 1
+	var cam_xform = sender_item.entity_head.global_transform
 	
 	var world_node = WorldObjectReference.spawn_reference(
 		NodeGroup3D.get_by_name(&"NetworkedObjects"),
-		item.object
+		item.item_stack.object
 		)
 	
 	if not world_node:
 		return
 	
 	var direction:Vector3 = -cam_xform.basis.z
-	var spawn_offset:float = 1.5
+	var spawn_offset:float = .5
 	
 	
 	if world_node is Node3D:

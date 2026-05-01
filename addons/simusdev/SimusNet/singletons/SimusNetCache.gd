@@ -86,5 +86,4 @@ func _unique_id_request_receive(serialized: Variant) -> void:
 	var dict: Dictionary = SimusNetDecompressor.parse_if_necessary(serialized)
 	for generated_id: Variant in dict:
 		var unique_id: Variant = dict[generated_id]
-		print(generated_id, " ", unique_id)
 		on_unique_id_received.emit(generated_id, unique_id)

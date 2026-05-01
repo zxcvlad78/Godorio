@@ -2,11 +2,21 @@
 
 [ext_resource type="Script" uid="uid://wypdpby4o6jq" path="res://mods-unpacked/zxcvlxd-core/src/scripts/PlayerUI.gd" id="1_0y8wl"]
 [ext_resource type="Script" uid="uid://d1l1jkmj6s53f" path="res://addons/simusdev/ui/SD_UIInterfaceMenu.gd" id="2_bncix"]
+[ext_resource type="FontFile" uid="uid://d20lb1behl2yo" path="res://fonts/VMVTZARCARI-Regular.otf" id="3_bncix"]
 
-[node name="PlayerUI" type="CanvasLayer" unique_id=340657117 node_paths=PackedStringArray("inventory_container", "inventory_interface_menu")]
+[sub_resource type="LabelSettings" id="LabelSettings_kvspk"]
+font = ExtResource("3_bncix")
+font_size = 8
+outline_size = 2
+outline_color = Color(0, 0, 0, 1)
+
+[node name="PlayerUI" type="CanvasLayer" unique_id=340657117 node_paths=PackedStringArray("inventory_container", "inventory_interface_menu", "interaction_control", "interaction_world_object_label", "interaction_selected_action_label")]
 script = ExtResource("1_0y8wl")
 inventory_container = NodePath("Control/inventory/InventoryContainer")
 inventory_interface_menu = NodePath("Control/inventory/InventoryInterfaceMenu")
+interaction_control = NodePath("Control/interaction")
+interaction_world_object_label = NodePath("Control/interaction/VBoxContainer/world_object")
+interaction_selected_action_label = NodePath("Control/interaction/VBoxContainer/selected_action")
 metadata/_custom_type_script = "uid://wypdpby4o6jq"
 
 [node name="Control" type="Control" parent="." unique_id=535879146]
@@ -42,3 +52,35 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 alignment = 1
+
+[node name="interaction" type="Control" parent="Control" unique_id=497209681]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/interaction" unique_id=478478018]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+alignment = 1
+
+[node name="world_object" type="Label" parent="Control/interaction/VBoxContainer" unique_id=1751843425]
+visible = false
+layout_mode = 2
+text = "world_object"
+label_settings = SubResource("LabelSettings_kvspk")
+horizontal_alignment = 1
+
+[node name="selected_action" type="Label" parent="Control/interaction/VBoxContainer" unique_id=279921469]
+layout_mode = 2
+text = "pickup"
+label_settings = SubResource("LabelSettings_kvspk")
+horizontal_alignment = 1

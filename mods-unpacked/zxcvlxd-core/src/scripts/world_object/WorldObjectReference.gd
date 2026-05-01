@@ -90,6 +90,10 @@ static func spawn_reference(parent_node: Node, resource: R_WorldObject, properti
 		_logger.debug("'spawn_reference' resource is null", SD_ConsoleCategories.ERROR)
 		return null
 	
+	if not resource.viewmodel:
+		_logger.debug("'spawn_reference' resource.viewmodel is null", SD_ConsoleCategories.ERROR)
+		return null
+	
 	var inst = resource.viewmodel.instantiate_world()
 	if not inst:
 		_logger.debug("'spawn_reference' failed to instantiate viewmodel", SD_ConsoleCategories.ERROR)
@@ -113,8 +117,6 @@ static func spawn_reference(parent_node: Node, resource: R_WorldObject, properti
 	for prop in properties:
 		inst.set(prop, properties[prop])
 	
-	var c_i = C_Interactable.get_or_create_in(inst)
-	c_i.add_action(load("uid://cv3mfgjfjpeom"), 1)
-	print(c_i)
+	C_Interactable.get_or_create_in(inst).add_action(load("uid://cv3mfgjfjpeom"), 1)
 	
 	return inst

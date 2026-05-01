@@ -19,8 +19,8 @@ var animated_model:BaseAnimatedModel
 
 @export var object:R_WorldObject :
 	set(val):
-		if object == val:
-			return
+		#if object == val:
+			#return
 		
 		object = val
 		
@@ -119,7 +119,7 @@ func _update() -> void:
 	
 	if !object or !object.viewmodel:
 		if animated_model:
-			animated_model.local_stop_item_animation()
+			animated_model.local_stop_oneshot()
 		return
 	
 	if type == ViewModelType.VIEW:
@@ -130,8 +130,9 @@ func _update() -> void:
 	if !_ref:
 		return
 		
-	if animated_model:
-		animated_model.local_play_item_animation(object.viewmodel.entity_animation)
+	
+	#if object.viewmodel and entity_head:
+	C_EntityAnimations.local_create_event_in(entity_head.entity, object.viewmodel.entity_animation)
 	
 	_ref.set_multiplayer_authority(get_multiplayer_authority())
 	_ref.set("entity", entity_head.entity)

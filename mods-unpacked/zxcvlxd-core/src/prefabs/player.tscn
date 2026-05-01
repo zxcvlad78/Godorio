@@ -8,11 +8,14 @@
 [ext_resource type="PackedScene" uid="uid://cmae87vm4j8f8" path="res://mods-unpacked/zxcvlxd-core/src/models/skeleton/animated_model.tscn" id="5_jiu30"]
 [ext_resource type="Script" uid="uid://x51q53nn04es" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/PlayerHead.gd" id="7_h5pkk"]
 [ext_resource type="Script" uid="uid://hso2ju3bqqww" path="res://addons/simusdev/SimusNet/SimusNetIdentity.gd" id="7_sdsu3"]
+[ext_resource type="Script" uid="uid://btihue7fxlkkd" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/animation/C_EntityAnimations.gd" id="8_bj6mi"]
 [ext_resource type="Script" uid="uid://b6denlouq17uw" path="res://mods-unpacked/zxcvlxd-core/src/scripts/world_object/viewmodel/ViewModelRoot3D.gd" id="8_dufgj"]
 [ext_resource type="Script" uid="uid://u84lpd488cwl" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/C_EntityFootsteps.gd" id="8_flkvu"]
 [ext_resource type="Resource" uid="uid://cbkadwl124nx0" path="res://mods-unpacked/zxcvlxd-core/src/objects/basketball_ball/basketball_ball.tres" id="9_t483b"]
+[ext_resource type="Script" uid="uid://mcg0yjske7o5" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/view_switch/C_EntityViewSwitch.gd" id="10_2epga"]
 [ext_resource type="Script" uid="uid://c30gc2bkifa8w" path="res://mods-unpacked/zxcvlxd-core/src/components/ViewModelShake3D.gd" id="10_goy0h"]
 [ext_resource type="Script" uid="uid://dwd0ahnw8rjgl" path="res://mods-unpacked/zxcvlxd-core/src/components/C_ViewModelSway.gd" id="11_12alp"]
+[ext_resource type="Script" uid="uid://bxgylapde16ya" path="res://mods-unpacked/zxcvlxd-core/src/components/entity/view_switch/EntityViewPreset.gd" id="11_nwlm2"]
 [ext_resource type="Script" uid="uid://skm08tu2sqki" path="res://mods-unpacked/zxcvlxd-core/src/components/C_NodeNetworkVisibility.gd" id="12_sdsu3"]
 [ext_resource type="Script" uid="uid://snig3fifk5co" path="res://mods-unpacked/zxcvlxd-core/src/components/inventory/C_Inventory.gd" id="13_o2j7e"]
 [ext_resource type="Script" uid="uid://jpw2gx44u3hk" path="res://mods-unpacked/zxcvlxd-core/src/components/interaction/C_InteractionRay.gd" id="13_u44up"]
@@ -32,28 +35,34 @@ script = ExtResource("7_sdsu3")
 [sub_resource type="Resource" id="Resource_s6087"]
 script = ExtResource("7_sdsu3")
 
+[sub_resource type="Resource" id="Resource_1okwl"]
+script = ExtResource("11_nwlm2")
+metadata/_custom_type_script = "uid://bxgylapde16ya"
+
+[sub_resource type="Resource" id="Resource_3b7l6"]
+script = ExtResource("11_nwlm2")
+position = Vector3(0, 0, 1)
+c_nnv_view_mode = 3
+c_nnv_entity_mode = 2
+metadata/_custom_type_script = "uid://bxgylapde16ya"
+
+[sub_resource type="Resource" id="Resource_x8vfd"]
+script = ExtResource("11_nwlm2")
+position = Vector3(0, 0, -1)
+rotation_degrees = Vector3(0, 180, 0)
+c_nnv_view_mode = 3
+c_nnv_entity_mode = 2
+metadata/_custom_type_script = "uid://bxgylapde16ya"
+
 [sub_resource type="Resource" id="Resource_ykvms"]
 script = ExtResource("7_sdsu3")
 
-[sub_resource type="Resource" id="Resource_u44up"]
+[sub_resource type="Resource" id="Resource_bj6mi"]
 script = ExtResource("15_4g4hw")
 object = ExtResource("9_t483b")
 metadata/_custom_type_script = "uid://7mtju6gx8jbv"
 
 [sub_resource type="Resource" id="Resource_xyh7o"]
-script = ExtResource("14_vdjqi")
-item_stack = SubResource("Resource_u44up")
-tags = Array[StringName]([&"hotbar"])
-metadata/_custom_type_script = "uid://8hb14ep8irja"
-
-[sub_resource type="Resource" id="Resource_bj6mi"]
-script = ExtResource("15_4g4hw")
-object = ExtResource("19_u44up")
-quantity = 64
-stack_size = 64
-metadata/_custom_type_script = "uid://7mtju6gx8jbv"
-
-[sub_resource type="Resource" id="Resource_2epga"]
 script = ExtResource("14_vdjqi")
 item_stack = SubResource("Resource_bj6mi")
 tags = Array[StringName]([&"hotbar"])
@@ -64,9 +73,21 @@ script = ExtResource("15_4g4hw")
 object = ExtResource("20_xyh7o")
 metadata/_custom_type_script = "uid://7mtju6gx8jbv"
 
-[sub_resource type="Resource" id="Resource_nwlm2"]
+[sub_resource type="Resource" id="Resource_2epga"]
 script = ExtResource("14_vdjqi")
 item_stack = SubResource("Resource_sxaoy")
+tags = Array[StringName]([&"hotbar"])
+metadata/_custom_type_script = "uid://8hb14ep8irja"
+
+[sub_resource type="Resource" id="Resource_86mjy"]
+script = ExtResource("15_4g4hw")
+object = ExtResource("19_u44up")
+quantity = 64
+metadata/_custom_type_script = "uid://7mtju6gx8jbv"
+
+[sub_resource type="Resource" id="Resource_nwlm2"]
+script = ExtResource("14_vdjqi")
+item_stack = SubResource("Resource_86mjy")
 tags = Array[StringName]([&"hotbar"])
 metadata/_custom_type_script = "uid://8hb14ep8irja"
 
@@ -159,35 +180,27 @@ metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://a
 
 
 [node name="rig" parent="AnimatedModel3D/model3d" parent_id_path=PackedInt32Array(188275085, 1361024678) index="0" unique_id=705305829]
-transform = Transform3D(0.9938866, 0.092917964, 0.05962338, -0.053761747, -0.06436059, 0.9964772, 0.09642804, -0.99359125, -0.058971714, -0.0538367, -0.0059272237, 0.07002713)
+transform = Transform3D(0.99360746, 0.09672628, 0.05819997, -0.052186184, -0.06358269, 0.9966108, 0.100099005, -0.99327755, -0.05812849, -0.05453868, -0.005958612, 0.07344655)
 
 [node name="Skeleton3D" parent="AnimatedModel3D/model3d/rig" index="0" unique_id=2116021239]
-bones/1/rotation = Quaternion(-0.21552101, 0.005374994, 0.01655305, 0.9763441)
-bones/2/rotation = Quaternion(0.14668648, 0.006933813, 0.032681435, 0.9886188)
-bones/3/rotation = Quaternion(0.16401076, -0.00029705762, 0.002060617, 0.9864564)
-bones/4/rotation = Quaternion(-0.10581547, -0.00027480925, 0.0020660541, 0.9943837)
-bones/5/rotation = Quaternion(0.93300945, 0.001648999, 0.0012714687, 0.35984603)
-bones/7/rotation = Quaternion(-0.5183317, -0.43225992, -0.56054765, 0.47986448)
-bones/8/rotation = Quaternion(-0.20503229, 0.70197695, -0.57325315, 0.369555)
-bones/9/rotation = Quaternion(0.012775962, -0.057501014, -3.535114e-05, 0.99826366)
-bones/10/rotation = Quaternion(0.023508336, -0.27354452, -0.049909003, 0.960276)
-bones/12/rotation = Quaternion(-0.53378856, 0.40882498, 0.5625107, 0.4811586)
-bones/13/rotation = Quaternion(-0.12312908, -0.76678914, 0.536031, 0.33097494)
-bones/14/rotation = Quaternion(0.058308586, 0.057407733, 0.00016148388, 0.99664664)
-bones/15/rotation = Quaternion(0.0029972233, 0.16289137, 0.05954621, 0.984841)
-bones/17/rotation = Quaternion(0.968131, 0.0612054, -0.14261198, 0.19656567)
-bones/18/rotation = Quaternion(0.15878181, -0.015615027, -0.03810468, 0.98645455)
-bones/19/rotation = Quaternion(-0.5538164, -0.036061466, 0.052451238, 0.83020234)
-bones/22/rotation = Quaternion(0.99110913, 0.03459329, 0.086855926, 0.09466897)
-bones/23/rotation = Quaternion(0.086562775, 0.084151335, 0.029546684, 0.9922462)
-bones/24/rotation = Quaternion(-0.5795426, 0.026429407, -0.020296318, 0.8142604)
-bones/25/rotation = Quaternion(-1.6125657e-07, 0.9571453, -0.28960833, -8.359347e-08)
+bones/1/rotation = Quaternion(-0.21466272, 0.0071821143, 0.01690765, 0.97651553)
+bones/2/rotation = Quaternion(0.1484332, 0.0106965825, 0.0339271, 0.9882825)
+bones/3/rotation = Quaternion(0.16439405, -0.00061374175, 0.0019027046, 0.98639274)
+bones/4/rotation = Quaternion(-0.10539091, -0.00057699514, 0.0019276178, 0.99442893)
+bones/5/rotation = Quaternion(0.9331437, 0.0013582782, 0.0014699408, 0.35949823)
+bones/17/rotation = Quaternion(0.96834296, 0.06156437, -0.14478622, 0.1938004)
+bones/18/rotation = Quaternion(0.15833932, -0.015040505, -0.037784513, 0.9865469)
+bones/19/rotation = Quaternion(-0.55370134, -0.036412872, 0.05294608, 0.8302323)
+bones/22/rotation = Quaternion(0.9913593, 0.034574624, 0.087064974, 0.09182054)
+bones/23/rotation = Quaternion(0.08459452, 0.08432372, 0.029467106, 0.9924037)
+bones/24/rotation = Quaternion(-0.580893, 0.02396788, -0.021526923, 0.8133422)
+bones/25/rotation = Quaternion(-1.3225652e-07, 0.95734113, -0.28896016, -5.1507843e-08)
 
 [node name="AnimationTree" parent="AnimatedModel3D" index="2" unique_id=1110808266]
 parameters/StateMachine/Walking/blend_position = Vector2(0, -0.9810426)
 
 [node name="RightHand" parent="AnimatedModel3D" index="4" unique_id=1836939162]
-transform = Transform3D(0.93282956, -0.018573835, -0.3598365, 0.0059118867, -0.9977463, 0.06682664, -0.36026713, -0.064465284, -0.9306177, 0.2503754, 0.70762646, -0.0679142)
+transform = Transform3D(-0.30090782, -0.95156515, -0.06307871, 0.028301924, -0.075024806, 0.9967812, -0.9532345, 0.29815346, 0.049507625, -0.05323201, 1.0790975, -0.18477762)
 
 [node name="ViewModelRoot3D" parent="AnimatedModel3D/RightHand" index="0" unique_id=2141301044 node_paths=PackedStringArray("inventory", "entity_head")]
 inventory = NodePath("../../../C_Inventory")
@@ -195,6 +208,11 @@ entity_head = NodePath("../../../PlayerHead")
 metadata/SimusNetIdentity = SubResource("Resource_s6087")
 metadata/SimusNetRPCConfigHandler = Object(RefCounted,"script":Resource("res://addons/simusdev/SimusNet/singletons/SimusNetRPCConfigHandler.gd"))
 
+
+[node name="C_EntityAnimations" type="Node" parent="." unique_id=1798757956 node_paths=PackedStringArray("animated_model")]
+script = ExtResource("8_bj6mi")
+animated_model = NodePath("../AnimatedModel3D")
+metadata/_custom_type_script = "uid://btihue7fxlkkd"
 
 [node name="PlayerHead" type="Node3D" parent="." unique_id=2099522628 node_paths=PackedStringArray("entity", "camera")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
@@ -204,6 +222,15 @@ camera = NodePath("Camera3D")
 metadata/_custom_type_script = "uid://x51q53nn04es"
 
 [node name="Camera3D" type="Camera3D" parent="PlayerHead" unique_id=207662777]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+
+[node name="C_EntityViewSwitch" type="Node" parent="PlayerHead" unique_id=302181508 node_paths=PackedStringArray("camera", "c_nnv_view", "c_nnv_entity")]
+script = ExtResource("10_2epga")
+camera = NodePath("../Camera3D")
+c_nnv_view = NodePath("../ViewModelShake3D/C_NodeNetworkVisibility")
+c_nnv_entity = NodePath("../../AnimatedModel3D/C_NodeNetworkVisibility")
+presets = Array[Object]([SubResource("Resource_1okwl"), SubResource("Resource_3b7l6"), SubResource("Resource_x8vfd")])
+metadata/_custom_type_script = "uid://mcg0yjske7o5"
 
 [node name="ViewModelShake3D" type="Node3D" parent="PlayerHead" unique_id=2129799200 node_paths=PackedStringArray("player", "camera_root", "state_machine")]
 script = ExtResource("10_goy0h")
